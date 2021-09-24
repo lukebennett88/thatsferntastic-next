@@ -1,0 +1,10 @@
+{
+  "name": "@energy-frontend/button",
+  "version": "0.0.0",
+  "main": "dist/energy-frontend-button.cjs.js",
+  "module": "dist/energy-frontend-button.esm.js",
+  "dependencies": {
+    "@babel/runtime": "^7.14.6",
+    "react": "^17.0.2"
+  }
+}

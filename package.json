@@ -1,0 +1,60 @@
+{
+  "name": "@thatsferntastic/root",
+  "version": "1.0.0",
+  "private": "true",
+  "scripts": {
+    "build": "preconstruct build",
+    "clean:check": "git clean -nXd",
+    "clean:write": "git clean -fXd",
+    "dev:store": "yarn --cwd=apps/store dev -p 3000",
+    "dev:graphql-api": "yarn --cwd=services/graphql-api dev",
+    "format:check": "prettier --check .",
+    "format:write": "prettier --write .",
+    "lint:fix": "eslint --fix .",
+    "lint": "eslint .",
+    "postinstall": "preconstruct dev && manypkg check && ts-gql build",
+    "test:coverage": "jest --coverage",
+    "test:watch": "jest --watch",
+    "test": "jest",
+    "typecheck": "manypkg exec tsc --noEmit",
+    "ts-gql:build": "ts-gql build",
+    "ts-gql:watch": "ts-gql watch"
+  },
+  "dependencies": {
+    "@babel/core": "^7.15.5",
+    "@babel/plugin-transform-runtime": "^7.15.0",
+    "@babel/preset-env": "^7.15.6",
+    "@babel/preset-react": "^7.14.5",
+    "@babel/preset-typescript": "^7.15.0",
+    "@manypkg/cli": "^0.18.0",
+    "@preconstruct/cli": "^2.1.4",
+    "@ts-gql/babel-plugin": "^0.1.0",
+    "@ts-gql/compiler": "^0.14.3",
+    "@ts-gql/eslint-plugin": "^0.7.2",
+    "@ts-gql/next": "^15.0.0",
+    "@ts-gql/tag": "^0.5.3",
+    "@typescript-eslint/eslint-plugin": "^4.31.1",
+    "@typescript-eslint/parser": "^4.31.1",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-simple-import-sort": "^7.0.0",
+    "graphql": "^15.6.0",
+    "prettier": "^2.4.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "typescript": "^4.4.3"
+  },
+  "workspaces": [
+    "packages/*",
+    "apps/*",
+    "services/*"
+  ],
+  "ts-gql": {
+    "schema": "services/graphql-api/schema.graphql"
+  },
+  "preconstruct": {
+    "packages": [
+      "packages/*"
+    ]
+  }
+}

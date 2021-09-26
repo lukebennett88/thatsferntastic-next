@@ -3,16 +3,16 @@ const withPreconstruct = require('@preconstruct/next');
 
 const nextConfig = {
   reactStrictMode: true,
-  // async rewrites() {
-  //   return [
-  //     {
-  //       // For client-side requests we want to avoid CORS issues, so we setup a
-  //       // pass-through proxy here
-  //       source: `${process.env.NEXT_PUBLIC_CLIENT_GRAPHQL_API}/:path*`,
-  //       destination: `http:${process.env.NEXT_PUBLIC_SERVER_GRAPHQL_API}/:path*`,
-  //     },
-  //   ];
-  // },
+  async rewrites() {
+    return [
+      {
+        // For client-side requests we want to avoid CORS issues, so we setup a
+        // pass-through proxy here
+        source: `${process.env.NEXT_PUBLIC_CLIENT_GRAPHQL_API}/:path*`,
+        destination: `${process.env.NEXT_PUBLIC_SERVER_GRAPHQL_API}/:path*`,
+      },
+    ];
+  },
 };
 
 /** @type {import('next').NextConfig} */

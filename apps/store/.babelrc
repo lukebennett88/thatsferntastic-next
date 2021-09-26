@@ -1,0 +1,5 @@
+{
+  "presets": ["next/babel"],
+  "plugins": ["@ts-gql/babel-plugin"],
+  "rootMode": "upward-optional"
+}

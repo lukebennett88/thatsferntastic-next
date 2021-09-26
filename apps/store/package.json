@@ -25,6 +25,7 @@
     "@ts-gql/tag": "^0.5.3",
     "cross-fetch": "^3.1.4",
     "dayjs": "^1.10.7",
+    "dotenv": "^10.0.0",
     "graphql": "^15.6.0",
     "http-errors": "^1.8.0",
     "next": "11.1.2",

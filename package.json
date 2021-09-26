@@ -50,7 +50,7 @@
     "services/*"
   ],
   "ts-gql": {
-    "schema": "services/graphql-api/schema.graphql"
+    "schema": "apps/store/schema.graphql"
   },
   "preconstruct": {
     "packages": [

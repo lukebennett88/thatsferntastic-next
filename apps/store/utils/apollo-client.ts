@@ -1,18 +1,12 @@
-import {
-  ApolloClient,
-  HttpLink,
-  InMemoryCache,
-  NormalizedCacheObject,
-} from '@apollo/client';
+import type { NormalizedCacheObject } from '@apollo/client';
+import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client';
 import type { useApolloClient } from '@ts-gql/apollo';
 import merge from 'deepmerge';
 import isEqual from 'lodash/isEqual';
-import type { GetServerSideProps } from 'next';
+import type { AppProps } from 'next/app';
 import { useMemo } from 'react';
 
-import { AnyObject } from '../types';
-
-const isServer = typeof window === 'undefined';
+type PageProps = AppProps['pageProps'];
 
 export const APOLLO_STATE_PROP_NAME = '__APOLLO_STATE__';
 
@@ -20,18 +14,20 @@ let apolloClient: ApolloClient<NormalizedCacheObject> | undefined;
 
 function createApolloClient() {
   return new ApolloClient({
-    ssrMode: isServer,
+    ssrMode: typeof window === 'undefined',
     link: new HttpLink({
-      uri: isServer
-        ? process.env.NEXT_PUBLIC_SERVER_GRAPHQL_API
-        : process.env.NEXT_PUBLIC_CLIENT_GRAPHQL_API, // Server URL (must be absolute)
-      credentials: 'same-origin', // Additional fetch() options like `credentials` or `headers`
+      uri: `https://${process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN}/api/2021-10/graphql.json`,
+      headers: {
+        'X-Shopify-Storefront-Access-Token':
+          process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN,
+        Accept: 'application/json',
+      },
     }),
     cache: new InMemoryCache(),
   });
 }
 
-export function initializeApollo(
+export function initialiseApollo(
   initialState = null
 ): ApolloClient<NormalizedCacheObject> {
   const _apolloClient = apolloClient ?? createApolloClient();
@@ -62,31 +58,25 @@ export function initializeApollo(
   return _apolloClient;
 }
 
-export const initializeTsGqlClient = initializeApollo as (
-  ...args: Parameters<typeof initializeApollo>
+export const initialiseTsGql = initialiseApollo as (
+  ...args: Parameters<typeof initialiseApollo>
 ) => ReturnType<typeof useApolloClient>;
-
-interface PageProps extends AnyObject {
-  [APOLLO_STATE_PROP_NAME]: any;
-  props: AnyObject;
-}
-
-export function addApolloState(
-  client: any,
-  pageProps: any
-): ReturnType<GetServerSideProps> {
-  if (pageProps?.props) {
-    pageProps.props[APOLLO_STATE_PROP_NAME] = client.cache.extract();
-  }
-
-  return pageProps;
-}
 
 export function useApollo(
   pageProps: PageProps
 ): ApolloClient<NormalizedCacheObject> {
   const state = pageProps[APOLLO_STATE_PROP_NAME];
-  console.log(state);
-  const store = useMemo(() => initializeApollo(state), [state]);
+  const store = useMemo(() => initialiseApollo(state), [state]);
   return store;
+}
+
+export function addApolloState(
+  client: ReturnType<typeof useApolloClient>,
+  pageProps: PageProps
+): PageProps {
+  if (pageProps?.props) {
+    pageProps.props[APOLLO_STATE_PROP_NAME] = client.cache.extract();
+  }
+
+  return pageProps;
 }

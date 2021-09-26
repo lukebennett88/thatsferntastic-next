@@ -9,7 +9,8 @@
     "lint": "next lint",
     "postinstall": "ts-gql build",
     "ts-gql:build": "ts-gql build",
-    "ts-gql:watch": "ts-gql watch"
+    "ts-gql:watch": "ts-gql watch",
+    "generate": "DOTENV_CONFIG_PATH=./.env.local graphql-codegen -r dotenv/config --config codegen.json"
   },
   "dependencies": {
     "@apollo/client": "^3.4.13",
@@ -32,15 +33,21 @@
     "react-hook-form": "^7.15.4"
   },
   "devDependencies": {
-    "@types/http-errors": "^1.8.1",
+    "@graphql-codegen/cli": "2.2.0",
+    "@graphql-codegen/schema-ast": "^2.2.0",
     "@tailwindcss/aspect-ratio": "^0.2.1",
     "@tailwindcss/forms": "^0.3.3",
+    "@types/http-errors": "^1.8.1",
     "@types/react": "17.0.21",
     "autoprefixer": "^10.3.4",
     "eslint": "^7.32.0",
     "eslint-config-next": "11.1.2",
+    "graphql": "^15.6.0",
     "postcss": "^8.3.6",
     "tailwindcss": "^2.2.15",
     "typescript": "^4.4.3"
+  },
+  "engines": {
+    "node": ">=14.x"
   }
 }

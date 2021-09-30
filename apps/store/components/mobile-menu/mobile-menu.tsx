@@ -1,11 +1,14 @@
+/* eslint-disable @next/next/no-img-element */
 import { Dialog, Tab, Transition } from '@headlessui/react';
 import { XIcon } from '@heroicons/react/outline';
+import NextLink from 'next/link';
 import * as React from 'react';
 
 import { classNames } from '../../utils';
 
 interface Navigation {
-  categories: Array<{
+  categories: {
+    id: string;
     name: string;
     featured: Array<{
       name: string;
@@ -13,7 +16,15 @@ interface Navigation {
       imageSrc: string;
       imageAlt: string;
     }>;
-  }>;
+    sections: {
+      id: string;
+      name: string;
+      items: Array<{
+        name: string;
+        href: string;
+      }>;
+    }[];
+  }[];
   pages: Array<{
     name: string;
     href: string;
@@ -21,24 +32,22 @@ interface Navigation {
 }
 
 interface MobileMenuProps {
-  currencies: Array<string>;
-  mobileMenuOpen: boolean;
+  open: boolean;
   navigation: Navigation;
-  setMobileMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export function MobileMenu({
-  currencies,
-  mobileMenuOpen,
+  open,
   navigation,
-  setMobileMenuOpen,
+  setOpen,
 }: MobileMenuProps): JSX.Element {
   return (
-    <Transition.Root show={mobileMenuOpen} as={React.Fragment}>
+    <Transition.Root show={open} as={React.Fragment}>
       <Dialog
         as="div"
         className="fixed inset-0 z-40 flex lg:hidden"
-        onClose={setMobileMenuOpen}
+        onClose={setOpen}
       >
         <Transition.Child
           as={React.Fragment}
@@ -66,10 +75,10 @@ export function MobileMenu({
               <button
                 type="button"
                 className="inline-flex items-center justify-center p-2 -m-2 text-gray-400 rounded-md"
-                onClick={() => setMobileMenuOpen(false)}
+                onClick={() => setOpen(false)}
               >
                 <span className="sr-only">Close menu</span>
-                <XIcon className="w-6 h-6" aria-hidden="true" />
+                <XIcon aria-hidden="true" className="w-6 h-6" />
               </button>
             </div>
 
@@ -98,13 +107,12 @@ export function MobileMenu({
                 {navigation.categories.map(category => (
                   <Tab.Panel
                     key={category.name}
-                    className="px-4 py-6 space-y-12"
+                    className="px-4 pt-10 pb-8 space-y-10"
                   >
-                    <div className="grid grid-cols-2 gap-x-4 gap-y-10">
+                    <div className="grid grid-cols-2 gap-x-4">
                       {category.featured.map(item => (
-                        <div key={item.name} className="relative group">
-                          <div className="overflow-hidden bg-gray-100 rounded-md aspect-w-1 aspect-h-1 group-hover:opacity-75">
-                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <div key={item.name} className="relative text-sm group">
+                          <div className="overflow-hidden bg-gray-100 rounded-lg aspect-w-1 aspect-h-1 group-hover:opacity-75">
                             <img
                               src={item.imageSrc}
                               alt={item.imageAlt}
@@ -113,23 +121,46 @@ export function MobileMenu({
                           </div>
                           <a
                             href={item.href}
-                            className="block mt-6 text-sm font-medium text-gray-900"
+                            className="block mt-6 font-medium text-gray-900"
                           >
                             <span
-                              className="absolute inset-0 z-10"
                               aria-hidden="true"
+                              className="absolute inset-0 z-10"
                             />
                             {item.name}
                           </a>
-                          <p
-                            aria-hidden="true"
-                            className="mt-1 text-sm text-gray-500"
-                          >
+                          <p aria-hidden="true" className="mt-1">
                             Shop now
                           </p>
                         </div>
                       ))}
                     </div>
+                    {category.sections.map(section => (
+                      <div key={section.name}>
+                        <p
+                          id={`${category.id}-${section.id}-heading-mobile`}
+                          className="font-medium text-gray-900"
+                        >
+                          {section.name}
+                        </p>
+                        <ul
+                          role="list"
+                          aria-labelledby={`${category.id}-${section.id}-heading-mobile`}
+                          className="flex flex-col mt-6 space-y-6"
+                        >
+                          {section.items.map(item => (
+                            <li key={item.name} className="flow-root">
+                              <a
+                                href={item.href}
+                                className="block p-2 -m-2 text-gray-500"
+                              >
+                                {item.name}
+                              </a>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
                   </Tab.Panel>
                 ))}
               </Tab.Panels>
@@ -154,7 +185,7 @@ export function MobileMenu({
                   href="#"
                   className="block p-2 -m-2 font-medium text-gray-900"
                 >
-                  Create an account
+                  Sign in
                 </a>
               </div>
               <div className="flow-root">
@@ -162,48 +193,23 @@ export function MobileMenu({
                   href="#"
                   className="block p-2 -m-2 font-medium text-gray-900"
                 >
-                  Sign in
+                  Create account
                 </a>
               </div>
             </div>
 
-            <div className="px-4 py-6 space-y-6 border-t border-gray-200">
-              {/* Currency selector */}
-              <form>
-                <div className="inline-block">
-                  <label htmlFor="mobile-currency" className="sr-only">
-                    Currency
-                  </label>
-                  <div className="relative -ml-2 border-transparent rounded-md group focus-within:ring-2 focus-within:ring-white">
-                    <select
-                      id="mobile-currency"
-                      name="currency"
-                      className="bg-none border-transparent rounded-md py-0.5 pl-2 pr-5 flex items-center text-sm font-medium text-gray-700 group-hover:text-gray-800 focus:outline-none focus:ring-0 focus:border-transparent"
-                    >
-                      {currencies.map(currency => (
-                        <option key={currency}>{currency}</option>
-                      ))}
-                    </select>
-                    <div className="absolute inset-y-0 right-0 flex items-center pointer-events-none">
-                      <svg
-                        aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 20 20"
-                        className="w-5 h-5 text-gray-500"
-                      >
-                        <path
-                          stroke="currentColor"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="1.5"
-                          d="M6 8l4 4 4-4"
-                        />
-                      </svg>
-                    </div>
-                  </div>
-                </div>
-              </form>
+            <div className="px-4 py-6 border-t border-gray-200">
+              <a href="#" className="flex items-center p-2 -m-2">
+                <img
+                  src="https://tailwindui.com/img/flags/flag-canada.svg"
+                  alt=""
+                  className="flex-shrink-0 block w-5 h-auto"
+                />
+                <span className="block ml-3 text-base font-medium text-gray-900">
+                  CAD
+                </span>
+                <span className="sr-only">, change currency</span>
+              </a>
             </div>
           </div>
         </Transition.Child>

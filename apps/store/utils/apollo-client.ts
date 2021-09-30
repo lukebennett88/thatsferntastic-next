@@ -7,6 +7,7 @@ import type { AppProps } from 'next/app';
 import { useMemo } from 'react';
 
 type PageProps = AppProps['pageProps'];
+export type Client = ReturnType<typeof useApolloClient>;
 
 export const APOLLO_STATE_PROP_NAME = '__APOLLO_STATE__';
 
@@ -60,7 +61,7 @@ export function initialiseApollo(
 
 export const initialiseTsGql = initialiseApollo as (
   ...args: Parameters<typeof initialiseApollo>
-) => ReturnType<typeof useApolloClient>;
+) => Client;
 
 export function useApollo(
   pageProps: PageProps
@@ -71,7 +72,7 @@ export function useApollo(
 }
 
 export function addApolloState(
-  client: ReturnType<typeof useApolloClient>,
+  client: Client,
   pageProps: PageProps
 ): PageProps {
   if (pageProps?.props) {

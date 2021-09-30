@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 const categories = [
   {
     name: 'New Arrivals',
@@ -44,12 +46,11 @@ export function CategorySection(): JSX.Element {
         >
           Shop by Category
         </h2>
-        <a
-          href="#"
-          className="hidden text-sm font-semibold text-indigo-600 hover:text-indigo-500 sm:block"
-        >
-          Browse all categories<span aria-hidden="true"> &rarr;</span>
-        </a>
+        <Link href="/collections">
+          <a className="hidden text-sm font-semibold text-indigo-600 hover:text-indigo-500 sm:block">
+            Browse all categories<span aria-hidden="true"> &rarr;</span>
+          </a>
+        </Link>
       </div>
 
       <div className="flow-root mt-4">

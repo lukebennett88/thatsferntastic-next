@@ -201,12 +201,12 @@ export function MobileMenu({
             <div className="px-4 py-6 border-t border-gray-200">
               <a href="#" className="flex items-center p-2 -m-2">
                 <img
-                  src="https://tailwindui.com/img/flags/flag-canada.svg"
+                  src="https://tailwindui.com/img/flags/flag-australia.svg"
                   alt=""
                   className="flex-shrink-0 block w-5 h-auto"
                 />
                 <span className="block ml-3 text-base font-medium text-gray-900">
-                  CAD
+                  AUD
                 </span>
                 <span className="sr-only">, change currency</span>
               </a>

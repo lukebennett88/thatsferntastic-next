@@ -81,12 +81,12 @@ interface ProductPageProps {
 export const getServerSideProps: GetServerSideProps<ProductPageProps> = async ({
   query,
 }) => {
-  const { handle } = query;
-  if (typeof handle !== 'string') {
+  const { productHandle } = query;
+  if (typeof productHandle !== 'string') {
     return { notFound: true };
   }
   const client = initialiseTsGql();
-  const product = await getProductByHandle(client, handle);
+  const product = await getProductByHandle(client, productHandle);
   if (!product) return { notFound: true };
   return addApolloState(client, {
     props: {

@@ -8,7 +8,7 @@ import * as React from 'react';
 import type { Collection } from '../../graphql/get-collection-by-handle';
 import { getCollectionByHandle } from '../../graphql/get-collection-by-handle';
 import { classNames, formatCurrency } from '../../utils';
-import { initialiseTsGql } from '../../utils/apollo-client';
+import { addApolloState, initialiseTsGql } from '../../utils/apollo-client';
 
 interface CollectionProps {
   collection: NonNullable<Collection>;
@@ -28,11 +28,11 @@ export const getServerSideProps: GetServerSideProps<CollectionProps> = async ({
   if (!collection) {
     return { notFound: true };
   }
-  return {
+  return addApolloState(client, {
     props: {
       collection,
     },
-  };
+  });
 };
 
 const filters = [

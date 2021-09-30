@@ -5,7 +5,7 @@ import {
   Collection,
   getAllCollections,
 } from '../../graphql/get-all-collections';
-import { initialiseTsGql } from '../../utils/apollo-client';
+import { addApolloState, initialiseTsGql } from '../../utils/apollo-client';
 
 interface CollectionProps {
   collections: NonNullable<Collection[]>;
@@ -18,11 +18,11 @@ export const getServerSideProps: GetServerSideProps<CollectionProps> =
     if (!collections) {
       return { notFound: true };
     }
-    return {
+    return addApolloState(client, {
       props: {
         collections,
       },
-    };
+    });
   };
 
 export default function CollectionPage({

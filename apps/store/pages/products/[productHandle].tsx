@@ -101,7 +101,6 @@ export default function ProductPage({
   const [selectedColor, setSelectedColor] = React.useState(product.colors[0]);
   const router = useRouter();
   const hasImages = shopifyProduct.images.edges.length > 0;
-  console.log(shopifyProduct.id);
   return (
     <>
       <NextSeo

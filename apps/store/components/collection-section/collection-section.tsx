@@ -9,7 +9,6 @@ interface CollectionSectionProps {
 export function CollectionSection({
   collections,
 }: CollectionSectionProps): JSX.Element {
-  console.log(collections);
   return (
     <section
       aria-labelledby="collection-heading"

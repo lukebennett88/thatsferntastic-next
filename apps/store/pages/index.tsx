@@ -6,7 +6,6 @@ import { FeaturedSection } from '../components/featured-section';
 import { Hero } from '../components/hero';
 import { Collection, getAllCollections } from '../graphql/get-all-collections';
 import { addApolloState, initialiseTsGql } from '../utils/apollo-client';
-
 interface HomePageProps {
   collections: Array<Collection>;
 }
@@ -40,7 +39,7 @@ export default function HomePage({
         cta="Show Workspace"
         href="#"
       />
-      <CollectionSection />
+      <CollectionSection collections={collections} />
       <FeaturedSection
         id="comfort-heading"
         heading="Simple productivity"

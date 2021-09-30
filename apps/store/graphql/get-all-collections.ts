@@ -12,6 +12,7 @@ const GET_FIRST_COLLECTIONS = gql`
         cursor
         node {
           id
+          descriptionHtml
           handle
           image {
             id
@@ -35,6 +36,7 @@ const GET_NEXT_COLLECTIONS = gql`
         cursor
         node {
           id
+          descriptionHtml
           handle
           image {
             id

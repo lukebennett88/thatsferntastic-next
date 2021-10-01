@@ -9,7 +9,7 @@ export const GET_PRODUCT_BY_HANDLE = gql`
       availableForSale
       description
       descriptionHtml
-      images(first: 1) {
+      images(first: 6) {
         edges {
           node {
             id

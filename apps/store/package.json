@@ -17,6 +17,7 @@
     "@headlessui/react": "^1.4.1",
     "@heroicons/react": "^1.0.4",
     "@preconstruct/next": "^3.0.0",
+    "@thatsferntastic/button": "0.0.0",
     "@ts-gql/apollo": "^0.9.2",
     "@ts-gql/babel-plugin": "^0.1.0",
     "@ts-gql/compiler": "^0.14.3",

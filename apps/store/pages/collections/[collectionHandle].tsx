@@ -158,7 +158,7 @@ export default function CollectionPage({
                                   name={`${section.id}[]`}
                                   defaultValue={option.value}
                                   type="checkbox"
-                                  className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+                                  className="w-4 h-4 text-pink-600 border-gray-300 rounded focus:ring-pink-500"
                                 />
                                 <label
                                   htmlFor={`${section.id}-${optionIdx}-mobile`}
@@ -227,7 +227,7 @@ export default function CollectionPage({
                               name={`${section.id}[]`}
                               defaultValue={option.value}
                               type="checkbox"
-                              className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+                              className="w-4 h-4 text-pink-600 border-gray-300 rounded focus:ring-pink-500"
                             />
                             <label
                               htmlFor={`${section.id}-${optionIdx}`}

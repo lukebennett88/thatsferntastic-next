@@ -24,10 +24,10 @@ export const Checkbox = React.forwardRef(
               id={name}
               name={name}
               type="checkbox"
-              className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
+              className="w-4 h-4 text-pink-600 border-gray-300 rounded focus:ring-pink-500"
             />
           </div>
-          <div className="min-w-0 text-sm ml-3">
+          <div className="min-w-0 ml-3 text-sm">
             <label
               htmlFor={name}
               className="font-medium text-gray-700 select-none"

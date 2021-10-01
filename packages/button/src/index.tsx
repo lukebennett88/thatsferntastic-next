@@ -37,9 +37,9 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         type={Tag === 'button' && 'button'}
         className={classNames(
           sizeClasses(size),
-          'font-medium text-white bg-indigo-600 border border-transparent rounded-full shadow-sm',
-          'hover:bg-indigo-700',
-          'focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+          'font-medium text-white bg-pink-600 border border-transparent rounded-full shadow-sm',
+          'hover:bg-pink-700',
+          'focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500'
         )}
       >
         <button></button>

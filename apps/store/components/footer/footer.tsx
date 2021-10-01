@@ -38,7 +38,7 @@ export function Footer(): JSX.Element {
             <div className="col-span-1 md:col-span-2 lg:row-start-1 lg:col-start-1">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="https://tailwindui.com/img/logos/workflow-mark.svg?color=indigo&shade=600"
+                src="https://tailwindui.com/img/logos/workflow-mark.svg?color=pink&shade=600"
                 alt=""
                 className="w-auto h-8"
               />
@@ -116,12 +116,12 @@ export function Footer(): JSX.Element {
                   type="text"
                   autoComplete="email"
                   required
-                  className="w-full min-w-0 px-4 py-2 text-base text-gray-900 placeholder-gray-500 bg-white border border-gray-300 rounded-md shadow-sm appearance-none focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                  className="w-full min-w-0 px-4 py-2 text-base text-gray-900 placeholder-gray-500 bg-white border border-gray-300 rounded-md shadow-sm appearance-none focus:outline-none focus:border-pink-500 focus:ring-1 focus:ring-pink-500"
                 />
                 <div className="flex-shrink-0 ml-4">
                   <button
                     type="submit"
-                    className="flex items-center justify-center w-full px-4 py-2 text-base font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    className="flex items-center justify-center w-full px-4 py-2 text-base font-medium text-white bg-pink-600 border border-transparent rounded-md shadow-sm hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500"
                   >
                     Sign up
                   </button>

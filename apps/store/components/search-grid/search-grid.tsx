@@ -46,12 +46,12 @@ function SearchInput({ label }: SearchInputProps): JSX.Element {
             type="text"
             name={inputId}
             id={inputId}
-            className="block w-full border-gray-300 rounded-none focus:ring-indigo-500 focus:border-indigo-500 rounded-l-md sm:text-sm"
+            className="block w-full border-gray-300 rounded-none focus:ring-pink-500 focus:border-pink-500 rounded-l-md sm:text-sm"
           />
         </div>
         <button
           type="button"
-          className="relative inline-flex items-center px-4 py-2 -ml-px space-x-2 text-sm font-medium text-gray-700 border border-gray-300 rounded-r-md bg-gray-50 hover:bg-gray-100 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
+          className="relative inline-flex items-center px-4 py-2 -ml-px space-x-2 text-sm font-medium text-gray-700 border border-gray-300 rounded-r-md bg-gray-50 hover:bg-gray-100 focus:outline-none focus:ring-1 focus:ring-pink-500 focus:border-pink-500"
         >
           <SearchIcon aria-hidden="true" className="w-5 h-5 text-gray-400" />
           <span>Search</span>

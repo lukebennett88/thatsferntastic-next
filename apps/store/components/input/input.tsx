@@ -52,8 +52,8 @@ export const Input = React.forwardRef(
           value={value}
           {...inputProps}
           className={classNames(
-            'mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md',
-            error && 'ring-1 ring-indigo-500 border-indigo-500'
+            'mt-1 focus:ring-pink-500 focus:border-pink-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md',
+            error && 'ring-1 ring-pink-500 border-pink-500'
           )}
         />
         <ErrorMessage error={error} />

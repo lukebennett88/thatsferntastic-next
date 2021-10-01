@@ -167,7 +167,7 @@ export default function ProductPage({
                           </span>
                           <span
                             className={classNames(
-                              selected ? 'ring-indigo-500' : 'ring-transparent',
+                              selected ? 'ring-pink-500' : 'ring-transparent',
                               'absolute inset-0 rounded-md ring-2 ring-offset-2 pointer-events-none'
                             )}
                             aria-hidden="true"
@@ -264,7 +264,7 @@ export default function ProductPage({
                 <div className="flex mt-10 sm:flex-col1">
                   <button
                     type="submit"
-                    className="flex items-center justify-center flex-1 max-w-xs px-8 py-3 text-base font-medium text-white bg-indigo-600 border border-transparent rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500 sm:w-full"
+                    className="flex items-center justify-center flex-1 max-w-xs px-8 py-3 text-base font-medium text-white bg-pink-600 border border-transparent rounded-md hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-pink-500 sm:w-full"
                   >
                     Add to bag
                   </button>
@@ -296,7 +296,7 @@ export default function ProductPage({
                             <Disclosure.Button className="relative flex items-center justify-between w-full py-6 text-left group">
                               <span
                                 className={classNames(
-                                  open ? 'text-indigo-600' : 'text-gray-900',
+                                  open ? 'text-pink-600' : 'text-gray-900',
                                   'text-sm font-medium'
                                 )}
                               >
@@ -305,7 +305,7 @@ export default function ProductPage({
                               <span className="flex items-center ml-6">
                                 {open ? (
                                   <MinusSmIcon
-                                    className="block w-6 h-6 text-indigo-400 group-hover:text-indigo-500"
+                                    className="block w-6 h-6 text-pink-400 group-hover:text-pink-500"
                                     aria-hidden="true"
                                   />
                                 ) : (

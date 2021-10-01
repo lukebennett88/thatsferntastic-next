@@ -89,7 +89,7 @@ export function DesktopMenu({
                   <span className="sr-only">Workflow</span>
                   <img
                     className="w-auto h-8"
-                    src="https://tailwindui.com/img/logos/workflow-mark.svg?color=indigo&shade=600"
+                    src="https://tailwindui.com/img/logos/workflow-mark.svg?color=pink&shade=600"
                     alt=""
                   />
                 </a>
@@ -107,7 +107,7 @@ export function DesktopMenu({
                           <Popover.Button
                             className={classNames(
                               open
-                                ? 'border-indigo-600 text-indigo-600'
+                                ? 'border-pink-600 text-pink-600'
                                 : 'border-transparent text-gray-700 hover:text-gray-800',
                               'relative z-10 flex items-center transition-colors ease-out duration-200 text-sm font-medium border-b-2 -mb-px pt-px'
                             )}
@@ -309,7 +309,7 @@ export function DesktopMenu({
                           <Link href="/cart">
                             <a
                               onClick={() => close()}
-                              className="block w-full px-4 py-2 text-sm font-medium text-center text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500"
+                              className="block w-full px-4 py-2 text-sm font-medium text-center text-white bg-pink-600 border border-transparent rounded-md shadow-sm hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-pink-500"
                             >
                               Checkout
                             </a>

@@ -39,7 +39,7 @@ export const Select = React.forwardRef(
           name={name}
           autoComplete={autoComplete}
           defaultValue={defaultValue}
-          className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-pink-500 focus:border-pink-500 sm:text-sm"
         >
           {children}
         </select>

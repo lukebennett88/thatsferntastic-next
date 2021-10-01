@@ -138,7 +138,7 @@ export function Navigation(): JSX.Element {
   const [open, setOpen] = React.useState(false);
 
   return (
-    <div className="bg-white">
+    <div className="sticky top-0 z-30 bg-white">
       {/* Mobile menu */}
       <MobileMenu navigation={navigation} open={open} setOpen={setOpen} />
       <DesktopMenu navigation={navigation} setOpen={setOpen} />

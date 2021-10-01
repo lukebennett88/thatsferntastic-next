@@ -49,7 +49,7 @@ export async function getTopSellingProducts(
   client: Client,
   productType?: string,
   first?: number
-): Promise<TopSellingProducts> {
+): Promise<TopSellingProducts | void> {
   const { data } = await client.query({
     query: TOP_SELLING_PRODUCTS,
     variables: {

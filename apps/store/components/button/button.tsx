@@ -50,8 +50,9 @@ const widthClasses = (width: Width) => {
 };
 
 interface ButtonProps {
-  as?: 'a' | 'button';
+  as?: React.ElementType<any>;
   children: React.ReactNode;
+  onClick: (args?: any[]) => any;
   size?: Size;
   width?: Width;
 }
@@ -61,7 +62,14 @@ export const Button = React.forwardRef<
   ButtonProps
 >(
   (
-    { as: Tag = 'button', children, size = 'md', width = 'auto', ...rest },
+    {
+      as: Tag = 'button',
+      children,
+      onClick,
+      size = 'md',
+      width = 'auto',
+      ...rest
+    },
     ref
   ) => {
     return (
@@ -74,6 +82,7 @@ export const Button = React.forwardRef<
           'hover:text-pink-600 hover:bg-pink-100 hover:shadow-lg hover:-translate-y-0.5',
           'focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500'
         )}
+        onClick={onClick}
         {...rest}
       >
         {children}

@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { Disclosure, RadioGroup, Tab } from '@headlessui/react';
 import { HeartIcon, MinusSmIcon, PlusSmIcon } from '@heroicons/react/outline';
+import isEqual from 'lodash/isEqual';
 import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { useRouter } from 'next/router';
 import { NextSeo, ProductJsonLd } from 'next-seo';
@@ -8,11 +9,12 @@ import * as React from 'react';
 
 import { Button } from '../../components/button';
 import { Spinner } from '../../components/spinner';
+import { useStoreContext } from '../../context/store-context';
 import {
   getProductByHandle,
   Product,
 } from '../../graphql/get-product-by-handle';
-import { classNames, formatCurrency } from '../../utils';
+import { classNames, formatPrice } from '../../utils';
 import { addApolloState, initialiseTsGql } from '../../utils/apollo-client';
 import { siteSettings } from '../../utils/constants';
 
@@ -97,22 +99,103 @@ export const getServerSideProps: GetServerSideProps<ProductPageProps> = async ({
   });
 };
 
+const variantForOptions = (
+  product: NonNullable<Product>,
+  variants: NonNullable<Product>['variants']['edges'][number]
+) => {
+  return product.variants.edges.find(variant => {
+    return variant.node.selectedOptions.every(selectedOption => {
+      // @ts-expect-error I think types might be too strict here
+      return variants[selectedOption.name] === selectedOption.value.valueOf();
+    });
+  });
+};
+
 export default function ProductPage({
   product: shopifyProduct,
 }: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
+  const {
+    availableForSale,
+    description,
+    descriptionHtml,
+    images,
+    options,
+    priceRange,
+    title,
+    variants,
+  } = shopifyProduct;
+  const [initialVariant] = variants.edges;
   const [selectedColor, setSelectedColor] = React.useState(product.colors[0]);
+  const [variant, setVariant] = React.useState({
+    ...initialVariant,
+  });
+  // const [quantity, setQuantity] = React.useState(1);
+  const quantity = 1;
   const [isLoading, setIsLoading] = React.useState(false);
+
+  const productVariant = variantForOptions(shopifyProduct, variant) || variant;
+
+  const [available, setAvailable] = React.useState(
+    productVariant.node.availableForSale
+  );
+
+  const { client } = useStoreContext();
+
+  const handleOptionChange = (
+    index: number,
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    const value = event.target.value;
+
+    if (value === '') {
+      return;
+    }
+
+    const currentOptions = [...variant.node.selectedOptions];
+
+    currentOptions[index] = {
+      ...currentOptions[index],
+      value,
+    };
+
+    const selectedVariant = variants.edges.find(v => {
+      return isEqual(currentOptions, v.node.selectedOptions);
+    });
+
+    setVariant({ ...selectedVariant! });
+  };
+
+  const price = formatPrice(
+    variant.node.priceV2.amount,
+    priceRange.minVariantPrice.currencyCode
+  );
+
+  const hasVariants = variants.edges.length > 1;
+  const hasImages = images.edges.length > 0;
+  const hasMultipleImages = true || images.edges.length > 1;
+
   const router = useRouter();
-  const hasImages = shopifyProduct.images.edges.length > 0;
+
+  const { addVariantToCart } = useStoreContext();
+
+  const addToCart = async (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    setIsLoading(true);
+    event.preventDefault();
+    await addVariantToCart(productVariant.node.id, quantity);
+    setIsLoading(false);
+  };
+
   return (
     <>
       <NextSeo
-        title={shopifyProduct.title}
-        description={shopifyProduct.description.replace(/["“]/g, "'")}
+        title={title}
+        description={description.replace(/["“]/g, "'")}
         openGraph={{
           ...(hasImages
             ? {
-                images: shopifyProduct.images.edges.map(({ node }) => ({
+                images: images.edges.map(({ node }) => ({
                   url: node.transformedSrc,
                 })),
               }
@@ -120,20 +203,18 @@ export default function ProductPage({
         }}
       />
       <ProductJsonLd
-        productName={shopifyProduct.title}
+        productName={title}
         images={
           hasImages
-            ? shopifyProduct.images.edges.map(({ node }) => node.transformedSrc)
+            ? images.edges.map(({ node }) => node.transformedSrc)
             : undefined
         }
         description={product.description.replace(/["“]/g, "'")}
         offers={[
           {
-            price: Number(
-              shopifyProduct.priceRange.minVariantPrice.amount
-            ).toFixed(2),
+            price: Number(priceRange.minVariantPrice.amount).toFixed(2),
             priceCurrency: 'AUD',
-            availability: shopifyProduct.availableForSale
+            availability: availableForSale
               ? 'http://schema.org/InStock'
               : 'http://schema.org/OutOfStock',
             url: `${process.env.NEXT_PUBLIC_SITE_URL}${router.asPath}`,
@@ -153,7 +234,7 @@ export default function ProductPage({
               {/* Image selector */}
               <div className="hidden w-full max-w-2xl mx-auto mt-6 sm:block lg:max-w-none">
                 <Tab.List className="grid grid-cols-4 gap-6">
-                  {shopifyProduct.images.edges.map(({ node: image }) => (
+                  {images.edges.map(({ node: image }) => (
                     <Tab
                       key={image.id}
                       className="relative flex items-center justify-center h-24 text-sm font-medium text-gray-900 uppercase bg-white rounded-md cursor-pointer hover:bg-gray-50 focus:outline-none focus:ring focus:ring-offset-4 focus:ring-opacity-50"
@@ -183,7 +264,7 @@ export default function ProductPage({
               </div>
 
               <Tab.Panels className="w-full aspect-w-1 aspect-h-1">
-                {shopifyProduct.images.edges.map(({ node: image }) => (
+                {images.edges.map(({ node: image }) => (
                   <Tab.Panel key={image.id}>
                     <img
                       src={image.transformedSrc}
@@ -198,16 +279,12 @@ export default function ProductPage({
             {/* Product info */}
             <div className="px-4 mt-10 sm:px-0 sm:mt-16 lg:mt-0">
               <h1 className="text-3xl font-extrabold tracking-tight text-gray-900">
-                {shopifyProduct.title}
+                {title}
               </h1>
 
               <div className="mt-3">
                 <h2 className="sr-only">Product information</h2>
-                <p className="text-3xl text-gray-900">
-                  {formatCurrency(
-                    shopifyProduct.priceRange.minVariantPrice.amount
-                  )}
-                </p>
+                <p className="text-3xl text-gray-900">{price}</p>
               </div>
 
               <div className="mt-6">
@@ -216,12 +293,12 @@ export default function ProductPage({
                 <div
                   className="space-y-6 text-base text-gray-700"
                   dangerouslySetInnerHTML={{
-                    __html: shopifyProduct.descriptionHtml,
+                    __html: descriptionHtml,
                   }}
                 />
               </div>
 
-              <form className="mt-6">
+              <div className="mt-6">
                 {/* Colors */}
                 <div>
                   <h3 className="text-sm text-gray-600">Color</h3>
@@ -265,10 +342,15 @@ export default function ProductPage({
                 </div>
 
                 <div className="flex mt-10">
-                  <Button size="lg" width="fixed">
+                  <Button
+                    size="lg"
+                    width="fixed"
+                    type="button"
+                    onClick={addToCart}
+                  >
                     <span className="flex items-center justify-center">
                       {isLoading ? <Spinner /> : null}
-                      Add to bag
+                      Add to cart
                     </span>
                   </Button>
 
@@ -283,7 +365,7 @@ export default function ProductPage({
                     <span className="sr-only">Add to favorites</span>
                   </button>
                 </div>
-              </form>
+              </div>
 
               <section aria-labelledby="details-heading" className="mt-12">
                 <h2 id="details-heading" className="sr-only">
@@ -384,7 +466,7 @@ export default function ProductPage({
                       href={product.href}
                       className="relative flex items-center justify-center px-8 py-2 text-sm font-medium text-gray-900 bg-gray-100 border border-transparent rounded-md hover:bg-gray-200"
                     >
-                      Add to bag
+                      Add to cart
                       <span className="sr-only">, {product.name}</span>
                     </a>
                   </div>

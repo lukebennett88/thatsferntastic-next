@@ -5,6 +5,7 @@ import type { AppProps } from 'next/app';
 import { DefaultSeo } from 'next-seo';
 
 import { Layout } from '../components/layout';
+import { StoreProvider } from '../context/store-context';
 import type { LayoutProps } from '../types';
 import { useApollo } from '../utils/apollo-client';
 import { siteSettings } from '../utils/constants';
@@ -22,11 +23,13 @@ export default function App({
   return (
     <>
       <DefaultSeo {...siteSettings} />
-      <AppLayout>
-        <ApolloProvider client={apolloClient}>
-          <Component {...pageProps} />
-        </ApolloProvider>
-      </AppLayout>
+      <ApolloProvider client={apolloClient}>
+        <StoreProvider>
+          <AppLayout>
+            <Component {...pageProps} />
+          </AppLayout>
+        </StoreProvider>
+      </ApolloProvider>
     </>
   );
 }

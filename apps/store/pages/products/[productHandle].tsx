@@ -6,6 +6,8 @@ import { useRouter } from 'next/router';
 import { NextSeo, ProductJsonLd } from 'next-seo';
 import * as React from 'react';
 
+import { Button } from '../../components/button';
+import { Spinner } from '../../components/spinner';
 import {
   getProductByHandle,
   Product,
@@ -99,6 +101,7 @@ export default function ProductPage({
   product: shopifyProduct,
 }: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
   const [selectedColor, setSelectedColor] = React.useState(product.colors[0]);
+  const [isLoading, setIsLoading] = React.useState(false);
   const router = useRouter();
   const hasImages = shopifyProduct.images.edges.length > 0;
   return (
@@ -261,13 +264,13 @@ export default function ProductPage({
                   </RadioGroup>
                 </div>
 
-                <div className="flex mt-10 sm:flex-col1">
-                  <button
-                    type="submit"
-                    className="flex items-center justify-center flex-1 max-w-xs px-8 py-3 text-base font-medium text-white bg-pink-600 border border-transparent rounded-md hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-pink-500 sm:w-full"
-                  >
-                    Add to bag
-                  </button>
+                <div className="flex mt-10">
+                  <Button size="lg" width="fixed">
+                    <span className="flex items-center justify-center">
+                      {isLoading ? <Spinner /> : null}
+                      Add to bag
+                    </span>
+                  </Button>
 
                   <button
                     type="button"

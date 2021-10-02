@@ -20,9 +20,15 @@ export const GET_PRODUCT_BY_HANDLE = gql`
           }
         }
       }
+      options {
+        id
+        name
+        values
+      }
       priceRange {
         minVariantPrice {
           amount
+          currencyCode
         }
       }
       title
@@ -42,6 +48,10 @@ export const GET_PRODUCT_BY_HANDLE = gql`
               amount
             }
             quantityAvailable
+            selectedOptions {
+              name
+              value
+            }
             title
           }
         }

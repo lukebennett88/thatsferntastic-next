@@ -54,6 +54,7 @@ interface ButtonProps {
   children: React.ReactNode;
   onClick?: (args?: any[]) => any;
   size?: Size;
+  type?: 'button' | 'submit' | 'reset';
   width?: Width;
 }
 

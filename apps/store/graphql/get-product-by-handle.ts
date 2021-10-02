@@ -26,6 +26,26 @@ export const GET_PRODUCT_BY_HANDLE = gql`
         }
       }
       title
+      variants {
+        edges {
+          node {
+            id
+            availableForSale
+            image {
+              id
+              altText
+              height
+              width
+              transformedSrc
+            }
+            priceV2 {
+              amount
+            }
+            quantityAvailable
+            title
+          }
+        }
+      }
     }
   }
 ` as import('../../../__generated__/ts-gql/GetProductByHandle').type;

@@ -13,6 +13,29 @@ const ADD_ITEM_TO_CART = gql`
     ) {
       checkout {
         id
+        lineItems {
+          edges {
+            node {
+              id
+              quantity
+              title
+              unitPrice {
+                amount
+              }
+              variant {
+                id
+                image {
+                  id
+                  altText
+                  transformedSrc
+                }
+                priceV2 {
+                  amount
+                }
+              }
+            }
+          }
+        }
         webUrl
       }
     }
@@ -29,7 +52,7 @@ interface CheckoutLineItemsAddLineItems {
 
 interface AddItemToCart {
   client: Client;
-  checkoutLineItemsAddLineItems: CheckoutLineItemsAddLineItems;
+  checkoutLineItemsAddLineItems: CheckoutLineItemsAddLineItems[];
   checkoutLineItemsAddCheckoutId: string;
 }
 

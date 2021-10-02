@@ -26,7 +26,7 @@ export const GET_PRODUCT_BY_HANDLE = gql`
         }
       }
       title
-      variants {
+      variants(first: 250) {
         edges {
           node {
             id

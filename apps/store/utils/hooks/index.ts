@@ -1,8 +1,10 @@
 import * as React from 'react';
 
+type DefaultValue = string | ((args?: any[]) => any);
+
 export function useLocalStorageState(
   key: string,
-  defaultValue: string | ((args?: any[]) => any) = '',
+  defaultValue: DefaultValue = '',
   { serialize = JSON.stringify, deserialize = JSON.parse } = {}
 ): [any, React.Dispatch<any>] {
   const [state, setState] = React.useState(() => {

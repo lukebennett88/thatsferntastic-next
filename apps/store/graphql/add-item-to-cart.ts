@@ -22,17 +22,17 @@ const ADD_ITEM_TO_CART = gql`
               unitPrice {
                 amount
               }
-              variant {
-                id
-                image {
-                  id
-                  altText
-                  transformedSrc
-                }
-                priceV2 {
-                  amount
-                }
-              }
+              # variant {
+              #   id
+              #   image {
+              #     id
+              #     altText
+              #     transformedSrc
+              #   }
+              #   priceV2 {
+              #     amount
+              #   }
+              # }
             }
           }
         }
@@ -61,14 +61,16 @@ export async function addItemToCart({
   checkoutLineItemsAddLineItems,
   checkoutLineItemsAddCheckoutId,
 }: AddItemToCart): Promise<Checkout | void> {
-  const { data } = await client.mutate({
-    mutation: ADD_ITEM_TO_CART,
-    variables: {
-      checkoutLineItemsAddLineItems,
-      checkoutLineItemsAddCheckoutId,
-    },
-  });
-  return data?.checkoutLineItemsAdd;
+  try {
+    const { data } = await client.mutate({
+      mutation: ADD_ITEM_TO_CART,
+      variables: {
+        checkoutLineItemsAddLineItems,
+        checkoutLineItemsAddCheckoutId,
+      },
+    });
+    return data?.checkoutLineItemsAdd;
+  } catch (error) {
+    console.error(error);
+  }
 }
-
-// checkoutLineItemsAddLineItems,

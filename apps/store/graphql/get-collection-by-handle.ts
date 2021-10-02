@@ -61,9 +61,13 @@ export async function getCollectionByHandle(
   client: Client,
   variables: Variables
 ): Promise<Collection | void> {
-  const { data } = await client.query({
-    query: GET_COLLECTION,
-    variables,
-  });
-  return data?.collectionByHandle;
+  try {
+    const { data } = await client.query({
+      query: GET_COLLECTION,
+      variables,
+    });
+    return data?.collectionByHandle;
+  } catch (error) {
+    console.error(error);
+  }
 }

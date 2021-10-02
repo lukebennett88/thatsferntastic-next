@@ -21,9 +21,12 @@ export type InitialCheckout = NonNullable<
 export async function createCheckout(
   client: Client
 ): Promise<InitialCheckout | void> {
-  const { data } = await client.mutate({
-    mutation: CREATE_CHECKOUT,
-  });
-  console.log({ data });
-  return data?.checkoutCreate?.checkout;
+  try {
+    const { data } = await client.mutate({
+      mutation: CREATE_CHECKOUT,
+    });
+    return data?.checkoutCreate?.checkout;
+  } catch (error) {
+    console.error(error);
+  }
 }

@@ -72,13 +72,17 @@ export async function getProductRecommendations(
   variantsFirst?: number,
   imagesFirst?: number
 ): Promise<ProductRecommendations | void> {
-  const { data } = await client.query({
-    query: PRODUCT_RECOMMENDATIONS,
-    variables: {
-      productId,
-      variantsFirst,
-      imagesFirst,
-    },
-  });
-  return data?.productRecommendations;
+  try {
+    const { data } = await client.query({
+      query: PRODUCT_RECOMMENDATIONS,
+      variables: {
+        productId,
+        variantsFirst,
+        imagesFirst,
+      },
+    });
+    return data?.productRecommendations;
+  } catch (error) {
+    console.error(error);
+  }
 }

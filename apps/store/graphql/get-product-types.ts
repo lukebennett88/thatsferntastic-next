@@ -15,10 +15,14 @@ const GET_PRODUCT_TYPES = gql`
 export async function getProductTypes(
   client: Client
 ): Promise<string[] | undefined> {
-  const { data } = await client.query({
-    query: GET_PRODUCT_TYPES,
-  });
-  return data?.productTypes.edges
-    .filter(productType => Boolean(productType.node))
-    .map(p => p.node);
+  try {
+    const { data } = await client.query({
+      query: GET_PRODUCT_TYPES,
+    });
+    return data?.productTypes.edges
+      .filter(productType => Boolean(productType.node))
+      .map(p => p.node);
+  } catch (error) {
+    console.error(error);
+  }
 }

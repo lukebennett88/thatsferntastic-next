@@ -57,11 +57,15 @@ export async function getProductByHandle(
   client: Client,
   handle: string
 ): Promise<Product | void> {
-  const { data } = await client.query({
-    query: GET_PRODUCT_BY_HANDLE,
-    variables: {
-      handle,
-    },
-  });
-  return data?.productByHandle;
+  try {
+    const { data } = await client.query({
+      query: GET_PRODUCT_BY_HANDLE,
+      variables: {
+        handle,
+      },
+    });
+    return data?.productByHandle;
+  } catch (error) {
+    console.error(error);
+  }
 }

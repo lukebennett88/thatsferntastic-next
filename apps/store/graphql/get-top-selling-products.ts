@@ -50,14 +50,18 @@ export async function getTopSellingProducts(
   productType?: string,
   first?: number
 ): Promise<TopSellingProducts | void> {
-  const { data } = await client.query({
-    query: TOP_SELLING_PRODUCTS,
-    variables: {
-      first,
-      query: `${
-        productType ? `product_type:${productType}, ` : ''
-      }available_for_sale:true`,
-    },
-  });
-  return data?.products.edges;
+  try {
+    const { data } = await client.query({
+      query: TOP_SELLING_PRODUCTS,
+      variables: {
+        first,
+        query: `${
+          productType ? `product_type:${productType}, ` : ''
+        }available_for_sale:true`,
+      },
+    });
+    return data?.products.edges;
+  } catch (error) {
+    console.error(error);
+  }
 }

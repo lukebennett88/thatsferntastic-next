@@ -14,11 +14,13 @@ const CREATE_CHECKOUT = gql`
   }
 ` as import('../../../__generated__/ts-gql/CreateCheckout').type;
 
-export type Checkout = NonNullable<
+export type InitialCheckout = NonNullable<
   typeof CREATE_CHECKOUT['___type']['result']['checkoutCreate']
 >['checkout'];
 
-export async function createCheckout(client: Client): Promise<Checkout | void> {
+export async function createCheckout(
+  client: Client
+): Promise<InitialCheckout | void> {
   const { data } = await client.mutate({
     mutation: CREATE_CHECKOUT,
   });

@@ -1,3 +1,7 @@
+import Link from 'next/link';
+
+import { Button } from '../button';
+
 export function Hero(): JSX.Element {
   return (
     <div className="relative">
@@ -23,12 +27,13 @@ export function Hero(): JSX.Element {
           options from our summer small-batch release while they&lsquo;re still
           in stock.
         </p>
-        <a
-          href="#"
-          className="inline-block px-8 py-3 mt-8 text-base font-medium text-gray-900 bg-white border border-transparent rounded-md hover:bg-gray-100"
-        >
-          Shop New Arrivals
-        </a>
+        <div className="mt-8">
+          <Link href="/collections" passHref>
+            <Button as="a" size="xl">
+              Shop New Arrivals
+            </Button>
+          </Link>
+        </div>
       </div>
     </div>
   );

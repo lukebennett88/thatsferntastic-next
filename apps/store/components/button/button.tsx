@@ -52,7 +52,7 @@ const widthClasses = (width: Width) => {
 interface ButtonProps {
   as?: React.ElementType<any>;
   children: React.ReactNode;
-  onClick?: (args?: any[]) => any;
+  onClick?: (args?: any) => any;
   size?: Size;
   type?: 'button' | 'submit' | 'reset';
   width?: Width;

@@ -14,7 +14,7 @@ const client = ShopifyBuy.buildClient(
 
 interface StoreState {
   addVariantToCart: (variantId: string, quantity: number) => Promise<void>;
-  checkout?: ShopifyBuy.Cart;
+  checkout: ShopifyBuy.Cart | undefined;
   client: ShopifyBuy.Client;
   didJustAddToCart: boolean;
   isLoading: boolean;

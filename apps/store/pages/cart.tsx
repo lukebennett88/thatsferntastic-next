@@ -1,56 +1,87 @@
-import {
-  CheckIcon,
-  ClockIcon,
-  QuestionMarkCircleIcon,
-  XIcon,
-} from '@heroicons/react/solid';
-import { useQuery } from '@ts-gql/apollo';
+import { CheckIcon, ClockIcon, XIcon } from '@heroicons/react/solid';
+import React from 'react';
 
 import { Button } from '../components/button';
+import { Spinner } from '../components/spinner';
 import { useStoreContext } from '../context/store-context';
-import { GET_PRODUCT_BY_HANDLE } from '../graphql/get-product-by-handle';
+import { formatPrice } from '../utils';
+import { useCartCount } from '../utils/hooks/use-cart-count/use-cart-count';
 
-const products = [
-  {
-    id: 1,
-    name: 'Basic Tee',
-    href: '#',
-    price: '$32.00',
-    color: 'Sienna',
-    inStock: true,
-    size: 'Large',
-    imageSrc:
-      'https://tailwindui.com/img/ecommerce-images/shopping-cart-page-01-product-01.jpg',
-    imageAlt: "Front of men's Basic Tee in sienna.",
-  },
-  {
-    id: 2,
-    name: 'Basic Tee',
-    href: '#',
-    price: '$32.00',
-    color: 'Black',
-    inStock: false,
-    leadTime: '3–4 weeks',
-    size: 'Large',
-    imageSrc:
-      'https://tailwindui.com/img/ecommerce-images/shopping-cart-page-01-product-02.jpg',
-    imageAlt: "Front of men's Basic Tee in black.",
-  },
-  {
-    id: 3,
-    name: 'Nomad Tumbler',
-    href: '#',
-    price: '$35.00',
-    color: 'White',
-    inStock: true,
-    imageSrc:
-      'https://tailwindui.com/img/ecommerce-images/shopping-cart-page-01-product-03.jpg',
-    imageAlt: 'Insulated bottle with white base and black snap lid.',
-  },
-];
+// The ShopifyBuy types are wrong, this is just a placeholder I made from a JSON file
+interface Product {
+  id: string;
+  title: string;
+  variant: {
+    id: string;
+    title: string;
+    price: string;
+    priceV2: {
+      amount: string;
+      currencyCode: string;
+    };
+    presentmentPrices: Array<{
+      price: {
+        amount: string;
+        currencyCode: string;
+      };
+      compareAtPrice: null;
+      hasNextPage: {
+        value: boolean;
+      };
+      hasPreviousPage: boolean;
+      variableValues: {
+        checkoutId: string;
+        lineItems: Array<{
+          variantId: string;
+          quantity: number;
+        }>;
+      };
+    }>;
+    weight: number;
+    available: boolean;
+    sku: string;
+    compareAtPrice: null;
+    compareAtPriceV2: null;
+    image: {
+      id: string;
+      src: string;
+      altText: null;
+    };
+    selectedOptions: Array<{
+      name: string;
+      value: string;
+    }>;
+    unitPrice: null;
+    unitPriceMeasurement: {
+      measuredType: null;
+      quantityUnit: null;
+      quantityValue: number;
+      referenceUnit: null;
+      referenceValue: number;
+    };
+    product: {
+      id: string;
+      handle: string;
+    };
+  };
+  quantity: number;
+  customAttributes: [];
+  discountAllocations: [];
+  hasNextPage: {
+    value: boolean;
+  };
+  hasPreviousPage: boolean;
+  variableValues: {
+    checkoutId: string;
+    lineItems: Array<{
+      variantId: string;
+      quantity: number;
+    }>;
+  };
+}
 
 interface CartPreviewItemProps {
-  product: any; // TODO: add type here
+  product: Product;
   productIdx: number;
 }
 
@@ -58,20 +89,22 @@ function CartPreviewItem({
   product,
   productIdx,
 }: CartPreviewItemProps): JSX.Element {
-  const { data } = useQuery(GET_PRODUCT_BY_HANDLE, {
-    variables: {
-      handle: 'friends-scrunchie',
-    },
-  });
+  const { checkout, removeLineItem, updateLineItem } = useStoreContext();
+  const [isLoading, setIsLoading] = React.useState(false);
   return (
     <li className="flex py-6 sm:py-10">
-      <div className="flex-shrink-0">
+      <div className="relative flex-shrink-0">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src={data?.productByHandle?.images.edges[0].node.transformedSrc}
-          alt={data?.productByHandle?.images.edges[0].node.altText || ''}
+          src={product.variant.image?.src}
+          alt={product.variant.image?.altText || ''}
           className="object-cover object-center w-24 h-24 rounded-md sm:w-48 sm:h-48"
         />
+        {isLoading ? (
+          <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-40">
+            <Spinner color="pink" />
+          </div>
+        ) : null}
       </div>
 
       <div className="flex flex-col justify-between flex-1 ml-4 sm:ml-6">
@@ -80,23 +113,28 @@ function CartPreviewItem({
             <div className="flex justify-between">
               <h3 className="text-sm">
                 <a
-                  href={data?.productByHandle?.handle}
+                  href={`/products/${product.variant.product.handle}`}
                   className="font-medium text-gray-700 hover:text-gray-800"
                 >
-                  {data?.productByHandle?.title}
+                  {product.title}
                 </a>
               </h3>
             </div>
             <div className="flex mt-1 text-sm">
-              <p className="text-gray-500">{products[productIdx].color}</p>
-              {products[productIdx].size ? (
-                <p className="pl-4 ml-4 text-gray-500 border-l border-gray-200">
-                  {products[productIdx].size}
-                </p>
-              ) : null}
+              {product.variant.selectedOptions.map(({ value }, index) => (
+                <React.Fragment key={value}>
+                  {index === 0 ? (
+                    <p className="text-gray-500">{value}</p>
+                  ) : (
+                    <p className="pl-4 ml-4 text-gray-500 border-l border-gray-200">
+                      {value}
+                    </p>
+                  )}
+                </React.Fragment>
+              ))}
             </div>
             <p className="mt-1 text-sm font-medium text-gray-900">
-              {product.price}
+              {formatPrice(Number(product.variant.priceV2.amount))}
             </p>
           </div>
 
@@ -107,21 +145,35 @@ function CartPreviewItem({
             <select
               id={`quantity-${productIdx}`}
               name={`quantity-${productIdx}`}
+              defaultValue={product.quantity}
+              onChange={async event => {
+                setIsLoading(true);
+                await updateLineItem(
+                  checkout?.id as string,
+                  product.id,
+                  Number(event.target.value)
+                );
+                setIsLoading(false);
+              }}
               className="max-w-full rounded-md border border-gray-300 py-1.5 text-base leading-5 font-medium text-gray-700 text-left shadow-sm focus:outline-none focus:ring-1 focus:ring-pink-500 focus:border-pink-500 sm:text-sm"
             >
-              <option value={1}>1</option>
-              <option value={2}>2</option>
-              <option value={3}>3</option>
-              <option value={4}>4</option>
-              <option value={5}>5</option>
-              <option value={6}>6</option>
-              <option value={7}>7</option>
-              <option value={8}>8</option>
+              {Array.from({ length: 8 })
+                .fill('')
+                .map((_, index) => (
+                  <option key={index} value={index + 1}>
+                    {index + 1}
+                  </option>
+                ))}
             </select>
 
             <div className="absolute top-0 right-0">
               <button
                 type="button"
+                onClick={async () => {
+                  setIsLoading(true);
+                  await removeLineItem(checkout?.id as string, product.id);
+                  setIsLoading(false);
+                }}
                 className="inline-flex p-2 -m-2 text-gray-400 hover:text-gray-500"
               >
                 <span className="sr-only">Remove</span>
@@ -132,7 +184,7 @@ function CartPreviewItem({
         </div>
 
         <p className="flex mt-4 space-x-2 text-sm text-gray-700">
-          {products[productIdx].inStock ? (
+          {product.variant.available ? (
             <CheckIcon
               className="flex-shrink-0 w-5 h-5 text-green-500"
               aria-hidden="true"
@@ -144,11 +196,7 @@ function CartPreviewItem({
             />
           )}
 
-          <span>
-            {products[productIdx].inStock
-              ? 'In stock'
-              : `Ships in ${products[productIdx].leadTime}`}
-          </span>
+          <span>{product.variant.available ? 'In stock' : `Out of stock`}</span>
         </p>
       </div>
     </li>
@@ -156,14 +204,15 @@ function CartPreviewItem({
 }
 
 export default function CartPage(): JSX.Element {
-  const { checkout } = useStoreContext();
+  const { checkout, isLoading } = useStoreContext();
+  const cartCount = useCartCount();
   return (
     <main className="bg-white">
       <div className="max-w-2xl px-4 pt-16 pb-24 mx-auto sm:px-6 lg:max-w-7xl lg:px-8">
         <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
           Shopping Cart
         </h1>
-        <form className="mt-12 lg:grid lg:grid-cols-12 lg:gap-x-12 lg:items-start xl:gap-x-16">
+        <div className="mt-12 lg:grid lg:grid-cols-12 lg:gap-x-12 lg:items-start xl:gap-x-16">
           <section aria-labelledby="cart-heading" className="lg:col-span-7">
             <h2 id="cart-heading" className="sr-only">
               Items in your shopping cart
@@ -176,7 +225,7 @@ export default function CartPage(): JSX.Element {
               {checkout?.lineItems.map((product, productIdx) => (
                 <CartPreviewItem
                   key={product.id}
-                  product={product}
+                  product={product as any}
                   productIdx={productIdx}
                 />
               ))}
@@ -197,67 +246,45 @@ export default function CartPage(): JSX.Element {
 
             <dl className="mt-6 space-y-4">
               <div className="flex items-center justify-between">
-                <dt className="text-sm text-gray-600">Subtotal</dt>
+                <dt className="text-sm text-gray-600">Items in cart</dt>
                 <dd className="text-sm font-medium text-gray-900">
-                  {checkout?.subtotalPrice}
+                  {cartCount}
                 </dd>
               </div>
               <div className="flex items-center justify-between pt-4 border-t border-gray-200">
                 <dt className="flex items-center text-sm text-gray-600">
-                  <span>Shipping estimate</span>
-                  <a
-                    href="#"
-                    className="flex-shrink-0 ml-2 text-gray-400 hover:text-gray-500"
-                  >
-                    <span className="sr-only">
-                      Learn more about how shipping is calculated
-                    </span>
-                    <QuestionMarkCircleIcon
-                      className="w-5 h-5"
-                      aria-hidden="true"
-                    />
-                  </a>
+                  Shipping estimate
                 </dt>
-                <dd className="text-sm font-medium text-gray-900">$5.00</dd>
-              </div>
-              <div className="flex items-center justify-between pt-4 border-t border-gray-200">
-                <dt className="flex text-sm text-gray-600">
-                  <span>Tax estimate</span>
-                  <a
-                    href="#"
-                    className="flex-shrink-0 ml-2 text-gray-400 hover:text-gray-500"
-                  >
-                    <span className="sr-only">
-                      Learn more about how tax is calculated
-                    </span>
-                    <QuestionMarkCircleIcon
-                      className="w-5 h-5"
-                      aria-hidden="true"
-                    />
-                  </a>
-                </dt>
-                <dd className="text-sm font-medium text-gray-900">$8.32</dd>
+                <dd className="text-sm font-medium text-gray-900">
+                  Calculated at checkout
+                </dd>
               </div>
               <div className="flex items-center justify-between pt-4 border-t border-gray-200">
                 <dt className="text-base font-medium text-gray-900">
-                  Order total
+                  Subtotal
                 </dt>
-                <dd className="text-base font-medium text-gray-900">$112.32</dd>
+                <dd className="text-base font-medium text-gray-900">
+                  {checkout?.subtotalPrice
+                    ? formatPrice(Number(checkout.subtotalPrice))
+                    : null}
+                </dd>
               </div>
             </dl>
 
             <div className="mt-6">
               <Button
-                type="submit"
+                as="a"
                 width="full"
                 size="xl"
-                // className="w-full px-4 py-3 text-base font-medium text-white bg-pink-600 border border-transparent rounded-md shadow-sm hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-pink-500"
+                // @ts-expect-error: Types don't have webUrl for some reason
+                href={checkout?.webUrl as string}
               >
+                {isLoading ? <Spinner /> : null}
                 Checkout
               </Button>
             </div>
           </section>
-        </form>
+        </div>
       </div>
     </main>
   );

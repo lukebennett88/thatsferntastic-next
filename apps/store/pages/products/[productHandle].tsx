@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import { Disclosure, RadioGroup, Tab } from '@headlessui/react';
+import { Disclosure, Tab } from '@headlessui/react';
 import { HeartIcon, MinusSmIcon, PlusSmIcon } from '@heroicons/react/outline';
 import isEqual from 'lodash/isEqual';
 import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
@@ -8,13 +8,15 @@ import { NextSeo, ProductJsonLd } from 'next-seo';
 import * as React from 'react';
 
 import { Button } from '../../components/button';
+import { QuantityPicker } from '../../components/quantity-picker';
 import { Spinner } from '../../components/spinner';
+import { VariantSelect } from '../../components/variant-select';
 import { useStoreContext } from '../../context/store-context';
 import {
   getProductByHandle,
   Product,
 } from '../../graphql/get-product-by-handle';
-import { classNames, formatPrice } from '../../utils';
+import { classNames, formatPrice, variantForOptions } from '../../utils';
 import { addApolloState, initialiseTsGql } from '../../utils/apollo-client';
 import { siteSettings } from '../../utils/constants';
 
@@ -99,18 +101,6 @@ export const getServerSideProps: GetServerSideProps<ProductPageProps> = async ({
   });
 };
 
-const variantForOptions = (
-  product: NonNullable<Product>,
-  variants: NonNullable<Product>['variants']['edges'][number]
-) => {
-  return product.variants.edges.find(variant => {
-    return variant.node.selectedOptions.every(selectedOption => {
-      // @ts-expect-error I think types might be too strict here
-      return variants[selectedOption.name] === selectedOption.value.valueOf();
-    });
-  });
-};
-
 export default function ProductPage({
   product: shopifyProduct,
 }: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
@@ -124,33 +114,14 @@ export default function ProductPage({
     title,
     variants,
   } = shopifyProduct;
+  // State for selected variant
   const [initialVariant] = variants.edges;
-  const [selectedColor, setSelectedColor] = React.useState(product.colors[0]);
   const [variant, setVariant] = React.useState({
     ...initialVariant,
   });
-  // const [quantity, setQuantity] = React.useState(1);
-  const quantity = 1;
-  const [isLoading, setIsLoading] = React.useState(false);
-
   const productVariant = variantForOptions(shopifyProduct, variant) || variant;
 
-  const [available, setAvailable] = React.useState(
-    productVariant.node.availableForSale
-  );
-
-  const { client } = useStoreContext();
-
-  const handleOptionChange = (
-    index: number,
-    event: React.ChangeEvent<HTMLSelectElement>
-  ) => {
-    const value = event.target.value;
-
-    if (value === '') {
-      return;
-    }
-
+  const handleOptionChange = (value: string, index: number) => {
     const currentOptions = [...variant.node.selectedOptions];
 
     currentOptions[index] = {
@@ -162,8 +133,13 @@ export default function ProductPage({
       return isEqual(currentOptions, v.node.selectedOptions);
     });
 
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     setVariant({ ...selectedVariant! });
   };
+
+  const [quantity, setQuantity] = React.useState(1);
+
+  const available = availableForSale && productVariant.node.availableForSale;
 
   const price = formatPrice(
     variant.node.priceV2.amount,
@@ -172,20 +148,19 @@ export default function ProductPage({
 
   const hasVariants = variants.edges.length > 1;
   const hasImages = images.edges.length > 0;
-  const hasMultipleImages = true || images.edges.length > 1;
 
   const router = useRouter();
 
-  const { addVariantToCart } = useStoreContext();
+  const { addVariantToCart, checkout } = useStoreContext();
 
   const addToCart = async (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
-    setIsLoading(true);
     event.preventDefault();
     await addVariantToCart(productVariant.node.id, quantity);
-    setIsLoading(false);
   };
+
+  const { isLoading } = useStoreContext();
 
   return (
     <>
@@ -250,11 +225,11 @@ export default function ProductPage({
                             />
                           </span>
                           <span
+                            aria-hidden="true"
                             className={classNames(
                               selected ? 'ring-pink-500' : 'ring-transparent',
                               'absolute inset-0 rounded-md ring-2 ring-offset-2 pointer-events-none'
                             )}
-                            aria-hidden="true"
                           />
                         </>
                       )}
@@ -284,7 +259,7 @@ export default function ProductPage({
 
               <div className="mt-3">
                 <h2 className="sr-only">Product information</h2>
-                <p className="text-3xl text-gray-900">{price}</p>
+                <p className="font-mono text-3xl text-pink-600">{price}</p>
               </div>
 
               <div className="mt-6">
@@ -299,58 +274,41 @@ export default function ProductPage({
               </div>
 
               <div className="mt-6">
-                {/* Colors */}
-                <div>
-                  <h3 className="text-sm text-gray-600">Color</h3>
+                {/* Variants */}
+                {hasVariants ? (
+                  <fieldset>
+                    {options.map(({ id, name, values }, index) => (
+                      <VariantSelect
+                        key={id}
+                        index={index}
+                        handleOptionChange={handleOptionChange}
+                        name={name}
+                        values={values}
+                        variant={variant}
+                      />
+                    ))}
+                  </fieldset>
+                ) : null}
 
-                  <RadioGroup
-                    value={selectedColor}
-                    onChange={setSelectedColor}
-                    className="mt-2"
-                  >
-                    <RadioGroup.Label className="sr-only">
-                      Choose a color
-                    </RadioGroup.Label>
-                    <div className="flex items-center space-x-3">
-                      {product.colors.map(color => (
-                        <RadioGroup.Option
-                          key={color.name}
-                          value={color}
-                          className={({ active, checked }) =>
-                            classNames(
-                              color.selectedColor,
-                              active && checked ? 'ring ring-offset-1' : '',
-                              !active && checked ? 'ring-2' : '',
-                              '-m-0.5 relative p-0.5 rounded-full flex items-center justify-center cursor-pointer focus:outline-none'
-                            )
-                          }
-                        >
-                          <RadioGroup.Label as="p" className="sr-only">
-                            {color.name}
-                          </RadioGroup.Label>
-                          <span
-                            aria-hidden="true"
-                            className={classNames(
-                              color.bgColor,
-                              'h-8 w-8 border border-black border-opacity-10 rounded-full'
-                            )}
-                          />
-                        </RadioGroup.Option>
-                      ))}
-                    </div>
-                  </RadioGroup>
-                </div>
+                {/* Quantity picker */}
+                <QuantityPicker
+                  available={variant.node.quantityAvailable}
+                  quantity={quantity}
+                  setQuantity={setQuantity}
+                />
 
+                {/* Add to cart */}
                 <div className="flex mt-10">
                   <Button
                     size="lg"
                     width="fixed"
                     type="button"
+                    disabled={!available}
                     onClick={addToCart}
                   >
                     <span className="flex items-center justify-center">
                       {isLoading ? <Spinner /> : null}
-                      Add to cart
+                      {available ? 'Add to cart' : 'Out of stock'}
                     </span>
                   </Button>
 
@@ -359,8 +317,8 @@ export default function ProductPage({
                     className="flex items-center justify-center px-3 py-3 ml-4 text-gray-400 rounded-md hover:bg-gray-100 hover:text-gray-500"
                   >
                     <HeartIcon
-                      className="flex-shrink-0 w-6 h-6"
                       aria-hidden="true"
+                      className="flex-shrink-0 w-6 h-6"
                     />
                     <span className="sr-only">Add to favorites</span>
                   </button>
@@ -390,13 +348,13 @@ export default function ProductPage({
                               <span className="flex items-center ml-6">
                                 {open ? (
                                   <MinusSmIcon
-                                    className="block w-6 h-6 text-pink-400 group-hover:text-pink-500"
                                     aria-hidden="true"
+                                    className="block w-6 h-6 text-pink-400 group-hover:text-pink-500"
                                   />
                                 ) : (
                                   <PlusSmIcon
-                                    className="block w-6 h-6 text-gray-400 group-hover:text-gray-500"
                                     aria-hidden="true"
+                                    className="block w-6 h-6 text-gray-400 group-hover:text-gray-500"
                                   />
                                 )}
                               </span>
@@ -406,11 +364,12 @@ export default function ProductPage({
                             as="div"
                             className="pb-6 prose-sm prose"
                           >
-                            <ul role="list">
+                            <pre>{JSON.stringify(checkout, null, 2)}</pre>
+                            {/* <ul role="list">
                               {detail.items.map(item => (
                                 <li key={item}>{item}</li>
                               ))}
-                            </ul>
+                            </ul> */}
                           </Disclosure.Panel>
                         </>
                       )}

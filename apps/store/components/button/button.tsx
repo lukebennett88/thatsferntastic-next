@@ -41,7 +41,9 @@ interface ButtonProps {
   children: React.ReactNode;
   disabled?: boolean;
   onClick?: (args?: any) => any;
+  rel?: string;
   size?: Size;
+  target?: '_self' | '_blank' | '_parent' | '_top';
   type?: 'button' | 'submit' | 'reset';
   width?: Width;
 }
@@ -71,7 +73,7 @@ export const Button = React.forwardRef<
           disabled && 'cursor-not-allowed text-gray-700 bg-gray-200',
           !disabled && 'hover:text-pink-600 hover:bg-pink-100',
           !disabled && 'text-pink-700 bg-pink-200',
-          'inline-block font-medium font-mono border border-transparent rounded-full transition duration-300 ease-in-out transform-gpu',
+          'inline-flex items-center justify-center font-medium font-mono border border-transparent rounded-full text-center transition duration-300 ease-in-out transform-gpu',
           'focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500'
         )}
         disabled={disabled}

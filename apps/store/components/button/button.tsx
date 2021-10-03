@@ -1,18 +1,5 @@
 import * as React from 'react';
 
-// AnyTag is anything that a JSX tag can be.
-type AnyTag =
-  | string
-  | React.FunctionComponent<never>
-  | (new (props: never) => React.Component);
-
-// PropsOf tries to get the expected properties for a given HTML tag name or component.
-type PropsOf<Tag> = Tag extends keyof JSX.IntrinsicElements
-  ? JSX.IntrinsicElements[Tag]
-  : Tag extends React.ComponentType<infer Props>
-  ? Props & JSX.IntrinsicAttributes
-  : never;
-
 function classNames(...classes: Array<string | unknown>): string {
   return classes.filter(Boolean).join(' ');
 }
@@ -52,6 +39,7 @@ const widthClasses = (width: Width) => {
 interface ButtonProps {
   as?: React.ElementType<any>;
   children: React.ReactNode;
+  disabled?: boolean;
   onClick?: (args?: any) => any;
   size?: Size;
   type?: 'button' | 'submit' | 'reset';
@@ -66,6 +54,7 @@ export const Button = React.forwardRef<
     {
       as: Tag = 'button',
       children,
+      disabled,
       onClick,
       size = 'md',
       width = 'auto',
@@ -79,10 +68,14 @@ export const Button = React.forwardRef<
         className={classNames(
           sizeClasses(size),
           widthClasses(width),
-          'inline-block font-medium font-mono text-pink-700 bg-pink-200 border border-transparent rounded-full shadow-sm transition duration-300 ease-in-out transform-gpu',
-          'hover:text-pink-600 hover:bg-pink-100 hover:shadow-lg hover:-translate-y-0.5',
+          disabled && 'cursor-not-allowed text-gray-700 bg-gray-200',
+          !disabled &&
+            'hover:text-pink-600 hover:bg-pink-100 hover:shadow-lg hover:-translate-y-0.5',
+          !disabled && 'text-pink-700 bg-pink-200',
+          'inline-block font-medium font-mono border border-transparent rounded-full shadow-sm transition duration-300 ease-in-out transform-gpu',
           'focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500'
         )}
+        disabled={disabled}
         onClick={onClick}
         {...rest}
       >

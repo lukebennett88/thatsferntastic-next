@@ -9,6 +9,7 @@ import Link from 'next/link';
 import * as React from 'react';
 
 import { classNames } from '../../utils';
+import { buttonClasses } from '../../utils/hooks/button-styles';
 import { useCartCount } from '../../utils/hooks/use-cart-count/use-cart-count';
 
 const products = [
@@ -311,9 +312,9 @@ export function DesktopMenu({
                           <Link href="/cart">
                             <a
                               onClick={() => close()}
-                              className="block w-full px-4 py-2 text-sm font-medium text-center text-white bg-pink-600 border border-transparent rounded-md shadow-sm hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-pink-500"
+                              className={buttonClasses({ width: 'full' })}
                             >
-                              Checkout
+                              View cart
                             </a>
                           </Link>
                         </div>

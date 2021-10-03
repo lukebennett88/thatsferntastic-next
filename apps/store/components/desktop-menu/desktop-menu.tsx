@@ -9,6 +9,7 @@ import Link from 'next/link';
 import * as React from 'react';
 
 import { classNames } from '../../utils';
+import { useCartCount } from '../../utils/hooks/use-cart-count/use-cart-count';
 
 const products = [
   {
@@ -68,6 +69,7 @@ export function DesktopMenu({
   navigation,
   setOpen,
 }: DesktopMenuProps): JSX.Element {
+  const cartCount = useCartCount();
   return (
     <header className="relative bg-white">
       <nav aria-label="Top" className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
@@ -265,7 +267,7 @@ export function DesktopMenu({
                     aria-hidden="true"
                   />
                   <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">
-                    0
+                    {cartCount}
                   </span>
                   <span className="sr-only">items in cart, view bag</span>
                 </Popover.Button>

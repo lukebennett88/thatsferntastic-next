@@ -7,7 +7,7 @@ import * as React from 'react';
 
 import type { Collection } from '../../graphql/get-collection-by-handle';
 import { getCollectionByHandle } from '../../graphql/get-collection-by-handle';
-import { classNames, formatCurrency } from '../../utils';
+import { classNames, formatPrice } from '../../utils';
 import { addApolloState, initialiseTsGql } from '../../utils/apollo-client';
 
 interface CollectionProps {
@@ -289,8 +289,8 @@ export default function CollectionPage({
                       </a>
                     </h3>
                     <p className="text-base font-medium text-gray-900">
-                      {formatCurrency(
-                        product.priceRange.minVariantPrice.amount
+                      {formatPrice(
+                        Number(product.priceRange.minVariantPrice.amount)
                       )}
                     </p>
                   </div>

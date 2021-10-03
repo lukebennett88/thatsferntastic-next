@@ -8,33 +8,11 @@ import {
 import Link from 'next/link';
 import * as React from 'react';
 
+import { useStoreContext } from '../../context/store-context';
+import { LineItem } from '../../types';
 import { classNames } from '../../utils';
 import { buttonClasses } from '../../utils/hooks/button-styles';
 import { useCartCount } from '../../utils/hooks/use-cart-count/use-cart-count';
-
-const products = [
-  {
-    id: 1,
-    name: 'Throwback Hip Bag',
-    href: '#',
-    color: 'Salmon',
-    imageSrc:
-      'https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-01.jpg',
-    imageAlt:
-      'Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt.',
-  },
-  {
-    id: 2,
-    name: 'Medium Stuff Satchel',
-    href: '#',
-    color: 'Blue',
-    imageSrc:
-      'https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg',
-    imageAlt:
-      'Front of satchel with blue canvas body, black straps and handle, drawstring top, and front zipper pouch.',
-  },
-  // More products...
-];
 
 interface Navigation {
   categories: {
@@ -61,6 +39,34 @@ interface Navigation {
   }>;
 }
 
+interface ProductPreviewProps {
+  lineItem: LineItem;
+}
+
+function ProductPreview({ lineItem }: ProductPreviewProps): JSX.Element {
+  return (
+    <li className="flex items-center py-6">
+      <img
+        src={lineItem.variant.image?.src}
+        alt={lineItem.variant.image?.altText || ''}
+        className="flex-none w-16 h-16 border border-gray-200 rounded-md"
+      />
+      <div className="flex-auto ml-4">
+        <h3 className="font-medium text-gray-900">
+          <Link href={`/products/${lineItem.variant.product.handle}`}>
+            <a>{lineItem.title}</a>
+          </Link>
+        </h3>
+        {lineItem.variant.selectedOptions.map(({ value }) => (
+          <p key={value} className="text-gray-500">
+            {value}
+          </p>
+        ))}
+      </div>
+    </li>
+  );
+}
+
 interface DesktopMenuProps {
   navigation: Navigation;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -71,6 +77,7 @@ export function DesktopMenu({
   setOpen,
 }: DesktopMenuProps): JSX.Element {
   const cartCount = useCartCount();
+  const { checkout } = useStoreContext();
   return (
     <header className="relative bg-white">
       <nav aria-label="Top" className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
@@ -288,25 +295,11 @@ export function DesktopMenu({
 
                         <div className="max-w-2xl px-4 mx-auto">
                           <ul role="list" className="divide-y divide-gray-200">
-                            {products.map(product => (
-                              <li
-                                key={product.id}
-                                className="flex items-center py-6"
-                              >
-                                <img
-                                  src={product.imageSrc}
-                                  alt={product.imageAlt}
-                                  className="flex-none w-16 h-16 border border-gray-200 rounded-md"
-                                />
-                                <div className="flex-auto ml-4">
-                                  <h3 className="font-medium text-gray-900">
-                                    <a href={product.href}>{product.name}</a>
-                                  </h3>
-                                  <p className="text-gray-500">
-                                    {product.color}
-                                  </p>
-                                </div>
-                              </li>
+                            {checkout?.lineItems.map(lineItem => (
+                              <ProductPreview
+                                key={lineItem.id}
+                                lineItem={lineItem as any}
+                              />
                             ))}
                           </ul>
                           <Link href="/cart">

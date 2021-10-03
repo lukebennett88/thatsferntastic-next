@@ -1,13 +1,26 @@
-export function Spinner(
-  props: JSX.IntrinsicAttributes & React.SVGProps<SVGSVGElement>
-): JSX.Element {
+import { classNames } from '../../utils';
+
+interface SpinnerProps {
+  color?: 'white' | 'pink';
+}
+
+export function Spinner({
+  color = 'white',
+  ...rest
+}: SpinnerProps &
+  JSX.IntrinsicAttributes &
+  React.SVGProps<SVGSVGElement>): JSX.Element {
   return (
     <svg
-      className="w-5 h-5 mr-3 -ml-1 text-white animate-spin"
+      className={classNames(
+        color === 'white' && 'text-white',
+        color === 'pink' && 'text-pink-500',
+        'w-5 h-5 mr-3 -ml-1 animate-spin'
+      )}
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
-      {...props}
+      {...rest}
     >
       <circle
         className="opacity-25"

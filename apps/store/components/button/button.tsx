@@ -56,7 +56,7 @@ export const Button = React.forwardRef<
       children,
       disabled,
       onClick,
-      size = 'md',
+      size = 'lg',
       width = 'auto',
       ...rest
     },
@@ -69,10 +69,9 @@ export const Button = React.forwardRef<
           sizeClasses(size),
           widthClasses(width),
           disabled && 'cursor-not-allowed text-gray-700 bg-gray-200',
-          !disabled &&
-            'hover:text-pink-600 hover:bg-pink-100 hover:shadow-lg hover:-translate-y-0.5',
+          !disabled && 'hover:text-pink-600 hover:bg-pink-100',
           !disabled && 'text-pink-700 bg-pink-200',
-          'inline-block font-medium font-mono border border-transparent rounded-full shadow-sm transition duration-300 ease-in-out transform-gpu',
+          'inline-block font-medium font-mono border border-transparent rounded-full transition duration-300 ease-in-out transform-gpu',
           'focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500'
         )}
         disabled={disabled}

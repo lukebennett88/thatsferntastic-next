@@ -4,14 +4,6 @@ export function classNames(...classes: unknown[]): string {
   return classes.filter(Boolean).join(' ');
 }
 
-export const formatCurrency = (dollars: number): string => {
-  const formatter = new Intl.NumberFormat('en-AU', {
-    style: 'currency',
-    currency: 'AUD',
-  });
-  return formatter.format(dollars);
-};
-
 export const formatPrice = (value: number, currency?: string): string => {
   return Intl.NumberFormat('en-AU', {
     currency: currency || 'AUD',

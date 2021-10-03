@@ -93,6 +93,7 @@ export function StoreProvider({ children }: StoreProviderProps): JSX.Element {
         lineItemsToUpdate
       );
       setCheckout(newCheckout);
+      setIsLoading(false);
       setDidJustAddToCart(true);
       setTimeout(() => setDidJustAddToCart(false), 3000);
     } catch (error) {

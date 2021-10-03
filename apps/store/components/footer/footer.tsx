@@ -1,3 +1,5 @@
+import { siteSettings } from '../../utils/constants';
+import { Button } from '../button';
 const footerNavigation = {
   products: [
     { name: 'Bags', href: '#' },
@@ -105,7 +107,8 @@ export function Footer(): JSX.Element {
                 Sign up for our newsletter
               </h3>
               <p className="mt-6 text-sm text-gray-500">
-                The latest deals and savings, sent to your inbox weekly.
+                Intermittent updates, when I remember to send them, about new
+                releases, sales and good news!
               </p>
               <form className="flex mt-2 sm:max-w-md">
                 <label htmlFor="email-address" className="sr-only">
@@ -116,24 +119,23 @@ export function Footer(): JSX.Element {
                   type="text"
                   autoComplete="email"
                   required
-                  className="w-full min-w-0 px-4 py-2 text-base text-gray-900 placeholder-gray-500 bg-white border border-gray-300 rounded-md shadow-sm appearance-none focus:outline-none focus:border-pink-500 focus:ring-1 focus:ring-pink-500"
+                  placeholder="Enter your email"
+                  className="w-full min-w-0 px-4 py-2 text-base text-gray-900 placeholder-gray-500 bg-white border border-gray-300 rounded-full appearance-none focus:outline-none focus:border-pink-500 focus:ring-1 focus:ring-pink-500"
                 />
                 <div className="flex-shrink-0 ml-4">
-                  <button
-                    type="submit"
-                    className="flex items-center justify-center w-full px-4 py-2 text-base font-medium text-white bg-pink-600 border border-transparent rounded-md shadow-sm hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500"
-                  >
+                  <Button type="submit" size="lg">
                     Sign up
-                  </button>
+                  </Button>
                 </div>
               </form>
             </div>
           </div>
         </div>
 
-        <div className="py-10 text-center border-t border-gray-100">
+        <div className="py-10 text-center border-t border-gray-200">
           <p className="text-sm text-gray-500">
-            &copy; 2021 Workflow, Inc. All rights reserved.
+            &copy; {new Date().getFullYear()} {siteSettings.title}. All rights
+            reserved.
           </p>
         </div>
       </div>

@@ -91,7 +91,7 @@ type AppliedGiftCard implements Node {
 """
 An article in an online store blog.
 """
-type Article implements HasMetafields & Node {
+type Article implements HasMetafields & Node & OnlineStorePublishable {
   """
   The article's author.
   """
@@ -251,6 +251,11 @@ type Article implements HasMetafields & Node {
     """
     reverse: Boolean = false
   ): MetafieldConnection!
+
+  """
+  The URL used for viewing the resource on the shop's Online Store. Returns `null` if the resource is currently not published to the Online Store sales channel.
+  """
+  onlineStoreUrl: URL
 
   """
   The date and time when the article was published.
@@ -460,7 +465,7 @@ type AvailableShippingRates {
 """
 An online store blog.
 """
-type Blog implements HasMetafields & Node {
+type Blog implements HasMetafields & Node & OnlineStorePublishable {
   """
   Find an article by its handle.
   """
@@ -585,6 +590,11 @@ type Blog implements HasMetafields & Node {
   ): MetafieldConnection!
 
   """
+  The URL used for viewing the resource on the shop's Online Store. Returns `null` if the resource is currently not published to the Online Store sales channel.
+  """
+  onlineStoreUrl: URL
+
+  """
   The blog's SEO information.
   """
   seo: SEO
@@ -690,6 +700,556 @@ enum CardBrand {
   Visa.
   """
   VISA
+}
+
+"""
+A cart represents the merchandise that a buyer intends to purchase, and the estimated cost associated with the cart.
+"""
+type Cart implements Node {
+  """
+  The attributes associated with the cart. Attributes are represented as key-value pairs.
+  """
+  attributes: [Attribute!]!
+
+  """
+  Information about the buyer that is interacting with the cart.
+  """
+  buyerIdentity: CartBuyerIdentity!
+
+  """
+  The URL of the checkout for the cart.
+  """
+  checkoutUrl: URL!
+
+  """
+  The date and time when the cart was created.
+  """
+  createdAt: DateTime!
+
+  """
+  The discount codes that have been applied to the cart.
+  """
+  discountCodes: [CartDiscountCode!]!
+
+  """
+  The estimated costs that the buyer will pay at checkout.
+  """
+  estimatedCost: CartEstimatedCost!
+
+  """
+  A globally-unique identifier.
+  """
+  id: ID!
+
+  """
+  A list of lines containing information about the items the customer intends to purchase.
+  """
+  lines(
+    """
+    Returns the elements that come after the specified cursor.
+    """
+    after: String
+
+    """
+    Returns the elements that come before the specified cursor.
+    """
+    before: String
+
+    """
+    Returns up to the first `n` elements from the list.
+    """
+    first: Int
+
+    """
+    Returns up to the last `n` elements from the list.
+    """
+    last: Int
+
+    """
+    Reverse the order of the underlying list.
+    """
+    reverse: Boolean = false
+  ): CartLineConnection!
+
+  """
+  A note that is associated with the cart. For example, the note can be a personalized message to the buyer.
+  """
+  note: String
+
+  """
+  The date and time when the cart was updated.
+  """
+  updatedAt: DateTime!
+}
+
+"""
+Return type for `cartAttributesUpdate` mutation.
+"""
+type CartAttributesUpdatePayload {
+  """
+  The updated cart.
+  """
+  cart: Cart
+
+  """
+  The list of errors that occurred from executing the mutation.
+  """
+  userErrors: [CartUserError!]!
+}
+
+"""
+The discounts automatically applied to the cart line based on prerequisites that have been met.
+"""
+type CartAutomaticDiscountAllocation implements CartDiscountAllocation {
+  """
+  The discounted amount that has been applied to the cart line.
+  """
+  discountedAmount: MoneyV2!
+
+  """
+  The title of the allocated discount.
+  """
+  title: String!
+}
+
+"""
+Represents information about the buyer that is interacting with the cart.
+"""
+type CartBuyerIdentity {
+  """
+  The country where the buyer is located.
+  """
+  countryCode: CountryCode
+
+  """
+  The customer account associated with the cart.
+  """
+  customer: Customer
+
+  """
+  The email address of the buyer that is interacting with the cart.
+  """
+  email: String
+
+  """
+  The phone number of the buyer that is interacting with the cart.
+  """
+  phone: String
+}
+
+"""
+Specifies the input fields to update the buyer information associated with a cart.
+"""
+input CartBuyerIdentityInput {
+  """
+  The country where the buyer is located.
+  """
+  countryCode: CountryCode
+
+  """
+  The access token used to identify the customer associated with the cart.
+  """
+  customerAccessToken: String
+
+  """
+  The email address of the buyer that is interacting with the cart.
+  """
+  email: String
+
+  """
+  The phone number of the buyer that is interacting with the cart.
+  """
+  phone: String
+}
+
+"""
+Return type for `cartBuyerIdentityUpdate` mutation.
+"""
+type CartBuyerIdentityUpdatePayload {
+  """
+  The updated cart.
+  """
+  cart: Cart
+
+  """
+  The list of errors that occurred from executing the mutation.
+  """
+  userErrors: [CartUserError!]!
+}
+
+"""
+The discount that has been applied to the cart line using a discount code.
+"""
+type CartCodeDiscountAllocation implements CartDiscountAllocation {
+  """
+  The code used to apply the discount.
+  """
+  code: String!
+
+  """
+  The discounted amount that has been applied to the cart line.
+  """
+  discountedAmount: MoneyV2!
+}
+
+"""
+Return type for `cartCreate` mutation.
+"""
+type CartCreatePayload {
+  """
+  The new cart.
+  """
+  cart: Cart
+
+  """
+  The list of errors that occurred from executing the mutation.
+  """
+  userErrors: [CartUserError!]!
+}
+
+"""
+The discounts that have been applied to the cart line.
+"""
+interface CartDiscountAllocation {
+  """
+  The discounted amount that has been applied to the cart line.
+  """
+  discountedAmount: MoneyV2!
+}
+
+"""
+The discount codes applied to the cart.
+"""
+type CartDiscountCode {
+  """
+  Whether the discount code is applicable to the cart's current contents.
+  """
+  applicable: Boolean!
+
+  """
+  The code for the discount.
+  """
+  code: String!
+}
+
+"""
+Return type for `cartDiscountCodesUpdate` mutation.
+"""
+type CartDiscountCodesUpdatePayload {
+  """
+  The updated cart.
+  """
+  cart: Cart
+
+  """
+  The list of errors that occurred from executing the mutation.
+  """
+  userErrors: [CartUserError!]!
+}
+
+"""
+Possible error codes that could be returned by CartUserError.
+"""
+enum CartErrorCode {
+  """
+  The input value is invalid.
+  """
+  INVALID
+
+  """
+  Merchandise line was not found in cart.
+  """
+  INVALID_MERCHANDISE_LINE
+
+  """
+  The input value should be less than the maximum value allowed.
+  """
+  LESS_THAN
+
+  """
+  Missing discount code.
+  """
+  MISSING_DISCOUNT_CODE
+
+  """
+  Missing note.
+  """
+  MISSING_NOTE
+}
+
+"""
+The estimated costs that the buyer will pay at checkout.
+"""
+type CartEstimatedCost {
+  """
+  The estimated amount, before taxes and discounts, for the customer to pay at checkout.
+  """
+  subtotalAmount: MoneyV2!
+
+  """
+  The estimated total amount for the customer to pay at checkout.
+  """
+  totalAmount: MoneyV2!
+
+  """
+  The estimated duty amount for the customer to pay at checkout.
+  """
+  totalDutyAmount: MoneyV2
+
+  """
+  The estimated tax amount for the customer to pay at checkout.
+  """
+  totalTaxAmount: MoneyV2
+}
+
+"""
+Specifies the input fields to create a cart.
+"""
+input CartInput {
+  """
+  An array of key-value pairs that contains additional information about the cart.
+  """
+  attributes: [AttributeInput!]
+
+  """
+  The customer associated with the cart.
+  """
+  buyerIdentity: CartBuyerIdentityInput
+
+  """
+  The discount codes to apply to the cart.
+  """
+  discountCodes: [String!]
+
+  """
+  A list of merchandise lines to add to the cart.
+  """
+  lines: [CartLineInput!]
+
+  """
+  A note that is associated with the cart. For example, the note can be a personalized message to the buyer.
+  """
+  note: String
+}
+
+"""
+Represents information about the merchandise in the cart.
+"""
+type CartLine implements Node {
+  """
+  The attributes associated with the cart line. Attributes are represented as key-value pairs.
+  """
+  attributes: [Attribute!]!
+
+  """
+  The discounts that have been applied to the cart line.
+  """
+  discountAllocations: [CartDiscountAllocation!]!
+
+  """
+  The estimated cost of the merchandise that the buyer will pay for at checkout.
+  """
+  estimatedCost: CartLineEstimatedCost!
+
+  """
+  A globally-unique identifier.
+  """
+  id: ID!
+
+  """
+  The merchandise that the buyer intends to purchase.
+  """
+  merchandise: Merchandise!
+
+  """
+  The quantity of the merchandise that the customer intends to purchase.
+  """
+  quantity: Int!
+
+  """
+  The selling plan associated with the cart line and the effect that each selling plan has on variants when they're purchased.
+  """
+  sellingPlanAllocation: SellingPlanAllocation
+}
+
+"""
+An auto-generated type for paginating through multiple CartLines.
+"""
+type CartLineConnection {
+  """
+  A list of edges.
+  """
+  edges: [CartLineEdge!]!
+
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+}
+
+"""
+An auto-generated type which holds one CartLine and a cursor during pagination.
+"""
+type CartLineEdge {
+  """
+  A cursor for use in pagination.
+  """
+  cursor: String!
+
+  """
+  The item at the end of CartLineEdge.
+  """
+  node: CartLine!
+}
+
+"""
+The estimated cost of the merchandise line that the buyer will pay at checkout.
+"""
+type CartLineEstimatedCost {
+  """
+  The estimated cost of the merchandise line before discounts.
+  """
+  subtotalAmount: MoneyV2!
+
+  """
+  The estimated total cost of the merchandise line, without discounts.
+  """
+  totalAmount: MoneyV2!
+}
+
+"""
+Specifies the input fields to create a merchandise line on a cart.
+"""
+input CartLineInput {
+  """
+  An array of key-value pairs that contains additional information about the merchandise line.
+  """
+  attributes: [AttributeInput!]
+
+  """
+  The identifier of the merchandise that the buyer intends to purchase.
+  """
+  merchandiseId: ID!
+
+  """
+  The quantity of the merchandise.
+  """
+  quantity: Int = 1
+
+  """
+  The identifier of the selling plan that the merchandise is being purchased with.
+  """
+  sellingPlanId: ID
+}
+
+"""
+Specifies the input fields to update a line item on a cart.
+"""
+input CartLineUpdateInput {
+  """
+  An array of key-value pairs that contains additional information about the merchandise line.
+  """
+  attributes: [AttributeInput!]
+
+  """
+  The identifier of the merchandise line.
+  """
+  id: ID!
+
+  """
+  The identifier of the merchandise for the line item.
+  """
+  merchandiseId: ID
+
+  """
+  The quantity of the line item.
+  """
+  quantity: Int
+
+  """
+  The identifier of the selling plan that the merchandise is being purchased with.
+  """
+  sellingPlanId: ID
+}
+
+"""
+Return type for `cartLinesAdd` mutation.
+"""
+type CartLinesAddPayload {
+  """
+  The updated cart.
+  """
+  cart: Cart
+
+  """
+  The list of errors that occurred from executing the mutation.
+  """
+  userErrors: [CartUserError!]!
+}
+
+"""
+Return type for `cartLinesRemove` mutation.
+"""
+type CartLinesRemovePayload {
+  """
+  The updated cart.
+  """
+  cart: Cart
+
+  """
+  The list of errors that occurred from executing the mutation.
+  """
+  userErrors: [CartUserError!]!
+}
+
+"""
+Return type for `cartLinesUpdate` mutation.
+"""
+type CartLinesUpdatePayload {
+  """
+  The updated cart.
+  """
+  cart: Cart
+
+  """
+  The list of errors that occurred from executing the mutation.
+  """
+  userErrors: [CartUserError!]!
+}
+
+"""
+Return type for `cartNoteUpdate` mutation.
+"""
+type CartNoteUpdatePayload {
+  """
+  The updated cart.
+  """
+  cart: Cart
+
+  """
+  The list of errors that occurred from executing the mutation.
+  """
+  userErrors: [CartUserError!]!
+}
+
+"""
+Represents an error that happens during execution of a cart mutation.
+"""
+type CartUserError implements DisplayableError {
+  """
+  The error code.
+  """
+  code: CartErrorCode
+
+  """
+  The path to the input field that caused the error.
+  """
+  field: [String!]
+
+  """
+  The error message.
+  """
+  message: String!
 }
 
 """
@@ -2033,7 +2593,7 @@ type CheckoutUserError implements DisplayableError {
 """
 A collection represents a grouping of products that a shop owner can create to organize them or make their shops easier to browse.
 """
-type Collection implements HasMetafields & Node {
+type Collection implements HasMetafields & Node & OnlineStorePublishable {
   """
   Stripped description of the collection, single line with HTML tags removed.
   """
@@ -2134,6 +2694,11 @@ type Collection implements HasMetafields & Node {
     """
     reverse: Boolean = false
   ): MetafieldConnection!
+
+  """
+  The URL used for viewing the resource on the shop's Online Store. Returns `null` if the resource is currently not published to the Online Store sales channel.
+  """
+  onlineStoreUrl: URL
 
   """
   List of products in the collection.
@@ -6360,6 +6925,11 @@ type MediaImage implements Media & Node {
 }
 
 """
+The merchandise to be purchased at checkout.
+"""
+union Merchandise = ProductVariant
+
+"""
 Metafields represent custom metadata attached to a resource. Metafields can be sorted into namespaces and are
 comprised of keys, values, and value types.
 """
@@ -6607,6 +7177,121 @@ type MoneyV2Edge {
 The schema’s entry-point for mutations. This acts as the public, top-level API from which all mutation queries must start.
 """
 type Mutation {
+  """
+  Updates the attributes on a cart.
+  """
+  cartAttributesUpdate(
+    """
+    An array of key-value pairs that contains additional information about the cart.
+    """
+    attributes: [AttributeInput!]!
+
+    """
+    The ID of the cart.
+    """
+    cartId: ID!
+  ): CartAttributesUpdatePayload
+
+  """
+  Updates customer information associated with a cart.
+  """
+  cartBuyerIdentityUpdate(
+    """
+    The customer associated with the cart.
+    """
+    buyerIdentity: CartBuyerIdentityInput!
+
+    """
+    The ID of the cart.
+    """
+    cartId: ID!
+  ): CartBuyerIdentityUpdatePayload
+
+  """
+  Creates a new cart.
+  """
+  cartCreate(
+    """
+    The fields used to create a cart.
+    """
+    input: CartInput
+  ): CartCreatePayload
+
+  """
+  Updates the discount codes applied to the cart.
+  """
+  cartDiscountCodesUpdate(
+    """
+    The ID of the cart.
+    """
+    cartId: ID!
+
+    """
+    The discount codes to apply to the cart.
+    """
+    discountCodes: [String!]
+  ): CartDiscountCodesUpdatePayload
+
+  """
+  Adds a merchandise line to the cart.
+  """
+  cartLinesAdd(
+    """
+    The ID of the cart.
+    """
+    cartId: ID!
+
+    """
+    A list of merchandise lines to add to the cart.
+    """
+    lines: [CartLineInput!]!
+  ): CartLinesAddPayload
+
+  """
+  Removes one or more merchandise lines from the cart.
+  """
+  cartLinesRemove(
+    """
+    The ID of the cart.
+    """
+    cartId: ID!
+
+    """
+    The merchandise line IDs to remove.
+    """
+    lineIds: [ID!]!
+  ): CartLinesRemovePayload
+
+  """
+  Updates one or more merchandise lines on a cart.
+  """
+  cartLinesUpdate(
+    """
+    The ID of the cart.
+    """
+    cartId: ID!
+
+    """
+    The merchandise lines to update.
+    """
+    lines: [CartLineUpdateInput!]!
+  ): CartLinesUpdatePayload
+
+  """
+  Updates the note on the cart.
+  """
+  cartNoteUpdate(
+    """
+    The ID of the cart.
+    """
+    cartId: ID!
+
+    """
+    The note on the cart.
+    """
+    note: String
+  ): CartNoteUpdatePayload
+
   """
   Updates the attributes of a checkout if `allowPartialAddresses` is `true`.
   """
@@ -7251,6 +7936,16 @@ interface Node {
 }
 
 """
+Represents a resource that can be published to the Online Store sales channel.
+"""
+interface OnlineStorePublishable {
+  """
+  The URL used for viewing the resource on the shop's Online Store. Returns `null` if the resource is currently not published to the Online Store sales channel.
+  """
+  onlineStoreUrl: URL
+}
+
+"""
 An order is a customer’s completed request to purchase one or more products from a shop. An order is created when a customer completes the checkout process, during which time they provides an email address, billing address and payment information.
 """
 type Order implements HasMetafields & Node {
@@ -7799,7 +8494,7 @@ enum OrderSortKeys {
 """
 Shopify merchants can create pages to hold static HTML content. Each Page object represents a custom page on the online store.
 """
-type Page implements HasMetafields & Node {
+type Page implements HasMetafields & Node & OnlineStorePublishable {
   """
   The description of the page, complete with HTML formatting.
   """
@@ -7874,6 +8569,11 @@ type Page implements HasMetafields & Node {
     """
     reverse: Boolean = false
   ): MetafieldConnection!
+
+  """
+  The URL used for viewing the resource on the shop's Online Store. Returns `null` if the resource is currently not published to the Online Store sales channel.
+  """
+  onlineStoreUrl: URL
 
   """
   The page's SEO information.
@@ -8095,6 +8795,11 @@ enum PaymentTokenType {
   SHOPIFY_PAY
 
   """
+  Stripe token type.
+  """
+  STRIPE_VAULT_TOKEN
+
+  """
   Vault payment token type.
   """
   VAULT
@@ -8119,7 +8824,7 @@ union PricingValue = MoneyV2 | PricingPercentageValue
 A product represents an individual item for sale in a Shopify store. Products are often physical, but they don't have to be.
 For example, a digital download (such as a movie, music or ebook file) also qualifies as a product, as do services (such as equipment rental, work for hire, customization of another product or an extended warranty).
 """
-type Product implements HasMetafields & Node {
+type Product implements HasMetafields & Node & OnlineStorePublishable {
   """
   Indicates if at least one product variant is available for sale.
   """
@@ -9220,6 +9925,21 @@ type QueryRoot {
   ): ArticleConnection!
 
   """
+  Fetch a specific `Blog` by one of its unique attributes.
+  """
+  blog(
+    """
+    The handle of the `Blog`.
+    """
+    handle: String
+
+    """
+    The ID of the `Blog`.
+    """
+    id: ID
+  ): Blog
+
+  """
   Find a blog by its handle.
   """
   blogByHandle(
@@ -9275,6 +9995,31 @@ type QueryRoot {
     """
     sortKey: BlogSortKeys = ID
   ): BlogConnection!
+
+  """
+  Find a cart by its ID.
+  """
+  cart(
+    """
+    The id of the cart.
+    """
+    id: ID!
+  ): Cart
+
+  """
+  Fetch a specific `Collection` by one of its unique attributes.
+  """
+  collection(
+    """
+    The handle of the `Collection`.
+    """
+    handle: String
+
+    """
+    The ID of the `Collection`.
+    """
+    id: ID
+  ): Collection
 
   """
   Find a collection by its handle.
@@ -9410,6 +10155,21 @@ type QueryRoot {
   ): [Node]!
 
   """
+  Fetch a specific `Page` by one of its unique attributes.
+  """
+  page(
+    """
+    The handle of the `Page`.
+    """
+    handle: String
+
+    """
+    The ID of the `Page`.
+    """
+    id: ID
+  ): Page
+
+  """
   Find a page by its handle.
   """
   pageByHandle(
@@ -9465,6 +10225,21 @@ type QueryRoot {
     """
     sortKey: PageSortKeys = ID
   ): PageConnection!
+
+  """
+  Fetch a specific `Product` by one of its unique attributes.
+  """
+  product(
+    """
+    The handle of the `Product`.
+    """
+    handle: String
+
+    """
+    The ID of the `Product`.
+    """
+    id: ID
+  ): Product
 
   """
   Find a product by its handle.

@@ -24,7 +24,7 @@ export default class Document extends NextDocument {
             rel="stylesheet"
           />
         </Head>
-        <body className="font-sans">
+        <body className="font-sans bg-teal-200">
           <Main />
           <NextScript />
         </body>

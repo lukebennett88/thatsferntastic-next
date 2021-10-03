@@ -273,6 +273,13 @@ export default function ProductPage({
                 />
               </div>
 
+              {/* Quantity picker */}
+              <QuantityPicker
+                available={variant.node.quantityAvailable}
+                quantity={quantity}
+                setQuantity={setQuantity}
+              />
+
               <div className="mt-6">
                 {/* Variants */}
                 {hasVariants ? (
@@ -289,13 +296,6 @@ export default function ProductPage({
                     ))}
                   </fieldset>
                 ) : null}
-
-                {/* Quantity picker */}
-                <QuantityPicker
-                  available={variant.node.quantityAvailable}
-                  quantity={quantity}
-                  setQuantity={setQuantity}
-                />
 
                 {/* Add to cart */}
                 <div className="flex mt-10">

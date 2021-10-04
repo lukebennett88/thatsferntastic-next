@@ -25,6 +25,7 @@
     "@ts-gql/eslint-plugin": "^0.7.2",
     "@ts-gql/next": "^15.0.0",
     "@ts-gql/tag": "^0.5.3",
+    "algoliasearch": "^4.10.5",
     "cross-fetch": "^3.1.4",
     "dayjs": "^1.10.7",
     "dotenv": "^10.0.0",

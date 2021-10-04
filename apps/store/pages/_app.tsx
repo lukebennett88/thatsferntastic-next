@@ -3,7 +3,6 @@ import '../styles/globals.css';
 import { ApolloProvider } from '@apollo/client';
 import type { AppProps } from 'next/app';
 import { DefaultSeo } from 'next-seo';
-import { Toaster } from 'react-hot-toast';
 
 import { Layout } from '../components/layout';
 import { StoreProvider } from '../context/store-context';
@@ -31,7 +30,6 @@ export default function App({
           </AppLayout>
         </StoreProvider>
       </ApolloProvider>
-      <Toaster />
     </>
   );
 }

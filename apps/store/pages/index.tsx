@@ -1,32 +1,45 @@
 import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 
-import { CategorySection } from '../components/category-section';
+// import { CategorySection } from '../components/category-section';
 import { CollectionSection } from '../components/collection-section';
-import { FeaturedSection } from '../components/featured-section';
-import { Hero } from '../components/hero';
+// import { FeaturedSection } from '../components/featured-section';
+// import { Hero } from '../components/hero';
+import { TopSellingProducts } from '../components/top-selling-products';
 import { Collection, getAllCollections } from '../graphql/get-all-collections';
+import {
+  getTopSellingProducts,
+  TopSellingProducts as TopSellingProductsType,
+} from '../graphql/get-top-selling-products';
 import { addApolloState, initialiseTsGql } from '../utils/apollo-client';
 interface HomePageProps {
   collections: Array<Collection>;
+  topSellingProducts: TopSellingProductsType;
 }
 
 export const getServerSideProps: GetServerSideProps<HomePageProps> =
   async () => {
     const client = initialiseTsGql();
     const collections = await getAllCollections(client);
+    const topSellingProducts = await getTopSellingProducts({
+      client,
+      first: 8,
+    });
     return addApolloState(client, {
       props: {
         collections,
+        topSellingProducts,
       },
     });
   };
 
 export default function HomePage({
   collections,
+  topSellingProducts,
 }: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
   return (
     <div className="pb-24 sm:pb-32">
       {/* <Hero /> */}
+      <TopSellingProducts topSellingProducts={topSellingProducts} />
       {/* <CategorySection /> */}
       {/* <FeaturedSection
         id="social-impact-heading"

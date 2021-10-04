@@ -17,11 +17,17 @@ const TOP_SELLING_PRODUCTS = gql`
 export type TopSellingProducts =
   typeof TOP_SELLING_PRODUCTS['___type']['result']['products']['edges'];
 
-export async function getTopSellingProducts(
-  client: Client,
-  productType?: string,
-  first?: number
-): Promise<TopSellingProducts | void> {
+interface GetTopSellingProducts {
+  client: Client;
+  first?: number;
+  productType?: string;
+}
+
+export async function getTopSellingProducts({
+  client,
+  first,
+  productType,
+}: GetTopSellingProducts): Promise<TopSellingProducts | void> {
   try {
     const { data } = await client.query({
       query: TOP_SELLING_PRODUCTS,

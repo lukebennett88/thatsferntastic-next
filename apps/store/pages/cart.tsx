@@ -153,6 +153,7 @@ export default function CartPage(): JSX.Element {
               {checkout?.lineItems.map((product, productIdx) => (
                 <CartPreviewItem
                   key={product.id}
+                  // TODO: fix types here
                   product={product as any}
                   productIdx={productIdx}
                 />

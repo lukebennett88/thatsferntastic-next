@@ -9,7 +9,4 @@ const nextConfig = {
   reactStrictMode: true,
 };
 
-module.exports =
-  process.env.NODE_ENV === 'production'
-    ? withPreconstruct({ ...nextConfig })
-    : withTsGql(withPreconstruct({ ...nextConfig }));
+module.exports = withTsGql(withPreconstruct({ ...nextConfig }));

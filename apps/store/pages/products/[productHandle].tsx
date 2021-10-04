@@ -9,6 +9,7 @@ import { useRouter } from 'next/router';
 import { NextSeo, ProductJsonLd } from 'next-seo';
 import * as React from 'react';
 
+import { AddToCartPreview } from '../../components/add-to-cart-preview';
 import { QuantityPicker } from '../../components/quantity-picker';
 import { Spinner } from '../../components/spinner';
 import { VariantSelect } from '../../components/variant-select';
@@ -154,14 +155,12 @@ export default function ProductPage({
 
   const { addVariantToCart, checkout } = useStoreContext();
 
-  const addToCart = async (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
-    event.preventDefault();
+  const addToCart = async () => {
     await addVariantToCart(productVariant.node.id, quantity);
   };
 
-  const { isLoading } = useStoreContext();
+  const { isLoading, didJustAddToCart, setDidJustAddToCart } =
+    useStoreContext();
 
   return (
     <>
@@ -440,6 +439,10 @@ export default function ProductPage({
           </section>
         </div>
       </main>
+      <AddToCartPreview
+        show={didJustAddToCart}
+        dismiss={() => setDidJustAddToCart(false)}
+      />
     </>
   );
 }

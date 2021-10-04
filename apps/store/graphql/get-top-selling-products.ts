@@ -7,35 +7,7 @@ const TOP_SELLING_PRODUCTS = gql`
     products(first: $first, sortKey: BEST_SELLING, query: $query) {
       edges {
         node {
-          id
-          compareAtPriceRange {
-            minVariantPrice {
-              amount
-            }
-          }
-          handle
-          images(first: 1) {
-            edges {
-              node {
-                altText
-                id
-                originalSrc
-              }
-            }
-          }
-          priceRange {
-            minVariantPrice {
-              amount
-            }
-          }
-          title
-          variants(first: 1) {
-            edges {
-              node {
-                id
-              }
-            }
-          }
+          ...Product_Fragment
         }
       }
     }

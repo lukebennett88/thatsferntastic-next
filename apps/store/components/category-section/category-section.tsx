@@ -42,7 +42,7 @@ export function CategorySection(): JSX.Element {
       <div className="px-4 sm:px-6 sm:flex sm:items-center sm:justify-between lg:px-8 xl:px-0">
         <h2
           id="category-heading"
-          className="text-2xl font-extrabold tracking-tight text-gray-900"
+          className="font-mono text-2xl tracking-tight text-pink-600"
         >
           Shop by Category
         </h2>

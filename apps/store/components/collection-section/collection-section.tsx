@@ -16,7 +16,7 @@ export function CollectionSection({
     >
       <h2
         id="collection-heading"
-        className="text-2xl font-extrabold tracking-tight text-gray-900"
+        className="font-mono text-2xl tracking-tight text-pink-600"
       >
         Shop by Collection
       </h2>
@@ -25,7 +25,7 @@ export function CollectionSection({
         collection inspired by the natural world.
       </p>
 
-      <div className="mt-10 space-y-12 lg:space-y-0 lg:grid lg:grid-cols-3 lg:gap-x-8">
+      <div className="mt-10 space-y-12 lg:space-y-0 lg:grid lg:grid-cols-3 lg:gap-x-8 lg:gap-y-6">
         {collections.map(({ node: collection }) => (
           <Link key={collection.id} href={`/collections/${collection.handle}`}>
             <a className="block group">

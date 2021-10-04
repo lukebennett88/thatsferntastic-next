@@ -12,18 +12,31 @@ const client = ShopifyBuy.buildClient(
   fetch
 );
 
+export type AddVariantToCart = (
+  variantId: string,
+  quantity: number
+) => Promise<void>;
+export type Checkout = ShopifyBuy.Cart | undefined;
+export type Client = ShopifyBuy.Client | undefined;
+export type RemoveLineItem = (
+  checkoutId: string,
+  lineItemId: string
+) => Promise<void>;
+export type UpdateLineItem = (
+  checkoutId: string,
+  lineItemId: string,
+  quantity: number
+) => Promise<void>;
+
 interface StoreState {
-  addVariantToCart: (variantId: string, quantity: number) => Promise<void>;
-  checkout: ShopifyBuy.Cart | undefined;
-  client: ShopifyBuy.Client;
+  addVariantToCart: AddVariantToCart;
+  checkout: Checkout;
+  client: Client;
   didJustAddToCart: boolean;
   isLoading: boolean;
-  removeLineItem: (checkoutId: string, lineItemId: string) => Promise<void>;
-  updateLineItem: (
-    checkoutId: string,
-    lineItemId: string,
-    quantity: number
-  ) => Promise<void>;
+  removeLineItem: RemoveLineItem;
+  updateLineItem: UpdateLineItem;
+  setDidJustAddToCart: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const StoreContext = React.createContext<StoreState | undefined>(undefined);
@@ -148,6 +161,7 @@ export function StoreProvider({ children }: StoreProviderProps): JSX.Element {
         didJustAddToCart,
         isLoading,
         removeLineItem,
+        setDidJustAddToCart,
         updateLineItem,
       }}
     >

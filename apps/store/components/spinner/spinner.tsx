@@ -15,7 +15,7 @@ export function Spinner({
       className={classNames(
         color === 'white' && 'text-white',
         color === 'pink' && 'text-pink-500',
-        'w-5 h-5 mr-3 -ml-1 animate-spin'
+        'w-5 h-5 animate-spin'
       )}
       xmlns="http://www.w3.org/2000/svg"
       fill="none"

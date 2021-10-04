@@ -21,18 +21,20 @@ function CartPreviewItem({
   const [isLoading, setIsLoading] = React.useState(false);
   return (
     <li className="flex py-6 sm:py-10">
-      <div className="relative flex-shrink-0">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={product.variant.image?.src}
-          alt={product.variant.image?.altText || ''}
-          className="object-cover object-center w-24 h-24 rounded-md sm:w-48 sm:h-48"
-        />
-        {isLoading ? (
-          <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-40">
-            <Spinner color="pink" />
-          </div>
-        ) : null}
+      <div className="flex-shrink-0">
+        <div className="relative">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={product.variant.image?.src}
+            alt={product.variant.image?.altText || ''}
+            className="object-cover object-center w-24 h-24 rounded-md sm:w-48 sm:h-48"
+          />
+          {isLoading ? (
+            <div className="absolute inset-0 flex items-center justify-center w-full bg-white bg-opacity-40">
+              <Spinner />
+            </div>
+          ) : null}
+        </div>
       </div>
 
       <div className="flex flex-col justify-between flex-1 ml-4 sm:ml-6">
@@ -208,8 +210,14 @@ export default function CartPage(): JSX.Element {
                 // @ts-expect-error: Types don't have webUrl for some reason
                 href={checkout?.webUrl as string}
               >
-                {isLoading ? <Spinner /> : null}
-                Checkout
+                <span className="relative flex items-center justify-center">
+                  {isLoading ? (
+                    <span className="absolute inset-y-0 -translate-x-full -left-3 transform-gpu">
+                      <Spinner />
+                    </span>
+                  ) : null}
+                  Checkout
+                </span>
               </Button>
             </div>
           </section>

@@ -307,8 +307,12 @@ export default function ProductPage({
                     disabled={!available}
                     onClick={addToCart}
                   >
-                    <span className="flex items-center justify-center">
-                      {isLoading ? <Spinner /> : null}
+                    <span className="relative flex items-center justify-center">
+                      {isLoading ? (
+                        <span className="absolute inset-y-0 -translate-x-full -left-3 transform-gpu">
+                          <Spinner />
+                        </span>
+                      ) : null}
                       {available ? 'Add to cart' : 'Out of stock'}
                     </span>
                   </Button>

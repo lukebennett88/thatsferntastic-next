@@ -1,10 +1,14 @@
+import { classNames } from '@thatsferntastic/utils';
 import * as React from 'react';
 
-function classNames(...classes: Array<string | unknown>): string {
-  return classes.filter(Boolean).join(' ');
-}
+import type {
+  PolymorphicComponentPropsWithRef,
+  PolymorphicRef,
+  WithDisplayName,
+} from '../../polymorphic/src';
 
-type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+export type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+export type Width = 'auto' | 'fixed' | 'full';
 
 const sizeClasses = (size: Size) => {
   switch (size) {
@@ -23,28 +27,70 @@ const sizeClasses = (size: Size) => {
   }
 };
 
-interface ButtonProps {
-  as: string | React.ComponentType<any>;
-  size: Size;
+const widthClasses = (width: Width) => {
+  switch (width) {
+    case 'fixed':
+      return 'max-w-xs w-full';
+    case 'full':
+      return 'w-full';
+    case 'auto':
+    default:
+      break;
+  }
+};
+
+interface ButtonClasses {
+  size?: Size;
+  width?: Width;
+  disabled?: boolean;
 }
 
-export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ as: Tag = 'button', children, size = 'md', ...rest }, ref) => {
+export function buttonClasses({
+  size = 'lg',
+  width = 'auto',
+  disabled,
+}: ButtonClasses = {}): string {
+  return classNames(
+    sizeClasses(size),
+    widthClasses(width),
+    disabled && 'cursor-not-allowed text-gray-700 bg-gray-200',
+    !disabled && 'hover:text-pink-600 hover:bg-pink-100',
+    !disabled && 'text-pink-700 bg-pink-200',
+    'inline-flex items-center justify-center font-medium font-mono border border-transparent rounded-full text-center transition duration-300 ease-in-out transform-gpu',
+    'focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500'
+  );
+}
+interface ButtonProps {
+  children: React.ReactNode;
+  size?: Size;
+  width?: Width;
+}
+
+type PolymorphicButtonProps<C extends React.ElementType> =
+  PolymorphicComponentPropsWithRef<C, ButtonProps>;
+
+type ButtonComponent = <C extends React.ElementType = 'button'>(
+  props: PolymorphicButtonProps<C>
+) => React.ReactElement | null;
+
+type ButtonComponentWithDisplayName = ButtonComponent & WithDisplayName;
+
+export const Button: ButtonComponentWithDisplayName = React.forwardRef(
+  <C extends React.ElementType = 'button'>(
+    { as, children, size, width, disabled, ...rest }: PolymorphicButtonProps<C>,
+    ref?: PolymorphicRef<C>
+  ) => {
+    const Component = as || 'button';
+
     return (
-      <Tag
-        {...rest}
+      <Component
         ref={ref}
-        type={Tag === 'button' && 'button'}
-        className={classNames(
-          sizeClasses(size),
-          'font-medium text-white bg-pink-600 border border-transparent rounded-full shadow-sm',
-          'hover:bg-pink-700',
-          'focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500'
-        )}
+        className={buttonClasses({ size, width, disabled })}
+        disabled={disabled}
+        {...rest}
       >
-        <button></button>
         {children}
-      </Tag>
+      </Component>
     );
   }
 );

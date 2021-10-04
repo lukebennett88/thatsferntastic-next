@@ -19,17 +19,13 @@ export type ProductRecommendations =
  */
 export async function getProductRecommendations(
   client: Client,
-  productId: string,
-  variantsFirst?: number,
-  imagesFirst?: number
+  productId: string
 ): Promise<ProductRecommendations | void> {
   try {
     const { data } = await client.query({
       query: GET_PRODUCT_RECOMMENDATIONS,
       variables: {
         productId,
-        variantsFirst,
-        imagesFirst,
       },
     });
     return data?.productRecommendations;

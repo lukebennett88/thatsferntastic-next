@@ -1,10 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
 import { Dialog, Tab, Transition } from '@headlessui/react';
 import { XIcon } from '@heroicons/react/outline';
-import NextLink from 'next/link';
+import { classNames } from '@thatsferntastic/utils';
 import * as React from 'react';
-
-import { classNames } from '../../utils';
 
 interface Navigation {
   categories: {

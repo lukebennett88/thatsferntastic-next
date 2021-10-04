@@ -1,13 +1,14 @@
 /* eslint-disable @next/next/no-img-element */
 import { Disclosure, Tab } from '@headlessui/react';
 import { HeartIcon, MinusSmIcon, PlusSmIcon } from '@heroicons/react/outline';
+import { Button } from '@thatsferntastic/button';
+import { classNames, formatPrice } from '@thatsferntastic/utils';
 import isEqual from 'lodash/isEqual';
 import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { useRouter } from 'next/router';
 import { NextSeo, ProductJsonLd } from 'next-seo';
 import * as React from 'react';
 
-import { Button } from '../../components/button';
 import { QuantityPicker } from '../../components/quantity-picker';
 import { Spinner } from '../../components/spinner';
 import { VariantSelect } from '../../components/variant-select';
@@ -16,7 +17,7 @@ import {
   getProductByHandle,
   Product,
 } from '../../graphql/get-product-by-handle';
-import { classNames, formatPrice, variantForOptions } from '../../utils';
+import { variantForOptions } from '../../utils';
 import { addApolloState, initialiseTsGql } from '../../utils/apollo-client';
 import { siteSettings } from '../../utils/constants';
 

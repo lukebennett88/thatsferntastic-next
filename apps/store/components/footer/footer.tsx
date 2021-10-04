@@ -1,5 +1,7 @@
+import { Button } from '@thatsferntastic/button';
+
 import { siteSettings } from '../../utils/constants';
-import { Button } from '../button';
+
 const footerNavigation = {
   products: [
     { name: 'Bags', href: '#' },

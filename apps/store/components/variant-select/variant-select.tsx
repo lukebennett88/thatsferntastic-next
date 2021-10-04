@@ -1,9 +1,9 @@
 import { Listbox, Transition } from '@headlessui/react';
 import { CheckIcon, SelectorIcon } from '@heroicons/react/solid';
+import { classNames } from '@thatsferntastic/utils';
 import * as React from 'react';
 
 import { Product } from '../../graphql/get-product-by-handle';
-import { classNames } from '../../utils';
 
 type Variant = NonNullable<Product>['variants']['edges'][number];
 

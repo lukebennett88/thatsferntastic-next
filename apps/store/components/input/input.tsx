@@ -1,6 +1,6 @@
+import { classNames } from '@thatsferntastic/utils';
 import * as React from 'react';
 
-import { classNames } from '../../utils';
 import { ErrorMessage } from '../error-message';
 
 interface InputProps {

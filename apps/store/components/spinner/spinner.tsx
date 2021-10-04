@@ -1,4 +1,4 @@
-import { classNames } from '../../utils';
+import { classNames } from '@thatsferntastic/utils';
 
 interface SpinnerProps {
   color?: 'white' | 'pink';

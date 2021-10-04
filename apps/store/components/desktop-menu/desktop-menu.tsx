@@ -5,13 +5,13 @@ import {
   SearchIcon,
   ShoppingBagIcon,
 } from '@heroicons/react/outline';
+import { Button } from '@thatsferntastic/button';
+import { classNames } from '@thatsferntastic/utils';
 import Link from 'next/link';
 import * as React from 'react';
 
 import { useStoreContext } from '../../context/store-context';
 import { LineItem } from '../../types';
-import { classNames } from '../../utils';
-import { buttonClasses } from '../../utils/hooks/button-styles';
 import { useCartCount } from '../../utils/hooks/use-cart-count/use-cart-count';
 
 interface Navigation {
@@ -302,13 +302,10 @@ export function DesktopMenu({
                               />
                             ))}
                           </ul>
-                          <Link href="/cart">
-                            <a
-                              onClick={() => close()}
-                              className={buttonClasses({ width: 'full' })}
-                            >
+                          <Link href="/cart" passHref>
+                            <Button onClick={() => close()} width="full">
                               View cart
-                            </a>
+                            </Button>
                           </Link>
                         </div>
                       </>

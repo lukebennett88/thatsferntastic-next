@@ -1,6 +1,5 @@
+import { Button } from '@thatsferntastic/button';
 import Link from 'next/link';
-
-import { Button } from '../button';
 
 export function Hero(): JSX.Element {
   return (

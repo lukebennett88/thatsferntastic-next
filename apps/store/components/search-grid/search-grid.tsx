@@ -1,7 +1,6 @@
 import { SearchIcon } from '@heroicons/react/outline';
+import { slugify } from '@thatsferntastic/utils';
 import * as React from 'react';
-
-import { slugify } from '../../utils';
 
 interface SearchGridProps {
   children: React.ReactNode;

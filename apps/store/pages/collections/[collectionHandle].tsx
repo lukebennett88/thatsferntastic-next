@@ -1,13 +1,13 @@
 import { Dialog, Disclosure, Transition } from '@headlessui/react';
 import { XIcon } from '@heroicons/react/outline';
 import { ChevronDownIcon, PlusSmIcon } from '@heroicons/react/solid';
+import { classNames, formatPrice } from '@thatsferntastic/utils';
 import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import NextImage from 'next/image';
 import * as React from 'react';
 
 import type { Collection } from '../../graphql/get-collection-by-handle';
 import { getCollectionByHandle } from '../../graphql/get-collection-by-handle';
-import { classNames, formatPrice } from '../../utils';
 import { addApolloState, initialiseTsGql } from '../../utils/apollo-client';
 
 interface CollectionProps {

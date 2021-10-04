@@ -6,10 +6,12 @@ import {
   ShoppingBagIcon,
 } from '@heroicons/react/outline';
 import { classNames } from '@thatsferntastic/utils';
+import Image from 'next/image';
 import Link from 'next/link';
 import * as React from 'react';
 
 import navigation from '../../components/navigation/navigation.json';
+import { siteSettings } from '../../utils/constants';
 import { useCartCount } from '../../utils/hooks/use-cart-count/use-cart-count';
 
 interface DesktopMenuProps {
@@ -36,10 +38,12 @@ export function DesktopMenu({ setOpen }: DesktopMenuProps): JSX.Element {
             <div className="flex ml-4 lg:ml-0">
               <Link href="/">
                 <a>
-                  <span className="sr-only">Workflow</span>
-                  <img
+                  <span className="sr-only">{siteSettings.title}</span>
+                  <Image
+                    width={32}
+                    height={32}
                     className="w-auto h-8"
-                    src="https://tailwindui.com/img/logos/workflow-mark.svg?color=pink&shade=600"
+                    src="/favicon.png"
                     alt=""
                   />
                 </a>

@@ -2,6 +2,7 @@ import Link from 'next/link';
 import * as React from 'react';
 
 import { NextPageWithLayoutProps } from '../types';
+import { siteSettings } from '../utils/constants';
 
 const nav = [
   {
@@ -27,7 +28,7 @@ const NotFoundPage: NextPageWithLayoutProps = () => {
             <div className="flex-shrink-0 pt-10 sm:pt-16">
               <Link href="/">
                 <a className="inline-flex">
-                  <span className="sr-only">Workflow</span>
+                  <span className="sr-only">{siteSettings.title}</span>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     className="w-auto h-12"

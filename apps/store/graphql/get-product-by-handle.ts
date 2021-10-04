@@ -4,14 +4,14 @@ import type { Client } from '../utils/apollo-client';
 
 export const GET_PRODUCT_BY_HANDLE = gql`
   query GetProductByHandle($handle: String!) {
-    productByHandle(handle: $handle) {
+    product(handle: $handle) {
       ...Product_Fragment
     }
   }
 ` as import('../../../__generated__/ts-gql/GetProductByHandle').type;
 
 export type Product =
-  typeof GET_PRODUCT_BY_HANDLE['___type']['result']['productByHandle'];
+  typeof GET_PRODUCT_BY_HANDLE['___type']['result']['product'];
 
 export async function getProductByHandle(
   client: Client,
@@ -24,7 +24,7 @@ export async function getProductByHandle(
         handle,
       },
     });
-    return data?.productByHandle;
+    return data?.product;
   } catch (error) {
     console.error(error);
   }

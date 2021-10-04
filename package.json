@@ -13,9 +13,6 @@
     "lint:fix": "eslint --fix .",
     "lint": "eslint .",
     "postinstall": "preconstruct dev && manypkg check && ts-gql build",
-    "test:coverage": "jest --coverage",
-    "test:watch": "jest --watch",
-    "test": "jest",
     "typecheck": "manypkg exec tsc --noEmit",
     "ts-gql:build": "ts-gql build",
     "ts-gql:watch": "ts-gql watch"

@@ -288,25 +288,45 @@ export function DesktopMenu({
                   leaveFrom="opacity-100"
                   leaveTo="opacity-0"
                 >
-                  <Popover.Panel className="absolute top-16 inset-x-0 mt-px pb-6 bg-white shadow-lg sm:px-2 lg:top-full lg:left-auto lg:right-0 lg:mt-3 lg:-mr-1.5 lg:w-80 lg:rounded-lg lg:ring-1 lg:ring-black lg:ring-opacity-5 z-30">
+                  <Popover.Panel
+                    className={classNames(
+                      !checkout?.lineItems.length && 'pt-6',
+                      'absolute top-16 inset-x-0 mt-px pb-6 bg-white shadow-lg sm:px-2 lg:top-full lg:left-auto lg:right-0 lg:mt-3 lg:-mr-1.5 lg:w-80 lg:rounded-lg lg:ring-1 lg:ring-black lg:ring-opacity-5 z-30'
+                    )}
+                  >
                     {({ close }) => (
                       <>
-                        <h2 className="sr-only">Shopping Cart</h2>
-
                         <div className="max-w-2xl px-4 mx-auto">
-                          <ul role="list" className="divide-y divide-gray-200">
-                            {checkout?.lineItems.map(lineItem => (
-                              <ProductPreview
-                                key={lineItem.id}
-                                lineItem={lineItem as any}
-                              />
-                            ))}
-                          </ul>
-                          <Link href="/cart" passHref>
-                            <Button onClick={() => close()} width="full">
-                              View cart
-                            </Button>
-                          </Link>
+                          {checkout?.lineItems.length ? (
+                            <>
+                              <h2 className="sr-only">Shopping Cart</h2>
+                              <ul
+                                role="list"
+                                className="divide-y divide-gray-200"
+                              >
+                                {checkout?.lineItems.map(lineItem => (
+                                  <ProductPreview
+                                    key={lineItem.id}
+                                    // TODO: fix types here
+                                    lineItem={lineItem as any}
+                                  />
+                                ))}
+                              </ul>
+                              <Link href="/cart" passHref>
+                                <Button
+                                  as="a"
+                                  onClick={() => close()}
+                                  width="full"
+                                >
+                                  View cart
+                                </Button>
+                              </Link>
+                            </>
+                          ) : (
+                            <h2 className="text-sm font-medium text-center text-gray-900">
+                              Cart is empty
+                            </h2>
+                          )}
                         </div>
                       </>
                     )}

@@ -36,7 +36,7 @@ interface StoreState {
   isLoading: boolean;
   removeLineItem: RemoveLineItem;
   updateLineItem: UpdateLineItem;
-  setDidJustAddToCart: React.Dispatch<React.SetStateAction<boolean>>;
+  closeCart: () => void;
 }
 
 const StoreContext = React.createContext<StoreState | undefined>(undefined);
@@ -52,6 +52,7 @@ export function StoreProvider({ children }: StoreProviderProps): JSX.Element {
   const [checkout, setCheckout] = React.useState<ShopifyBuy.Cart>();
   const [isLoading, setIsLoading] = React.useState(false);
   const [didJustAddToCart, setDidJustAddToCart] = React.useState(false);
+  const closeCart = () => setDidJustAddToCart(false);
 
   const setCheckoutItem = (checkout: ShopifyBuy.Cart) => {
     if (isBrowser) {
@@ -108,7 +109,7 @@ export function StoreProvider({ children }: StoreProviderProps): JSX.Element {
       setCheckout(newCheckout);
       setIsLoading(false);
       setDidJustAddToCart(true);
-      setTimeout(() => setDidJustAddToCart(false), 3000);
+      setTimeout(closeCart, 3000);
     } catch (error) {
       console.error('Error in addVariantToCart:', error);
       setIsLoading(false);
@@ -161,7 +162,7 @@ export function StoreProvider({ children }: StoreProviderProps): JSX.Element {
         didJustAddToCart,
         isLoading,
         removeLineItem,
-        setDidJustAddToCart,
+        closeCart,
         updateLineItem,
       }}
     >

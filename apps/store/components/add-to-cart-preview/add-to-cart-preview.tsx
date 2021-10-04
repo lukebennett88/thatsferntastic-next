@@ -67,22 +67,15 @@ function LineItem({ checkoutId, lineItem, removeLineItem }: LineItemProps) {
   );
 }
 
-interface AddToCartPreviewProps {
-  show: boolean;
-  dismiss: () => void;
-}
-
-export function AddToCartPreview({
-  show,
-  dismiss,
-}: AddToCartPreviewProps): JSX.Element {
-  const { checkout, removeLineItem } = useStoreContext();
+export function AddToCartPreview(): JSX.Element {
+  const { checkout, closeCart, didJustAddToCart, removeLineItem } =
+    useStoreContext();
   return (
-    <Transition.Root show={show} as={React.Fragment}>
+    <Transition.Root show={didJustAddToCart} as={React.Fragment}>
       <Dialog
         as="div"
         className="fixed inset-0 z-30 overflow-hidden"
-        onClose={dismiss}
+        onClose={closeCart}
       >
         <div className="absolute inset-0 overflow-hidden">
           <Transition.Child
@@ -118,7 +111,7 @@ export function AddToCartPreview({
                         <button
                           type="button"
                           className="p-2 -m-2 text-gray-400 hover:text-gray-500"
-                          onClick={dismiss}
+                          onClick={closeCart}
                         >
                           <span className="sr-only">Close panel</span>
                           <XIcon className="w-6 h-6" aria-hidden="true" />
@@ -150,7 +143,11 @@ export function AddToCartPreview({
                   <div className="px-4 py-6 border-t border-gray-200 sm:px-6">
                     <div className="flex justify-between text-base font-medium text-gray-900">
                       <p>Subtotal</p>
-                      <p>$262.00</p>
+                      <p>
+                        {checkout?.subtotalPrice
+                          ? formatPrice(Number(checkout.subtotalPrice))
+                          : null}
+                      </p>
                     </div>
                     <p className="mt-0.5 text-sm text-gray-500">
                       Shipping and taxes calculated at checkout.
@@ -164,7 +161,7 @@ export function AddToCartPreview({
                         <button
                           type="button"
                           className="font-medium text-pink-600 hover:text-pink-500"
-                          onClick={dismiss}
+                          onClick={closeCart}
                         >
                           Continue Shopping
                           <span aria-hidden="true"> &rarr;</span>

@@ -159,8 +159,7 @@ export default function ProductPage({
     await addVariantToCart(productVariant.node.id, quantity);
   };
 
-  const { isLoading, didJustAddToCart, setDidJustAddToCart } =
-    useStoreContext();
+  const { isLoading } = useStoreContext();
 
   return (
     <>
@@ -439,10 +438,7 @@ export default function ProductPage({
           </section>
         </div>
       </main>
-      <AddToCartPreview
-        show={didJustAddToCart}
-        dismiss={() => setDidJustAddToCart(false)}
-      />
+      <AddToCartPreview />
     </>
   );
 }

@@ -59,8 +59,8 @@
       ]
     },
     {
-      "id": "product-type",
-      "name": "Product Type",
+      "id": "product-types",
+      "name": "Product Types",
       "featured": [
         {
           "name": "New Arrivals",

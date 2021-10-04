@@ -25,10 +25,10 @@ export default function HomePage({
   collections,
 }: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
   return (
-    <>
-      <Hero />
-      <CategorySection />
-      <FeaturedSection
+    <div className="pb-24 sm:pb-32">
+      {/* <Hero /> */}
+      {/* <CategorySection /> */}
+      {/* <FeaturedSection
         id="social-impact-heading"
         heading={['Level up', 'your desk']}
         description="Make your desk beautiful and organized. Post a picture to social media and watch it get more likes than life-changing announcements. Reflect on the shallow nature of existence. At least you have a really nice desk setup."
@@ -38,9 +38,9 @@ export default function HomePage({
         }}
         cta="Show Workspace"
         href="#"
-      />
+      /> */}
       <CollectionSection collections={collections} />
-      <FeaturedSection
+      {/* <FeaturedSection
         id="comfort-heading"
         heading="Simple productivity"
         description="Endless tasks, limited hours, a single piece of paper. Not really a haiku, but we're doing our best here. No kanban boards, burndown charts, or tangled flowcharts with our Focus system. Just the undeniable urge to fill empty circles."
@@ -50,7 +50,7 @@ export default function HomePage({
         }}
         cta="Shop Focus"
         href="#"
-      />
-    </>
+      /> */}
+    </div>
   );
 }

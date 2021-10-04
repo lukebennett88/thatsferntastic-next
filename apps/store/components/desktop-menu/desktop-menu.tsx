@@ -5,13 +5,10 @@ import {
   SearchIcon,
   ShoppingBagIcon,
 } from '@heroicons/react/outline';
-import { Button } from '@thatsferntastic/button';
 import { classNames } from '@thatsferntastic/utils';
 import Link from 'next/link';
 import * as React from 'react';
 
-import { useStoreContext } from '../../context/store-context';
-import { LineItem } from '../../types';
 import { useCartCount } from '../../utils/hooks/use-cart-count/use-cart-count';
 
 interface Navigation {
@@ -39,34 +36,6 @@ interface Navigation {
   }>;
 }
 
-interface ProductPreviewProps {
-  lineItem: LineItem;
-}
-
-function ProductPreview({ lineItem }: ProductPreviewProps): JSX.Element {
-  return (
-    <li className="flex items-center py-6">
-      <img
-        src={lineItem.variant.image?.src}
-        alt={lineItem.variant.image?.altText || ''}
-        className="flex-none w-16 h-16 border border-gray-200 rounded-md"
-      />
-      <div className="flex-auto ml-4">
-        <h3 className="font-medium text-gray-900">
-          <Link href={`/products/${lineItem.variant.product.handle}`}>
-            <a>{lineItem.title}</a>
-          </Link>
-        </h3>
-        {lineItem.variant.selectedOptions.map(({ value }) => (
-          <p key={value} className="text-gray-500">
-            {value}
-          </p>
-        ))}
-      </div>
-    </li>
-  );
-}
-
 interface DesktopMenuProps {
   navigation: Navigation;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -77,7 +46,6 @@ export function DesktopMenu({
   setOpen,
 }: DesktopMenuProps): JSX.Element {
   const cartCount = useCartCount();
-  const { checkout } = useStoreContext();
   return (
     <header className="relative bg-white">
       <nav aria-label="Top" className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
@@ -268,71 +236,20 @@ export function DesktopMenu({
               </div>
 
               {/* Cart */}
-              <Popover className="flow-root ml-4 text-sm lg:relative lg:ml-8">
-                <Popover.Button className="flex items-center p-2 -m-2 group">
-                  <ShoppingBagIcon
-                    className="flex-shrink-0 w-6 h-6 text-gray-400 group-hover:text-gray-500"
-                    aria-hidden="true"
-                  />
-                  <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">
-                    {cartCount}
-                  </span>
-                  <span className="sr-only">items in cart, view bag</span>
-                </Popover.Button>
-                <Transition
-                  as={React.Fragment}
-                  enter="transition ease-out duration-200"
-                  enterFrom="opacity-0"
-                  enterTo="opacity-100"
-                  leave="transition ease-in duration-150"
-                  leaveFrom="opacity-100"
-                  leaveTo="opacity-0"
-                >
-                  <Popover.Panel
-                    className={classNames(
-                      !checkout?.lineItems.length && 'pt-6',
-                      'absolute top-16 inset-x-0 mt-px pb-6 bg-white shadow-lg sm:px-2 lg:top-full lg:left-auto lg:right-0 lg:mt-3 lg:-mr-1.5 lg:w-80 lg:rounded-lg lg:ring-1 lg:ring-black lg:ring-opacity-5 z-30'
-                    )}
-                  >
-                    {({ close }) => (
-                      <>
-                        <div className="max-w-2xl px-4 mx-auto">
-                          {checkout?.lineItems.length ? (
-                            <>
-                              <h2 className="sr-only">Shopping Cart</h2>
-                              <ul
-                                role="list"
-                                className="divide-y divide-gray-200"
-                              >
-                                {checkout?.lineItems.map(lineItem => (
-                                  <ProductPreview
-                                    key={lineItem.id}
-                                    // TODO: fix types here
-                                    lineItem={lineItem as any}
-                                  />
-                                ))}
-                              </ul>
-                              <Link href="/cart" passHref>
-                                <Button
-                                  as="a"
-                                  onClick={() => close()}
-                                  width="full"
-                                >
-                                  View cart
-                                </Button>
-                              </Link>
-                            </>
-                          ) : (
-                            <h2 className="text-sm font-medium text-center text-gray-900">
-                              Cart is empty
-                            </h2>
-                          )}
-                        </div>
-                      </>
-                    )}
-                  </Popover.Panel>
-                </Transition>
-              </Popover>
+              <div className="flow-root ml-4 text-sm lg:relative lg:ml-8">
+                <Link href="/cart">
+                  <a className="flex items-center p-2 -m-2 group">
+                    <ShoppingBagIcon
+                      className="flex-shrink-0 w-6 h-6 text-gray-400 group-hover:text-gray-500"
+                      aria-hidden="true"
+                    />
+                    <div className="relative w-2 ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">
+                      {cartCount}
+                    </div>
+                    <span className="sr-only">items in cart, view bag</span>
+                  </a>
+                </Link>
+              </div>
             </div>
           </div>
         </div>

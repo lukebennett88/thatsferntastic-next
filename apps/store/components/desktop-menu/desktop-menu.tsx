@@ -9,42 +9,14 @@ import { classNames } from '@thatsferntastic/utils';
 import Link from 'next/link';
 import * as React from 'react';
 
+import navigation from '../../components/navigation/navigation.json';
 import { useCartCount } from '../../utils/hooks/use-cart-count/use-cart-count';
 
-interface Navigation {
-  categories: {
-    id: string;
-    name: string;
-    featured: Array<{
-      name: string;
-      href: string;
-      imageSrc: string;
-      imageAlt: string;
-    }>;
-    sections: {
-      id: string;
-      name: string;
-      items: Array<{
-        name: string;
-        href: string;
-      }>;
-    }[];
-  }[];
-  pages: Array<{
-    name: string;
-    href: string;
-  }>;
-}
-
 interface DesktopMenuProps {
-  navigation: Navigation;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export function DesktopMenu({
-  navigation,
-  setOpen,
-}: DesktopMenuProps): JSX.Element {
+export function DesktopMenu({ setOpen }: DesktopMenuProps): JSX.Element {
   const cartCount = useCartCount();
   return (
     <header className="relative bg-white">
@@ -182,51 +154,10 @@ export function DesktopMenu({
                     )}
                   </Popover>
                 ))}
-
-                {navigation.pages.map(page => (
-                  <a
-                    key={page.name}
-                    href={page.href}
-                    className="flex items-center text-sm font-medium text-gray-700 hover:text-gray-800"
-                  >
-                    {page.name}
-                  </a>
-                ))}
               </div>
             </Popover.Group>
 
             <div className="flex items-center ml-auto">
-              <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                <a
-                  href="#"
-                  className="text-sm font-medium text-gray-700 hover:text-gray-800"
-                >
-                  Sign in
-                </a>
-                <span className="w-px h-6 bg-gray-200" aria-hidden="true" />
-                <a
-                  href="#"
-                  className="text-sm font-medium text-gray-700 hover:text-gray-800"
-                >
-                  Create account
-                </a>
-              </div>
-
-              <div className="hidden lg:ml-8 lg:flex">
-                <a
-                  href="#"
-                  className="flex items-center text-gray-700 hover:text-gray-800"
-                >
-                  <img
-                    src="https://tailwindui.com/img/flags/flag-australia.svg"
-                    alt=""
-                    className="flex-shrink-0 block w-5 h-auto"
-                  />
-                  <span className="block ml-3 text-sm font-medium">AUD</span>
-                  <span className="sr-only">, change currency</span>
-                </a>
-              </div>
-
               {/* Search */}
               <div className="flex lg:ml-6">
                 <a href="#" className="p-2 text-gray-400 hover:text-gray-500">

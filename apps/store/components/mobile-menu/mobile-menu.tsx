@@ -4,42 +4,14 @@ import { XIcon } from '@heroicons/react/outline';
 import { classNames } from '@thatsferntastic/utils';
 import * as React from 'react';
 
-interface Navigation {
-  categories: {
-    id: string;
-    name: string;
-    featured: Array<{
-      name: string;
-      href: string;
-      imageSrc: string;
-      imageAlt: string;
-    }>;
-    sections: {
-      id: string;
-      name: string;
-      items: Array<{
-        name: string;
-        href: string;
-      }>;
-    }[];
-  }[];
-  pages: Array<{
-    name: string;
-    href: string;
-  }>;
-}
+import navigation from '../../components/navigation/navigation.json';
 
 interface MobileMenuProps {
   open: boolean;
-  navigation: Navigation;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export function MobileMenu({
-  open,
-  navigation,
-  setOpen,
-}: MobileMenuProps): JSX.Element {
+export function MobileMenu({ open, setOpen }: MobileMenuProps): JSX.Element {
   return (
     <Transition.Root show={open} as={React.Fragment}>
       <Dialog
@@ -163,19 +135,6 @@ export function MobileMenu({
                 ))}
               </Tab.Panels>
             </Tab.Group>
-
-            <div className="px-4 py-6 space-y-6 border-t border-gray-200">
-              {navigation.pages.map(page => (
-                <div key={page.name} className="flow-root">
-                  <a
-                    href={page.href}
-                    className="block p-2 -m-2 font-medium text-gray-900"
-                  >
-                    {page.name}
-                  </a>
-                </div>
-              ))}
-            </div>
 
             <div className="px-4 py-6 space-y-6 border-t border-gray-200">
               <div className="flow-root">

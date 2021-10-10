@@ -1,15 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
 import { Popover, Transition } from '@headlessui/react';
-import {
-  MenuIcon,
-  SearchIcon,
-  ShoppingBagIcon,
-} from '@heroicons/react/outline';
+import { MenuIcon, ShoppingBagIcon } from '@heroicons/react/outline';
 import { classNames } from '@thatsferntastic/utils';
 import Image from 'next/image';
 import Link from 'next/link';
 import * as React from 'react';
 
+import { Autocomplete } from '../../components/autocomplete';
 import navigation from '../../components/navigation/navigation.json';
 import { siteSettings } from '../../utils/constants';
 import { useCartCount } from '../../utils/hooks/use-cart-count/use-cart-count';
@@ -35,7 +32,7 @@ export function DesktopMenu({ setOpen }: DesktopMenuProps): JSX.Element {
             </button>
 
             {/* Logo */}
-            <div className="flex ml-4 lg:ml-0">
+            <div className="flex flex-shrink-0 mx-4 lg:ml-0">
               <Link href="/">
                 <a className="rounded-full focus:ring">
                   <span className="sr-only">{siteSettings.title}</span>
@@ -159,11 +156,8 @@ export function DesktopMenu({ setOpen }: DesktopMenuProps): JSX.Element {
 
             <div className="flex items-center ml-auto">
               {/* Search */}
-              <div className="flex lg:ml-6">
-                <a href="#" className="p-2 text-gray-400 hover:text-gray-500">
-                  <span className="sr-only">Search</span>
-                  <SearchIcon aria-hidden="true" className="w-6 h-6" />
-                </a>
+              <div className="relative flex lg:ml-6">
+                <Autocomplete />
               </div>
 
               {/* Cart */}

@@ -153,7 +153,14 @@ export function AddToCartPreview(): JSX.Element {
                       Shipping and taxes calculated at checkout.
                     </p>
                     <div className="mt-6">
-                      <Button width="full">Checkout</Button>
+                      <Button
+                        width="full"
+                        as="a"
+                        // @ts-expect-error: Types don't have webUrl for some reason
+                        href={checkout?.webUrl as string}
+                      >
+                        Checkout
+                      </Button>
                     </div>
                     <div className="flex justify-center mt-6 text-sm text-center text-gray-500">
                       <p>

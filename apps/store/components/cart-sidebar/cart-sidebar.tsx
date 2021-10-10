@@ -67,7 +67,7 @@ function LineItem({ checkoutId, lineItem, removeLineItem }: LineItemProps) {
   );
 }
 
-export function AddToCartPreview(): JSX.Element {
+export function CartSidebar(): JSX.Element {
   const { checkout, closeCart, didJustAddToCart, removeLineItem } =
     useStoreContext();
   return (

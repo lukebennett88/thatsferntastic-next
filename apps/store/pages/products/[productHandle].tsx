@@ -9,7 +9,7 @@ import { useRouter } from 'next/router';
 import { NextSeo, ProductJsonLd } from 'next-seo';
 import * as React from 'react';
 
-import { AddToCartPreview } from '../../components/add-to-cart-preview';
+import { CartSidebar } from '../../components/cart-sidebar';
 import { QuantityPicker } from '../../components/quantity-picker';
 import { Spinner } from '../../components/spinner';
 import { VariantSelect } from '../../components/variant-select';
@@ -438,7 +438,7 @@ export default function ProductPage({
           </section>
         </div>
       </main>
-      <AddToCartPreview />
+      <CartSidebar />
     </>
   );
 }

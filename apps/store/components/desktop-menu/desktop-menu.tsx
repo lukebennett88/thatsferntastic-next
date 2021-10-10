@@ -37,15 +37,11 @@ export function DesktopMenu({ setOpen }: DesktopMenuProps): JSX.Element {
             {/* Logo */}
             <div className="flex ml-4 lg:ml-0">
               <Link href="/">
-                <a>
+                <a className="rounded-full focus:ring">
                   <span className="sr-only">{siteSettings.title}</span>
-                  <Image
-                    width={32}
-                    height={32}
-                    className="w-auto h-8"
-                    src="/favicon.png"
-                    alt=""
-                  />
+                  <div className="flex">
+                    <Image width={32} height={32} src="/favicon.png" alt="" />
+                  </div>
                 </a>
               </Link>
             </div>

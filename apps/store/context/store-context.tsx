@@ -109,7 +109,7 @@ export function StoreProvider({ children }: StoreProviderProps): JSX.Element {
       setCheckout(newCheckout);
       setIsLoading(false);
       setDidJustAddToCart(true);
-      setTimeout(closeCart, 3000);
+      setTimeout(closeCart, 5000);
     } catch (error) {
       console.error('Error in addVariantToCart:', error);
       setIsLoading(false);

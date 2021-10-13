@@ -7,28 +7,32 @@ import { getAlgoliaResults } from '@algolia/autocomplete-preset-algolia';
 import type { Hit } from '@algolia/client-search';
 import { ChevronRightIcon, SearchIcon, XIcon } from '@heroicons/react/outline';
 import { classNames } from '@thatsferntastic/utils';
-import algoliasearch from 'algoliasearch/lite';
+import Image from 'next/image';
+import Link from 'next/link';
 import * as React from 'react';
 
-const searchClient = algoliasearch(
-  'latency',
-  '6be0576ff61c053d5f9a3225e2a90f76'
-);
+import { algoliaClient } from '../../utils/algolia-client';
 
-type AutocompleteItem = Hit<{
-  brand: string;
-  categories: string[];
-  image: string;
-  name: string;
+type AutocompleteProduct = Hit<{
+  availableForSale: boolean;
+  createdAt: string;
+  description: string;
+  handle: string;
+  image: {
+    originalSrc: string;
+  };
+  productType: string;
+  tags: string[];
+  title: string;
+  vendor: string;
   objectID: string;
-  url: string;
 }>;
 
 export function Autocomplete(
-  props: Partial<AutocompleteOptions<AutocompleteItem>>
+  props: Partial<AutocompleteOptions<AutocompleteProduct>>
 ): JSX.Element {
   const [autocompleteState, setAutocompleteState] = React.useState<
-    AutocompleteState<AutocompleteItem>
+    AutocompleteState<AutocompleteProduct>
   >({
     collections: [],
     completion: null,
@@ -42,7 +46,7 @@ export function Autocomplete(
   const autocomplete = React.useMemo(
     () =>
       createAutocomplete<
-        AutocompleteItem,
+        AutocompleteProduct,
         React.BaseSyntheticEvent,
         React.MouseEvent,
         React.KeyboardEvent
@@ -56,10 +60,10 @@ export function Autocomplete(
               sourceId: 'products',
               getItems({ query }) {
                 return getAlgoliaResults({
-                  searchClient,
+                  searchClient: algoliaClient,
                   queries: [
                     {
-                      indexName: 'instant_search',
+                      indexName: 'shopify_products',
                       query,
                       params: {
                         hitsPerPage: 5,
@@ -71,7 +75,7 @@ export function Autocomplete(
                 });
               },
               getItemUrl({ item }) {
-                return item.url;
+                return `/products/${item.handle}`;
               },
             },
           ];
@@ -165,7 +169,7 @@ export function Autocomplete(
             'sm:mt-6 sm:w-96 sm:rounded-md',
             /**
              * Full bleed from up until `sm`
-             * @see: https://piccalil.li/tutorial/creating-a-full-bleed-css-utility/
+             * @see https://piccalil.li/tutorial/creating-a-full-bleed-css-utility/
              */
             'w-screen ml-[calc(50%-50vw)]',
             /**
@@ -176,6 +180,7 @@ export function Autocomplete(
           {...panelProps}
         >
           {autocompleteState.collections.map((collection, index) => {
+            console.log(collection);
             const { source, items } = collection;
             return (
               <section key={`source-${index}`}>
@@ -191,50 +196,52 @@ export function Autocomplete(
                       });
                       return (
                         <li key={item.objectID} {...itemProps}>
-                          <a
-                            href={item.url}
-                            className={classNames(
-                              index === 0 && 'rounded-t-md',
-                              index === items.length - 1 && 'rounded-b-md',
-                              itemProps['aria-selected'] &&
-                                'bg-gray-50 outline-none ring-inset ring-2 ring-offset-2 ring-offset-pink-600 ring-white border-white',
-                              'block border-2 border-transparent',
-                              'hover:bg-gray-50',
-                              'focus:outline-none focus:ring-inset focus:ring-2 focus:ring-offset-2 focus:ring-offset-pink-600 focus:ring-white focus:border-white'
-                            )}
-                          >
-                            <div className="flex items-center px-4 py-4 sm:px-6">
-                              <div className="flex items-center flex-1 min-w-0">
-                                <div className="flex-shrink-0 p-1 border rounded">
-                                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                                  <img
-                                    className="object-contain w-12 h-12"
-                                    src={item.image}
-                                    alt={item.name}
-                                  />
-                                </div>
-                                <div className="flex-1 min-w-0 px-4">
-                                  <div>
-                                    <p className="text-sm font-medium text-pink-700 truncate">
-                                      {item.name}
-                                    </p>
-                                    <div className="flex items-center mt-2 text-sm text-gray-500">
-                                      <p className="truncate">
-                                        By <strong>{item.brand}</strong> in{' '}
-                                        <strong>{item.categories[0]}</strong>
+                          <Link href={`/products/${item.handle}`}>
+                            <a
+                              className={classNames(
+                                index === 0 && 'rounded-t-md',
+                                index === items.length - 1 && 'rounded-b-md',
+                                itemProps['aria-selected'] &&
+                                  'bg-gray-50 outline-none ring-inset ring-2 ring-offset-2 ring-offset-pink-600 ring-white border-white',
+                                'block border-2 border-transparent',
+                                'hover:bg-gray-50',
+                                'focus:outline-none focus:ring-inset focus:ring-2 focus:ring-offset-2 focus:ring-offset-pink-600 focus:ring-white focus:border-white'
+                              )}
+                            >
+                              <div className="flex items-center px-4 py-4 sm:px-6">
+                                <div className="flex items-center flex-1 min-w-0">
+                                  <div className="flex-shrink-0 w-12 h-12 overflow-hidden rounded">
+                                    <Image
+                                      className="object-contain w-12 h-12"
+                                      src={item.image.originalSrc}
+                                      height={48}
+                                      width={48}
+                                      alt=""
+                                    />
+                                  </div>
+                                  <div className="flex-1 min-w-0 px-4">
+                                    <div>
+                                      <p className="text-sm font-medium text-pink-700 truncate">
+                                        {item.description}
                                       </p>
+                                      <div className="flex items-center mt-2 text-sm text-gray-500">
+                                        <p className="truncate">
+                                          By <strong>{item.vendor}</strong> in{' '}
+                                          <strong>{item.productType}</strong>
+                                        </p>
+                                      </div>
                                     </div>
                                   </div>
                                 </div>
+                                <div>
+                                  <ChevronRightIcon
+                                    className="w-5 h-5 text-gray-400"
+                                    aria-hidden="true"
+                                  />
+                                </div>
                               </div>
-                              <div>
-                                <ChevronRightIcon
-                                  className="w-5 h-5 text-gray-400"
-                                  aria-hidden="true"
-                                />
-                              </div>
-                            </div>
-                          </a>
+                            </a>
+                          </Link>
                         </li>
                       );
                     })}

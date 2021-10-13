@@ -13,6 +13,7 @@ const GET_FIRST_PRODUCTS = gql`
         node {
           id
           handle
+          productType
           updatedAt
         }
       }
@@ -31,6 +32,7 @@ const GET_NEXT_PRODUCTS = gql`
         node {
           id
           handle
+          productType
           updatedAt
         }
       }

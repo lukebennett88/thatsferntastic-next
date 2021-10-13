@@ -141,7 +141,7 @@ export default function ProductPage({
 
   const [quantity, setQuantity] = React.useState(1);
 
-  const available = availableForSale && productVariant.node.availableForSale;
+  const isAvailable = availableForSale && productVariant.node.availableForSale;
 
   const price = formatPrice(
     variant.node.priceV2.amount,
@@ -302,7 +302,7 @@ export default function ProductPage({
                     size="lg"
                     width="fixed"
                     type="button"
-                    disabled={!available}
+                    disabled={!isAvailable}
                     onClick={addToCart}
                   >
                     <span className="relative flex items-center justify-center">
@@ -311,7 +311,7 @@ export default function ProductPage({
                           <Spinner />
                         </span>
                       ) : null}
-                      {available ? 'Add to cart' : 'Out of stock'}
+                      {isAvailable ? 'Add to cart' : 'Out of stock'}
                     </span>
                   </Button>
 

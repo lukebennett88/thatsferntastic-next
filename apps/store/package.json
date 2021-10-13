@@ -47,6 +47,7 @@
     "@graphql-codegen/schema-ast": "^2.2.0",
     "@tailwindcss/aspect-ratio": "^0.2.2",
     "@tailwindcss/forms": "^0.3.4",
+    "@tailwindcss/typography": "^0.4.1",
     "@types/http-errors": "^1.8.1",
     "@types/react": "17.0.27",
     "@types/shopify-buy": "^2.10.8",

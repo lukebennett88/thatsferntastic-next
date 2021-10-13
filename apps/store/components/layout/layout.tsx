@@ -4,9 +4,9 @@ import { Navigation } from '../navigation';
 
 export const Layout: NextPageWithLayoutProps = ({ children }) => {
   return (
-    <div className="bg-white">
+    <div className="flex flex-col min-h-screen bg-white">
       <Navigation />
-      <main>{children}</main>
+      <main className="flex-1">{children}</main>
       <Footer />
     </div>
   );

@@ -122,7 +122,7 @@ export function Footer(): JSX.Element {
                   autoComplete="email"
                   required
                   placeholder="Enter your email"
-                  className="w-full min-w-0 px-4 py-2 text-base text-gray-900 placeholder-gray-500 bg-white border border-gray-300 rounded-full appearance-none focus:outline-none focus:border-pink-500 focus:ring-1 focus:ring-pink-500"
+                  className="w-full min-w-0 px-4 py-2 text-base text-gray-900 placeholder-gray-500 bg-white border border-gray-300 rounded-full appearance-none sm:text-sm focus:outline-none focus:border-pink-500 focus:ring-1 focus:ring-pink-500"
                 />
                 <div className="flex-shrink-0 ml-4">
                   <Button type="submit" size="lg">

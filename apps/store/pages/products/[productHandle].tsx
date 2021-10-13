@@ -5,6 +5,7 @@ import { Button } from '@thatsferntastic/button';
 import { classNames, formatPrice } from '@thatsferntastic/utils';
 import isEqual from 'lodash/isEqual';
 import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { NextSeo, ProductJsonLd } from 'next-seo';
 import * as React from 'react';
@@ -211,15 +212,21 @@ export default function ProductPage({
                   {images.edges.map(({ node: image }) => (
                     <Tab
                       key={image.id}
-                      className="relative flex items-center justify-center h-24 text-sm font-medium text-gray-900 uppercase bg-white rounded-md cursor-pointer hover:bg-gray-50 focus:outline-none focus:ring focus:ring-offset-4 focus:ring-opacity-50"
+                      className={classNames(
+                        'relative flex aspect-w-1 aspect-h-1 items-center justify-center h-24 text-sm font-medium text-gray-900 uppercase bg-white rounded-md cursor-pointer',
+                        'hover:bg-gray-50',
+                        'focus:outline-none focus:ring focus:ring-offset-4 focus:ring-opacity-50'
+                      )}
                     >
                       {({ selected }) => (
                         <>
                           <span className="sr-only">{image.altText}</span>
                           <span className="absolute inset-0 overflow-hidden rounded-md">
-                            <img
+                            <Image
                               src={image.transformedSrc}
                               alt=""
+                              width={150}
+                              height={150}
                               className="object-cover object-center w-full h-full"
                             />
                           </span>
@@ -239,10 +246,15 @@ export default function ProductPage({
 
               <Tab.Panels className="w-full aspect-w-1 aspect-h-1">
                 {images.edges.map(({ node: image }) => (
-                  <Tab.Panel key={image.id}>
-                    <img
+                  <Tab.Panel
+                    key={image.id}
+                    className="overflow-hidden sm:rounded-lg"
+                  >
+                    <Image
                       src={image.transformedSrc}
                       alt={image.altText || ''}
+                      height={700}
+                      width={700}
                       className="object-cover object-center w-full h-full sm:rounded-lg"
                     />
                   </Tab.Panel>

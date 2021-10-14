@@ -63,7 +63,8 @@ export function Autocomplete(
                   searchClient: algoliaClient,
                   queries: [
                     {
-                      indexName: 'shopify_products',
+                      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                      indexName: process.env.NEXT_PUBLIC_ALGOLIA_INDEX_NAME!,
                       query,
                       params: {
                         hitsPerPage: 5,

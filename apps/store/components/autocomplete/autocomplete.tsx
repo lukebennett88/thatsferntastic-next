@@ -4,6 +4,7 @@ import {
   createAutocomplete,
 } from '@algolia/autocomplete-core';
 import { getAlgoliaResults } from '@algolia/autocomplete-preset-algolia';
+import { parseAlgoliaHitHighlight } from '@algolia/autocomplete-preset-algolia';
 import type { Hit } from '@algolia/client-search';
 import { ChevronRightIcon, SearchIcon, XIcon } from '@heroicons/react/outline';
 import { classNames } from '@thatsferntastic/utils';
@@ -27,6 +28,33 @@ type AutocompleteProduct = Hit<{
   vendor: string;
   objectID: string;
 }>;
+
+function Highlight({
+  hit,
+  attribute,
+}: {
+  hit: AutocompleteProduct;
+  attribute: keyof AutocompleteProduct;
+}): JSX.Element {
+  return (
+    <>
+      {parseAlgoliaHitHighlight({
+        hit,
+        attribute,
+      }).map(({ value, isHighlighted }, index) => {
+        if (isHighlighted) {
+          return (
+            <mark key={index} className="text-pink-700 bg-pink-100">
+              {value}
+            </mark>
+          );
+        }
+
+        return <React.Fragment key={index}>{value}</React.Fragment>;
+      })}
+    </>
+  );
+}
 
 export function Autocomplete(
   props: Partial<AutocompleteOptions<AutocompleteProduct>>
@@ -68,8 +96,6 @@ export function Autocomplete(
                       query,
                       params: {
                         hitsPerPage: 5,
-                        highlightPreTag: '<mark>',
-                        highlightPostTag: '</mark>',
                       },
                     },
                   ],
@@ -223,12 +249,38 @@ export function Autocomplete(
                                   <div className="flex-1 min-w-0 px-4">
                                     <div>
                                       <p className="text-sm font-medium text-pink-700 truncate">
-                                        {item.description}
+                                        <Highlight
+                                          hit={item}
+                                          attribute="title"
+                                        />
                                       </p>
                                       <div className="flex items-center mt-2 text-sm text-gray-500">
+                                        <p
+                                          title={item.description}
+                                          className="truncate"
+                                        >
+                                          <Highlight
+                                            hit={item}
+                                            attribute="description"
+                                          />
+                                        </p>
+                                      </div>
+                                      <div className="flex items-center mt-2 text-sm text-gray-500">
                                         <p className="truncate">
-                                          By <strong>{item.vendor}</strong> in{' '}
-                                          <strong>{item.productType}</strong>
+                                          By{' '}
+                                          <strong className="font-semibold">
+                                            <Highlight
+                                              hit={item}
+                                              attribute="vendor"
+                                            />
+                                          </strong>{' '}
+                                          in{' '}
+                                          <strong className="font-semibold">
+                                            <Highlight
+                                              hit={item}
+                                              attribute="productType"
+                                            />
+                                          </strong>
                                         </p>
                                       </div>
                                     </div>

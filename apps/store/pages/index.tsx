@@ -3,7 +3,7 @@ import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 // import { CategorySection } from '../components/category-section';
 import { CollectionSection } from '../components/collection-section';
 // import { FeaturedSection } from '../components/featured-section';
-// import { Hero } from '../components/hero';
+import { Hero } from '../components/hero';
 import { TopSellingProducts } from '../components/top-selling-products';
 import { Collection, getAllCollections } from '../graphql/get-all-collections';
 import {
@@ -38,7 +38,7 @@ export default function HomePage({
 }: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
   return (
     <div className="pb-24 sm:pb-32">
-      {/* <Hero /> */}
+      <Hero />
       <TopSellingProducts topSellingProducts={topSellingProducts} />
       {/* <CategorySection /> */}
       {/* <FeaturedSection

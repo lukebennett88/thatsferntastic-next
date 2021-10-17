@@ -6,46 +6,14 @@ const GET_COLLECTION = gql`
   query GetCollection($handle: String!) {
     collectionByHandle(handle: $handle) {
       id
-      description
+      ...Collection_Fragment
       products(sortKey: TITLE, first: 250) {
         edges {
           node {
-            id
-            compareAtPriceRange {
-              minVariantPrice {
-                amount
-              }
-            }
-            handle
-            images(first: 1) {
-              edges {
-                node {
-                  id
-                  altText
-                  originalSrc
-                }
-              }
-            }
-            priceRange {
-              minVariantPrice {
-                amount
-              }
-            }
-            title
-            variants(first: 1) {
-              edges {
-                node {
-                  id
-                  selectedOptions {
-                    name
-                  }
-                }
-              }
-            }
+            ...Product_Fragment
           }
         }
       }
-      title
     }
   }
 ` as import('../../../__generated__/ts-gql/GetCollection').type;

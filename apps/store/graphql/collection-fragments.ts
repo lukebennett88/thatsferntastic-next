@@ -3,6 +3,7 @@ import { gql } from '@ts-gql/tag';
 export const COLLECTION_FRAGMENT = gql`
   fragment Collection_Fragment on Collection {
     id
+    description
     descriptionHtml
     handle
     image {

@@ -61,11 +61,6 @@ const ProductsPage: NextPage<
             Products
           </h1>
         </div>
-
-        <div className="prose">
-          <pre>{JSON.stringify(products, null, 2)}</pre>
-        </div>
-
         <div className="pt-12 pb-24 lg:grid lg:grid-cols-3 lg:gap-x-8 xl:grid-cols-4">
           <DesktopProductFilters setMobileFiltersOpen={setMobileFiltersOpen} />
           <section

@@ -1,6 +1,9 @@
 import { PlusSmIcon } from '@heroicons/react/solid';
 import { classNames } from '@thatsferntastic/utils';
+import NextLink from 'next/link';
 import * as React from 'react';
+
+import type { Products, SortKey } from '../../graphql/get-products';
 
 const filters = [
   {
@@ -40,7 +43,72 @@ const filters = [
   },
 ];
 
+interface FilterOptionProps {
+  label: string;
+  name: string;
+  value: string;
+}
+
+function FilterOption({ label, name, value }: FilterOptionProps) {
+  return (
+    <div className="flex items-center">
+      <input
+        id={value}
+        name={name}
+        defaultValue={value}
+        type="checkbox"
+        className="w-4 h-4 text-pink-600 border-gray-300 rounded focus:ring-pink-500"
+      />
+      <label htmlFor={value} className="ml-3 text-sm text-gray-600">
+        {label}
+      </label>
+    </div>
+  );
+}
+
+interface FilterOptionGroupProps {
+  hasPaddingTop?: boolean;
+  name: string;
+  children: React.ReactNode;
+}
+
+function FilterOptionGroup({
+  hasPaddingTop,
+  name,
+  children,
+}: FilterOptionGroupProps) {
+  return (
+    <div className={classNames(hasPaddingTop && 'pt-10')}>
+      <fieldset>
+        <legend className="block text-sm font-medium text-gray-900">
+          {name}
+        </legend>
+        <div className="pt-6 space-y-3">{children}</div>
+      </fieldset>
+    </div>
+  );
+}
+
+interface SortLinkProps {
+  sortKey: SortKey;
+  label: string;
+  reverse?: boolean;
+}
+
+function SortLink({ sortKey, label, reverse }: SortLinkProps): JSX.Element {
+  return (
+    <li>
+      <NextLink
+        href={`/products?sortKey=${sortKey}${reverse ? `&reverse=true` : ''}`}
+      >
+        <a className="text-sm text-gray-600">{label}</a>
+      </NextLink>
+    </li>
+  );
+}
+
 interface DesktopProductFiltersProps {
+  products: Products;
   setMobileFiltersOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -50,7 +118,6 @@ export function DesktopProductFilters({
   return (
     <aside>
       <h2 className="sr-only">Filters</h2>
-
       <button
         type="button"
         className="inline-flex items-center lg:hidden"
@@ -62,39 +129,27 @@ export function DesktopProductFilters({
           aria-hidden="true"
         />
       </button>
-
       <div className="hidden lg:block">
         <form className="space-y-10 divide-y divide-gray-200">
-          {filters.map((section, sectionIdx) => (
-            <div
-              key={section.name}
-              className={classNames(sectionIdx !== 0 && 'pt-10')}
-            >
-              <fieldset>
-                <legend className="block text-sm font-medium text-gray-900">
-                  {section.name}
-                </legend>
-                <div className="pt-6 space-y-3">
-                  {section.options.map((option, optionIdx) => (
-                    <div key={option.value} className="flex items-center">
-                      <input
-                        id={`${section.id}-${optionIdx}`}
-                        name={`${section.id}[]`}
-                        defaultValue={option.value}
-                        type="checkbox"
-                        className="w-4 h-4 text-pink-600 border-gray-300 rounded focus:ring-pink-500"
-                      />
-                      <label
-                        htmlFor={`${section.id}-${optionIdx}`}
-                        className="ml-3 text-sm text-gray-600"
-                      >
-                        {option.label}
-                      </label>
-                    </div>
-                  ))}
-                </div>
-              </fieldset>
-            </div>
+          <FilterOptionGroup name="Relevance">
+            <ul>
+              <SortLink label="Trending" sortKey="BEST_SELLING" />
+              <SortLink label="New arrivals" sortKey="CREATED_AT" reverse />
+              <SortLink label="Price: Low to high" sortKey="PRICE" />
+              <SortLink label="Price: High to low" sortKey="PRICE" reverse />
+            </ul>
+          </FilterOptionGroup>
+          {filters.map(({ name, options }) => (
+            <FilterOptionGroup key={name} hasPaddingTop name={name}>
+              {options.map(({ label, value }) => (
+                <FilterOption
+                  key={value}
+                  label={label}
+                  name={label}
+                  value={value}
+                />
+              ))}
+            </FilterOptionGroup>
           ))}
         </form>
       </div>

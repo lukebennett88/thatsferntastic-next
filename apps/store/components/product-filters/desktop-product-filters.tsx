@@ -108,7 +108,7 @@ function SortLink({ sortKey, label, reverse }: SortLinkProps): JSX.Element {
 }
 
 interface DesktopProductFiltersProps {
-  products: Products;
+  products?: Products;
   setMobileFiltersOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 

@@ -17,8 +17,8 @@ interface ProductsProps {
 export const getServerSideProps: GetServerSideProps<ProductsProps> = async ({
   query,
 }) => {
-  const firstAsNumber = Number(query.first);
-  const first = !isNaN(firstAsNumber) ? undefined : firstAsNumber;
+  // Optional filters
+  const first = !isNaN(Number(query.first)) ? Number(query.first) : undefined;
   const reverse = query.reverse === 'true';
   const sortKey = SORT_KEYS.find(key => key === query.sortKey);
 
@@ -29,9 +29,11 @@ export const getServerSideProps: GetServerSideProps<ProductsProps> = async ({
     sortKey,
     reverse,
   });
+
   if (!products) {
     return { notFound: true };
   }
+
   return addApolloState(client, {
     props: {
       products,

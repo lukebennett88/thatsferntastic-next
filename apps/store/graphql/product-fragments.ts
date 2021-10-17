@@ -81,6 +81,8 @@ export const PRODUCT_FRAGMENT = gql`
     priceRange {
       ...ProductPriceRange_Fragment
     }
+    productType
+    tags
     title
     variants(first: 250) {
       edges {

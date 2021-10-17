@@ -4,7 +4,7 @@ import type { Client } from '../utils/apollo-client';
 
 const PRODUCTS = gql`
   query Products(
-    $first: Int = 4
+    $first: Int = 20
     $query: String
     $reverse: Boolean = false
     $sortKey: ProductSortKeys = BEST_SELLING

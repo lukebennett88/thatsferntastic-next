@@ -27,18 +27,18 @@ const PRODUCTS = gql`
 export type Products =
   typeof PRODUCTS['___type']['result']['products']['edges'];
 
-export const SORT_KEYS = {
-  BEST_SELLING: 'Best selling',
-  CREATED_AT: 'Created at',
-  PRICE: 'Price',
-  PRODUCT_TYPE: 'Product type',
-  RELEVANCE: 'Relevance',
-  TITLE: 'Title',
-  UPDATED_AT: 'Updated at',
-  VENDOR: 'Vendor',
-} as const;
+export const SORT_KEYS = [
+  'BEST_SELLING',
+  'CREATED_AT',
+  'PRICE',
+  'PRODUCT_TYPE',
+  'RELEVANCE',
+  'TITLE',
+  'UPDATED_AT',
+  'VENDOR',
+] as const;
 
-export type SortKey = keyof typeof SORT_KEYS;
+export type SortKey = typeof SORT_KEYS[number];
 
 interface GetProducts {
   client: Client;

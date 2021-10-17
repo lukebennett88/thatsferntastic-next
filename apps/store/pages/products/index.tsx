@@ -10,7 +10,7 @@ import {
   DesktopProductFilters,
   MobileProductFilters,
 } from '../../components/product-filters';
-import type { Products, SortKey } from '../../graphql/get-products';
+import type { Products } from '../../graphql/get-products';
 import { getProducts, SORT_KEYS } from '../../graphql/get-products';
 import { addApolloState, initialiseTsGql } from '../../utils/apollo-client';
 
@@ -24,9 +24,7 @@ export const getServerSideProps: GetServerSideProps<ProductsProps> = async ({
   // Optional filters
   const first = !isNaN(Number(query.first)) ? Number(query.first) : undefined;
   const reverse = query.reverse === 'true';
-  const sortKey = Object.keys(SORT_KEYS).find(key => key === query.sortKey) as
-    | SortKey
-    | undefined;
+  const sortKey = SORT_KEYS.find(key => key === query.sortKey);
 
   const client = initialiseTsGql();
   const products = await getProducts({

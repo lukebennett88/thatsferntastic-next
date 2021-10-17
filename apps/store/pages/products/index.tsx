@@ -10,7 +10,7 @@ import {
   DesktopProductFilters,
   MobileProductFilters,
 } from '../../components/product-filters';
-import type { Products } from '../../graphql/get-products';
+import type { Products, SortKey } from '../../graphql/get-products';
 import { getProducts, SORT_KEYS } from '../../graphql/get-products';
 import { addApolloState, initialiseTsGql } from '../../utils/apollo-client';
 
@@ -24,7 +24,9 @@ export const getServerSideProps: GetServerSideProps<ProductsProps> = async ({
   // Optional filters
   const first = !isNaN(Number(query.first)) ? Number(query.first) : undefined;
   const reverse = query.reverse === 'true';
-  const sortKey = SORT_KEYS.find(key => key === query.sortKey);
+  const sortKey = Object.keys(SORT_KEYS).find(key => key === query.sortKey) as
+    | SortKey
+    | undefined;
 
   const client = initialiseTsGql();
   const products = await getProducts({
@@ -62,7 +64,10 @@ const ProductsPage: NextPage<
           </h1>
         </div>
         <div className="pt-12 pb-24 lg:grid lg:grid-cols-3 lg:gap-x-8 xl:grid-cols-4">
-          <DesktopProductFilters setMobileFiltersOpen={setMobileFiltersOpen} />
+          <DesktopProductFilters
+            products={products}
+            setMobileFiltersOpen={setMobileFiltersOpen}
+          />
           <section
             aria-labelledby="product-heading"
             className="mt-6 lg:mt-0 lg:col-span-2 xl:col-span-3"

@@ -2,7 +2,11 @@ import { Tab } from '@headlessui/react';
 import { Button } from '@thatsferntastic/button';
 import { classNames, formatPrice } from '@thatsferntastic/utils';
 import isEqual from 'lodash/isEqual';
-import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
+import type {
+  GetStaticPaths,
+  GetStaticProps,
+  InferGetStaticPropsType,
+} from 'next';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { NextSeo, ProductJsonLd } from 'next-seo';
@@ -13,6 +17,7 @@ import { QuantityPicker } from '../../components/quantity-picker';
 import { Spinner } from '../../components/spinner';
 import { VariantSelect } from '../../components/variant-select';
 import { useStoreContext } from '../../context/store-context';
+import { getAllProducts } from '../../graphql/get-all-products';
 import {
   getProductByHandle,
   Product,
@@ -25,15 +30,26 @@ interface ProductPageProps {
   product: NonNullable<Product>;
 }
 
-export const getServerSideProps: GetServerSideProps<ProductPageProps> = async ({
-  query,
+export const getStaticPaths: GetStaticPaths = async () => {
+  const client = initialiseTsGql();
+  const products = await getAllProducts(client);
+  const paths = products.map(({ node }) => ({
+    params: { productHandle: node.handle },
+  }));
+  return {
+    paths,
+    fallback: true,
+  };
+};
+
+export const getStaticProps: GetStaticProps<ProductPageProps> = async ({
+  params,
 }) => {
-  const { productHandle } = query;
-  if (typeof productHandle !== 'string') {
+  if (typeof params?.productHandle !== 'string') {
     return { notFound: true };
   }
   const client = initialiseTsGql();
-  const product = await getProductByHandle(client, productHandle);
+  const product = await getProductByHandle(client, params.productHandle);
   if (!product) return { notFound: true };
   return addApolloState(client, {
     props: {
@@ -44,7 +60,7 @@ export const getServerSideProps: GetServerSideProps<ProductPageProps> = async ({
 
 export default function ProductPage({
   product,
-}: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
+}: InferGetStaticPropsType<typeof getStaticProps>): JSX.Element {
   const {
     availableForSale,
     description,

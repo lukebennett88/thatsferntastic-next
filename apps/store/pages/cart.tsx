@@ -5,7 +5,7 @@ import React from 'react';
 
 import { Spinner } from '../components/spinner';
 import { useStoreContext } from '../context/store-context';
-import { LineItem } from '../types';
+import type { LineItem } from '../types';
 import { useCartCount } from '../utils/hooks/use-cart-count/use-cart-count';
 
 interface CartPreviewItemProps {
@@ -156,7 +156,7 @@ export default function CartPage(): JSX.Element {
                 <CartPreviewItem
                   key={product.id}
                   // TODO: fix types here
-                  product={product as any}
+                  product={product as any as LineItem}
                   productIdx={productIdx}
                 />
               ))}

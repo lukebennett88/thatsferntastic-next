@@ -7,13 +7,13 @@ import type {
   GetStaticProps,
   InferGetStaticPropsType,
 } from 'next';
-import NextImage from 'next/image';
 import { useRouter } from 'next/router';
 import { NextSeo, ProductJsonLd } from 'next-seo';
 import * as React from 'react';
 
 import { CartSidebar } from '../../components/cart-sidebar';
 import { QuantityPicker } from '../../components/quantity-picker';
+import { ShopifyImage } from '../../components/shopify-image/shopify-image';
 import { Spinner } from '../../components/spinner';
 import { VariantSelect } from '../../components/variant-select';
 import { useStoreContext } from '../../context/store-context';
@@ -178,7 +178,7 @@ export default function ProductPage({
                         <>
                           <span className="sr-only">{image.altText}</span>
                           <span className="absolute inset-0 overflow-hidden rounded-md">
-                            <NextImage
+                            <ShopifyImage
                               src={image.transformedSrc}
                               alt=""
                               width={150}
@@ -206,7 +206,7 @@ export default function ProductPage({
                     key={image.id}
                     className="overflow-hidden sm:rounded-lg"
                   >
-                    <NextImage
+                    <ShopifyImage
                       src={image.transformedSrc}
                       alt={image.altText ?? ''}
                       height={700}

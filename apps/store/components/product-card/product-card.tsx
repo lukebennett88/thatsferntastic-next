@@ -1,7 +1,7 @@
 import { classNames, formatPrice } from '@thatsferntastic/utils';
-import NextImage from 'next/image';
 
 import type { Products } from '../../graphql/get-products';
+import { ShopifyImage } from '../shopify-image/shopify-image';
 import styles from './product-card.module.css';
 
 interface ProductCardProps {
@@ -27,7 +27,7 @@ export function ProductCard({ product }: ProductCardProps): JSX.Element {
             )}
           >
             {image.transformedSrc ? (
-              <NextImage
+              <ShopifyImage
                 src={image.transformedSrc}
                 alt={image.altText ?? ''}
                 height={620}

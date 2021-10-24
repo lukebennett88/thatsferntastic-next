@@ -8,11 +8,11 @@ import { parseAlgoliaHitHighlight } from '@algolia/autocomplete-preset-algolia';
 import type { Hit } from '@algolia/client-search';
 import { ChevronRightIcon, SearchIcon, XIcon } from '@heroicons/react/outline';
 import { classNames } from '@thatsferntastic/utils';
-import NextImage from 'next/image';
 import NextLink from 'next/link';
 import * as React from 'react';
 
 import { algoliaClient } from '../../utils/algolia-client';
+import { ShopifyImage } from '../shopify-image/shopify-image';
 
 type AutocompleteProduct = Hit<{
   availableForSale: boolean;
@@ -207,7 +207,6 @@ export function Autocomplete(
           {...panelProps}
         >
           {autocompleteState.collections.map((collection, index) => {
-            console.log(collection);
             const { source, items } = collection;
             return (
               <section key={`source-${index}`}>
@@ -238,7 +237,7 @@ export function Autocomplete(
                               <div className="flex items-center px-4 py-4 sm:px-6">
                                 <div className="flex items-center flex-1 min-w-0">
                                   <div className="flex-shrink-0 w-12 h-12 overflow-hidden rounded">
-                                    <NextImage
+                                    <ShopifyImage
                                       className="object-contain w-12 h-12"
                                       src={item.image.originalSrc}
                                       height={48}

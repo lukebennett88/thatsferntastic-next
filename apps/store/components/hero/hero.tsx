@@ -1,4 +1,5 @@
 import { Button } from '@thatsferntastic/button';
+import NextImage from 'next/image';
 import Link from 'next/link';
 
 export function Hero(): JSX.Element {
@@ -7,9 +8,10 @@ export function Hero(): JSX.Element {
       {/* Decorative image and overlay */}
       <div aria-hidden="true" className="absolute inset-0 overflow-hidden">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        <NextImage
           src="/bees.jpg"
           alt=""
+          layout="fill"
           className="object-cover object-center w-full h-full"
         />
       </div>

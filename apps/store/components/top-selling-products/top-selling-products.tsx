@@ -39,7 +39,7 @@ export function TopSellingProducts({
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={node.images.edges[0].node.transformedSrc}
-                        alt={node.images.edges[0].node.altText || ''}
+                        alt={node.images.edges[0].node.altText ?? ''}
                         className="object-cover object-center w-full h-full"
                       />
                     </span>

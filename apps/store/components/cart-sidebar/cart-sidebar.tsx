@@ -20,7 +20,7 @@ function LineItem({ checkoutId, lineItem, removeLineItem }: LineItemProps) {
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={lineItem.variant.image?.src}
-          alt={lineItem.variant.image?.altText || ''}
+          alt={lineItem.variant.image?.altText ?? ''}
           className="object-cover object-center w-full h-full"
         />
       </div>

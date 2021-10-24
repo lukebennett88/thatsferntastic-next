@@ -208,7 +208,7 @@ export default function ProductPage({
                   >
                     <Image
                       src={image.transformedSrc}
-                      alt={image.altText || ''}
+                      alt={image.altText ?? ''}
                       height={700}
                       width={700}
                       className="object-cover object-center w-full h-full sm:rounded-lg"

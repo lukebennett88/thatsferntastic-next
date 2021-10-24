@@ -1,0 +1,9 @@
+.nextWrapper > * {
+  position: absolute !important;
+}
+
+@screen sm {
+  .nextWrapper > * {
+    position: relative !important;
+  }
+}

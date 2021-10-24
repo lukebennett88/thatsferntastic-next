@@ -1,7 +1,8 @@
-import { formatPrice } from '@thatsferntastic/utils';
+import { classNames, formatPrice } from '@thatsferntastic/utils';
 import NextImage from 'next/image';
 
 import type { Products } from '../../graphql/get-products';
+import styles from './product-card.module.css';
 
 interface ProductCardProps {
   product: Products[number]['node'];
@@ -12,23 +13,33 @@ export function ProductCard({ product }: ProductCardProps): JSX.Element {
   return (
     <div className="relative flex flex-col overflow-hidden bg-white border border-gray-200 rounded-lg group">
       <div className="relative">
-        <div className="bg-gray-200 aspect-w-3 aspect-h-4 group-hover:opacity-75 sm:aspect-none sm:h-96 sm:flex">
-          {image.transformedSrc ? (
-            <NextImage
-              src={image.transformedSrc}
-              alt={image.altText || ''}
-              height={400}
-              width={400}
-              className="object-cover object-center w-full h-full sm:w-full sm:h-full"
-            />
-          ) : (
-            <div
-              style={{ position: 'absolute', inset: 0 }}
-              className="flex items-center justify-center"
-            >
-              Image not found
-            </div>
+        <div
+          className={classNames(
+            'aspect-w-1 aspect-h-1 flex',
+            'group-hover:opacity-75',
+            'sm:aspect-none sm:h-96'
           )}
+        >
+          <div
+            className={classNames(
+              'absolute flex flex-1 bg-teal-100',
+              styles.nextWrapper
+            )}
+          >
+            {image.transformedSrc ? (
+              <NextImage
+                src={image.transformedSrc}
+                alt={image.altText ?? ''}
+                height={620}
+                width={620}
+                className="absolute object-cover object-center w-full h-full sm:w-full sm:h-full"
+              />
+            ) : (
+              <span className="self-center flex-1 text-center">
+                Image not found
+              </span>
+            )}
+          </div>
         </div>
       </div>
       <div className="flex flex-col flex-1 p-4 space-y-2">

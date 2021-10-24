@@ -56,7 +56,7 @@ export default function CollectionPage({
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={collection.image?.transformedSrc}
-                      alt={collection.image?.altText || ''}
+                      alt={collection.image?.altText ?? ''}
                       className="object-cover object-center w-full h-full sm:w-full sm:h-full"
                     />
                   </div>

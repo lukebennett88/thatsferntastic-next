@@ -26,7 +26,7 @@ function CartPreviewItem({
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={product.variant.image?.src}
-            alt={product.variant.image?.altText || ''}
+            alt={product.variant.image?.altText ?? ''}
             className="object-cover object-center w-24 h-24 rounded-md sm:w-48 sm:h-48"
           />
           {isLoading ? (

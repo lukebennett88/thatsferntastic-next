@@ -2,7 +2,7 @@
 import { Popover, Transition } from '@headlessui/react';
 import { MenuIcon, ShoppingBagIcon } from '@heroicons/react/outline';
 import { classNames } from '@thatsferntastic/utils';
-import Image from 'next/image';
+import NextImage from 'next/image';
 import NextLink from 'next/link';
 import * as React from 'react';
 
@@ -37,7 +37,12 @@ export function DesktopMenu({ setOpen }: DesktopMenuProps): JSX.Element {
                 <a className="rounded-full focus:ring">
                   <span className="sr-only">{siteSettings.title}</span>
                   <div className="flex">
-                    <Image width={32} height={32} src="/favicon.png" alt="" />
+                    <NextImage
+                      width={32}
+                      height={32}
+                      src="/favicon.png"
+                      alt=""
+                    />
                   </div>
                 </a>
               </NextLink>

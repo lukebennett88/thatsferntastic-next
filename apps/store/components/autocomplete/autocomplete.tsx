@@ -8,7 +8,7 @@ import { parseAlgoliaHitHighlight } from '@algolia/autocomplete-preset-algolia';
 import type { Hit } from '@algolia/client-search';
 import { ChevronRightIcon, SearchIcon, XIcon } from '@heroicons/react/outline';
 import { classNames } from '@thatsferntastic/utils';
-import Image from 'next/image';
+import NextImage from 'next/image';
 import NextLink from 'next/link';
 import * as React from 'react';
 
@@ -238,7 +238,7 @@ export function Autocomplete(
                               <div className="flex items-center px-4 py-4 sm:px-6">
                                 <div className="flex items-center flex-1 min-w-0">
                                   <div className="flex-shrink-0 w-12 h-12 overflow-hidden rounded">
-                                    <Image
+                                    <NextImage
                                       className="object-contain w-12 h-12"
                                       src={item.image.originalSrc}
                                       height={48}

@@ -6,7 +6,7 @@ import * as React from 'react';
 import { Autocomplete } from '../autocomplete';
 
 export function SearchModal(): JSX.Element {
-  const [isOpen, setIsOpen] = React.useState(true);
+  const [isOpen, setIsOpen] = React.useState(false);
   return (
     <>
       <button

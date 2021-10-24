@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import NextLink from 'next/link';
 import * as React from 'react';
 
 import { NextPageWithLayoutProps } from '../types';
@@ -26,7 +26,7 @@ const NotFoundPage: NextPageWithLayoutProps = () => {
         <main className="flex flex-col flex-grow bg-white">
           <div className="flex flex-col flex-grow w-full px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
             <div className="flex-shrink-0 pt-10 sm:pt-16">
-              <Link href="/">
+              <NextLink href="/">
                 <a className="inline-flex">
                   <span className="sr-only">{siteSettings.title}</span>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -36,7 +36,7 @@ const NotFoundPage: NextPageWithLayoutProps = () => {
                     alt=""
                   />
                 </a>
-              </Link>
+              </NextLink>
             </div>
             <div className="flex-shrink-0 py-16 my-auto sm:py-32">
               <p className="text-sm font-semibold tracking-wide text-pink-600 uppercase">
@@ -49,11 +49,11 @@ const NotFoundPage: NextPageWithLayoutProps = () => {
                 Sorry, we couldn’t find the page you’re looking for.
               </p>
               <div className="mt-6">
-                <Link href="/">
+                <NextLink href="/">
                   <a className="text-base font-medium text-pink-600 hover:text-pink-500">
                     Go back home<span aria-hidden="true"> &rarr;</span>
                   </a>
-                </Link>
+                </NextLink>
               </div>
             </div>
           </div>

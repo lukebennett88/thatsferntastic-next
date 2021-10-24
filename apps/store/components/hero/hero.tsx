@@ -1,6 +1,6 @@
 import { Button } from '@thatsferntastic/button';
 import NextImage from 'next/image';
-import Link from 'next/link';
+import NextLink from 'next/link';
 
 export function Hero(): JSX.Element {
   return (
@@ -28,11 +28,11 @@ export function Hero(): JSX.Element {
           charms! Everything limited stock so get in early 🐝🌻
         </p>
         <div className="mt-8">
-          <Link href="/collections" passHref>
+          <NextLink href="/collections" passHref>
             <Button as="a" size="xl">
               Shop New Arrivals
             </Button>
-          </Link>
+          </NextLink>
         </div>
       </div>
     </div>

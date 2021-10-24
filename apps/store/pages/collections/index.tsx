@@ -1,5 +1,5 @@
 import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
-import Link from 'next/link';
+import NextLink from 'next/link';
 
 import {
   Collection,
@@ -62,7 +62,7 @@ export default function CollectionPage({
                   </div>
                   <div className="flex flex-col flex-1 p-4 space-y-2">
                     <h3 className="text-sm font-medium text-gray-900">
-                      <Link href={`/collections/${collection.handle}`}>
+                      <NextLink href={`/collections/${collection.handle}`}>
                         <a href="">
                           <span
                             aria-hidden="true"
@@ -70,7 +70,7 @@ export default function CollectionPage({
                           />
                           {collection.title}
                         </a>
-                      </Link>
+                      </NextLink>
                     </h3>
                   </div>
                 </div>

@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import NextLink from 'next/link';
 
 import { Collection } from '../../graphql/get-all-collections';
 
@@ -27,7 +27,10 @@ export function CollectionSection({
 
       <div className="mt-10 space-y-12 lg:space-y-0 lg:grid lg:grid-cols-3 lg:gap-x-8 lg:gap-y-6">
         {collections.map(({ node: collection }) => (
-          <Link key={collection.id} href={`/collections/${collection.handle}`}>
+          <NextLink
+            key={collection.id}
+            href={`/collections/${collection.handle}`}
+          >
             <a className="block group">
               <div
                 aria-hidden="true"
@@ -48,7 +51,7 @@ export function CollectionSection({
                 dangerouslySetInnerHTML={{ __html: collection.descriptionHtml }}
               />
             </a>
-          </Link>
+          </NextLink>
         ))}
       </div>
     </section>

@@ -9,7 +9,7 @@ import type { Hit } from '@algolia/client-search';
 import { ChevronRightIcon, SearchIcon, XIcon } from '@heroicons/react/outline';
 import { classNames } from '@thatsferntastic/utils';
 import Image from 'next/image';
-import Link from 'next/link';
+import NextLink from 'next/link';
 import * as React from 'react';
 
 import { algoliaClient } from '../../utils/algolia-client';
@@ -223,7 +223,7 @@ export function Autocomplete(
                       });
                       return (
                         <li key={item.objectID} {...itemProps}>
-                          <Link href={`/products/${item.handle}`}>
+                          <NextLink href={`/products/${item.handle}`}>
                             <a
                               className={classNames(
                                 index === 0 && 'rounded-t-md',
@@ -294,7 +294,7 @@ export function Autocomplete(
                                 </div>
                               </div>
                             </a>
-                          </Link>
+                          </NextLink>
                         </li>
                       );
                     })}

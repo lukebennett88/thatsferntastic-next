@@ -3,7 +3,7 @@ import { Popover, Transition } from '@headlessui/react';
 import { MenuIcon, ShoppingBagIcon } from '@heroicons/react/outline';
 import { classNames } from '@thatsferntastic/utils';
 import Image from 'next/image';
-import Link from 'next/link';
+import NextLink from 'next/link';
 import * as React from 'react';
 
 import { Autocomplete } from '../../components/autocomplete';
@@ -33,14 +33,14 @@ export function DesktopMenu({ setOpen }: DesktopMenuProps): JSX.Element {
 
             {/* Logo */}
             <div className="flex flex-shrink-0 mx-4 lg:ml-0">
-              <Link href="/">
+              <NextLink href="/">
                 <a className="rounded-full focus:ring">
                   <span className="sr-only">{siteSettings.title}</span>
                   <div className="flex">
                     <Image width={32} height={32} src="/favicon.png" alt="" />
                   </div>
                 </a>
-              </Link>
+              </NextLink>
             </div>
 
             {/* Flyout menus */}
@@ -162,7 +162,7 @@ export function DesktopMenu({ setOpen }: DesktopMenuProps): JSX.Element {
 
               {/* Cart */}
               <div className="flow-root ml-4 text-sm lg:relative lg:ml-8">
-                <Link href="/cart">
+                <NextLink href="/cart">
                   <a className="flex items-center p-2 -m-2 group">
                     <ShoppingBagIcon
                       className="flex-shrink-0 w-6 h-6 text-gray-400 group-hover:text-gray-500"
@@ -173,7 +173,7 @@ export function DesktopMenu({ setOpen }: DesktopMenuProps): JSX.Element {
                     </div>
                     <span className="sr-only">items in cart, view bag</span>
                   </a>
-                </Link>
+                </NextLink>
               </div>
             </div>
           </div>

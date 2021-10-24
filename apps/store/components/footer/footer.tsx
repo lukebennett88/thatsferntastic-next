@@ -1,6 +1,6 @@
 import { Button } from '@thatsferntastic/button';
 import Image from 'next/image';
-import Link from 'next/link';
+import NextLink from 'next/link';
 import * as React from 'react';
 
 import {
@@ -91,14 +91,14 @@ export function Footer(): JSX.Element {
           <div className="grid grid-cols-1 md:grid-cols-12 md:grid-flow-col md:gap-x-8 md:gap-y-16 md:auto-rows-min">
             {/* Image section */}
             <div className="col-span-1 md:col-span-2 lg:row-start-1 lg:col-start-1">
-              <Link href="/">
+              <NextLink href="/">
                 <a className="inline-flex rounded-full focus:ring">
                   <span className="sr-only">{siteSettings.title}</span>
                   <div className="flex">
                     <Image width={32} height={32} src="/favicon.png" alt="" />
                   </div>
                 </a>
-              </Link>
+              </NextLink>
             </div>
 
             {/* Sitemap sections */}
@@ -111,11 +111,11 @@ export function Footer(): JSX.Element {
                   <ul role="list" className="mt-6 space-y-6">
                     {collections.map(({ node }) => (
                       <li key={node.id} className="text-sm">
-                        <Link href={`/collections/${node.handle}`}>
+                        <NextLink href={`/collections/${node.handle}`}>
                           <a className="text-gray-500 hover:text-gray-600">
                             {node.title}
                           </a>
-                        </Link>
+                        </NextLink>
                       </li>
                     ))}
                   </ul>

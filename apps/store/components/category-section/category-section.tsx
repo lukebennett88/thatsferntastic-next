@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import NextLink from 'next/link';
 
 const categories = [
   {
@@ -46,11 +46,11 @@ export function CategorySection(): JSX.Element {
         >
           Shop by Category
         </h2>
-        <Link href="/collections">
+        <NextLink href="/collections">
           <a className="hidden text-sm font-semibold text-pink-600 hover:text-pink-500 sm:block">
             Browse all categories<span aria-hidden="true"> &rarr;</span>
           </a>
-        </Link>
+        </NextLink>
       </div>
 
       <div className="flow-root mt-4">

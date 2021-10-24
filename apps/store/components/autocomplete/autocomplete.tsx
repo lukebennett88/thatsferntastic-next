@@ -202,7 +202,7 @@ export function Autocomplete(
             /**
              * Reset full bleed for `sm` and above
              * */
-            'sm:w-[calc(100%+8rem)] sm:-ml-16 sm:translate-x-0'
+            'sm:-ml-16 sm:translate-x-0'
           )}
           {...panelProps}
         >

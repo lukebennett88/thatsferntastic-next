@@ -1,6 +1,4 @@
-import { SearchIcon } from '@heroicons/react/outline';
 import { MenuIcon, ShoppingBagIcon } from '@heroicons/react/outline';
-import { classNames } from '@thatsferntastic/utils';
 import NextImage from 'next/image';
 import NextLink from 'next/link';
 import * as React from 'react';
@@ -9,6 +7,7 @@ import { Autocomplete } from '../../components/autocomplete';
 import { siteSettings } from '../../utils/constants';
 import { useCartCount } from '../../utils/hooks/use-cart-count/use-cart-count';
 import { FlyoutMenus } from '../flyout-menus';
+import { SearchModal } from '../search-modal';
 
 interface DesktopMenuProps {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -53,16 +52,9 @@ export function DesktopMenu({ setOpen }: DesktopMenuProps): JSX.Element {
             <div className="flex items-center ml-auto">
               {/* Search */}
               <div className="relative flex lg:ml-6">
-                <button
-                  type="submit"
-                  title="Submit"
-                  className={classNames(
-                    'rounded-md pointer-events-auto p-1 text-gray-400',
-                    'focus:outline-none focus:ring-2 focus:ring-pink-600 focus:text-gray-600'
-                  )}
-                >
-                  <SearchIcon className="w-5 h-5" aria-hidden="true" />
-                </button>
+                <div className="block sm:hidden">
+                  <SearchModal />
+                </div>
                 <div className="hidden sm:block">
                   <Autocomplete />
                 </div>

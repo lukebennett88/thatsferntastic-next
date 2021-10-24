@@ -1,7 +1,7 @@
 import { classNames, formatPrice } from '@thatsferntastic/utils';
 
 import type { Products } from '../../graphql/get-products';
-import { ShopifyImage } from '../shopify-image/shopify-image';
+import { ShopifyImage } from '../shopify-image';
 import styles from './product-card.module.css';
 
 interface ProductCardProps {

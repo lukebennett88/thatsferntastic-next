@@ -13,7 +13,7 @@ import * as React from 'react';
 
 import { CartSidebar } from '../../components/cart-sidebar';
 import { QuantityPicker } from '../../components/quantity-picker';
-import { ShopifyImage } from '../../components/shopify-image/shopify-image';
+import { ShopifyImage } from '../../components/shopify-image';
 import { Spinner } from '../../components/spinner';
 import { VariantSelect } from '../../components/variant-select';
 import { useStoreContext } from '../../context/store-context';

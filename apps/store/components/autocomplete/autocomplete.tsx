@@ -12,7 +12,7 @@ import NextLink from 'next/link';
 import * as React from 'react';
 
 import { algoliaClient } from '../../utils/algolia-client';
-import { ShopifyImage } from '../shopify-image/shopify-image';
+import { ShopifyImage } from '../shopify-image';
 
 type AutocompleteProduct = Hit<{
   availableForSale: boolean;

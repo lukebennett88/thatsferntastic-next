@@ -13,9 +13,9 @@ export function TopSellingProducts({
   return (
     <section
       aria-labelledby="category-heading"
-      className="pt-24 sm:pt-32 xl:max-w-7xl xl:mx-auto xl:px-8"
+      className="px-4 pt-24 sm:pt-32 sm:px-6 lg:px-8 lg:max-w-7xl lg:mx-auto"
     >
-      <div className="px-4 sm:px-6 sm:flex sm:items-center sm:justify-between lg:px-8 xl:px-0">
+      <div className="sm:flex sm:items-center sm:justify-between">
         <h2
           id="category-heading"
           className="font-mono text-2xl tracking-tight text-pink-600"
@@ -32,7 +32,7 @@ export function TopSellingProducts({
       <div className="flow-root mt-4">
         <div className="-my-2">
           <div className="box-content relative py-2 overflow-x-auto h-80">
-            <div className="absolute flex px-4 space-x-8 min-w-screen-xl sm:px-6 lg:px-8">
+            <div className="absolute flex space-x-8 min-w-screen-xl">
               {topSellingProducts.map(({ node }) => {
                 const imageNode = node.images.edges[0].node;
                 return (

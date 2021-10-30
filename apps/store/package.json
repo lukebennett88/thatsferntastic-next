@@ -13,11 +13,11 @@
     "generate": "DOTENV_CONFIG_PATH=./.env.local graphql-codegen -r dotenv/config --config codegen.json"
   },
   "dependencies": {
-    "@algolia/autocomplete-core": "^1.4.0",
-    "@algolia/autocomplete-js": "^1.4.0",
-    "@apollo/client": "^3.4.15",
+    "@algolia/autocomplete-core": "^1.4.1",
+    "@algolia/autocomplete-js": "^1.4.1",
+    "@apollo/client": "^3.4.16",
     "@headlessui/react": "^1.4.1",
-    "@heroicons/react": "^1.0.4",
+    "@heroicons/react": "^1.0.5",
     "@preconstruct/next": "^3.0.0",
     "@thatsferntastic/button": "0.0.0",
     "@thatsferntastic/utils": "0.0.0",
@@ -27,7 +27,7 @@
     "@ts-gql/eslint-plugin": "^0.7.2",
     "@ts-gql/next": "^15.0.0",
     "@ts-gql/tag": "^0.5.3",
-    "algoliasearch": "^4.10.5",
+    "algoliasearch": "^4.11.0",
     "cross-fetch": "^3.1.4",
     "dayjs": "^1.10.7",
     "dotenv": "^10.0.0",
@@ -38,26 +38,25 @@
     "next-seo": "^4.28.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-hook-form": "^7.17.0",
-    "shopify-buy": "^2.12.0"
+    "react-hook-form": "^7.18.0",
+    "shopify-buy": "^2.13.0"
   },
   "devDependencies": {
-    "@algolia/client-search": "^4.10.5",
-    "@graphql-codegen/cli": "2.2.0",
-    "@graphql-codegen/schema-ast": "^2.2.0",
-    "@tailwindcss/aspect-ratio": "^0.2.2",
+    "@algolia/client-search": "^4.11.0",
+    "@graphql-codegen/cli": "2.2.2",
+    "@graphql-codegen/schema-ast": "^2.3.0",
+    "@tailwindcss/aspect-ratio": "^0.3.0",
     "@tailwindcss/forms": "^0.3.4",
     "@tailwindcss/typography": "^0.4.1",
     "@types/http-errors": "^1.8.1",
-    "@types/react": "17.0.27",
+    "@types/react": "17.0.33",
     "@types/shopify-buy": "^2.10.8",
-    "autoprefixer": "^10.3.6",
-    "eslint": "^7.32.0",
+    "autoprefixer": "^10.4.0",
+    "eslint": "^8.1.0",
     "eslint-config-next": "11.1.2",
-    "graphql": "^15.6.0",
-    "postcss": "^8.3.6",
-    "tailwindcss": "^2.2.16",
-    "typescript": "^4.4.3"
+    "postcss": "^8.3.11",
+    "tailwindcss": "^2.2.19",
+    "typescript": "^4.4.4"
   },
   "engines": {
     "node": ">=14.x"

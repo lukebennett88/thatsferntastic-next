@@ -132,7 +132,7 @@ export function DesktopProductFilters({
       <div className="hidden lg:block">
         <form className="space-y-10 divide-y divide-gray-200">
           <FilterOptionGroup name="Relevance">
-            <ul>
+            <ul className="space-y-3">
               <SortLink label="Trending" sortKey="BEST_SELLING" />
               <SortLink label="New arrivals" sortKey="CREATED_AT" reverse />
               <SortLink label="Price: Low to high" sortKey="PRICE" />

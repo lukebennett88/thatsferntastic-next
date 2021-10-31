@@ -27,7 +27,7 @@ export async function getTopSellingProducts({
   client,
   first,
   productType,
-}: GetTopSellingProducts): Promise<TopSellingProducts | void> {
+}: GetTopSellingProducts): Promise<TopSellingProducts | undefined> {
   try {
     const { data } = await client.query({
       query: TOP_SELLING_PRODUCTS,

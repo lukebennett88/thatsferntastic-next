@@ -60,7 +60,7 @@ export async function addItemToCart({
   client,
   checkoutLineItemsAddLineItems,
   checkoutLineItemsAddCheckoutId,
-}: AddItemToCart): Promise<Checkout | void> {
+}: AddItemToCart): Promise<Checkout | undefined> {
   try {
     const { data } = await client.mutate({
       mutation: ADD_ITEM_TO_CART,

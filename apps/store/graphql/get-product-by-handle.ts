@@ -16,7 +16,7 @@ export type Product =
 export async function getProductByHandle(
   client: Client,
   handle: string
-): Promise<Product | void> {
+): Promise<Product | undefined> {
   try {
     const { data } = await client.query({
       query: GET_PRODUCT_BY_HANDLE,

@@ -60,7 +60,7 @@ export async function getAllCollections(client: Client): Promise<Collection[]> {
 
     async function getNextCollections(
       cursor: string
-    ): Promise<Collection[] | void> {
+    ): Promise<Collection[] | undefined> {
       try {
         const { data } = await client.query({
           query: GET_NEXT_COLLECTIONS,

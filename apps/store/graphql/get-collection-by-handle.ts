@@ -28,7 +28,7 @@ interface Variables {
 export async function getCollectionByHandle(
   client: Client,
   variables: Variables
-): Promise<Collection | void> {
+): Promise<Collection | undefined> {
   try {
     const { data } = await client.query({
       query: GET_COLLECTION,

@@ -17,7 +17,9 @@ export type InitialCart = NonNullable<
   typeof CREATE_CART['___type']['result']['cartCreate']
 >['cart'];
 
-export async function createCart(client: Client): Promise<InitialCart | void> {
+export async function createCart(
+  client: Client
+): Promise<InitialCart | undefined> {
   try {
     const { data } = await client.mutate({
       mutation: CREATE_CART,

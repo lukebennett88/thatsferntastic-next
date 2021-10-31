@@ -1,4 +1,5 @@
 import { classNames, formatPrice } from '@thatsferntastic/utils';
+import NextLink from 'next/link';
 
 import type { Products } from '../../graphql/get-products';
 import { ShopifyImage } from '../shopify-image';
@@ -44,10 +45,12 @@ export function ProductCard({ product }: ProductCardProps): JSX.Element {
       </div>
       <div className="flex flex-col flex-1 p-4 space-y-2">
         <h3 className="text-sm font-medium text-gray-900">
-          <a href={`/products/${product.handle}`}>
-            <span aria-hidden="true" className="absolute inset-0" />
-            {product.title}
-          </a>
+          <NextLink href={`/products/${product.handle}`}>
+            <a>
+              <span aria-hidden="true" className="absolute inset-0" />
+              {product.title}
+            </a>
+          </NextLink>
         </h3>
         <p className="text-base font-medium text-gray-900">
           {formatPrice(Number(product.priceRange.minVariantPrice.amount))}

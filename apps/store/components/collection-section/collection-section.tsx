@@ -36,12 +36,16 @@ export function CollectionSection({
                 aria-hidden="true"
                 className="overflow-hidden rounded-lg aspect-w-3 aspect-h-2 group-hover:opacity-75 lg:aspect-w-5 lg:aspect-h-6"
               >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={collection.image?.transformedSrc}
-                  alt={collection.image?.altText ?? ''}
-                  className="object-cover object-center w-full h-full"
-                />
+                {collection.image ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    alt={collection.image.altText ?? ''}
+                    loading="lazy"
+                    src={`${collection.image.transformedSrc}&width=1080`}
+                    srcSet={`${collection.image.transformedSrc}&width=640 1x, ${collection.image.transformedSrc}&width=1080 2x`}
+                    className="object-cover object-center w-full h-full"
+                  />
+                ) : null}
               </div>
               <h3 className="mt-4 text-base font-semibold text-gray-900">
                 {collection.title}

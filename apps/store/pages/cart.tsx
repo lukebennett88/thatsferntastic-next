@@ -1,32 +1,36 @@
 import { CheckIcon, ClockIcon, XIcon } from '@heroicons/react/solid';
 import { Button } from '@thatsferntastic/button';
 import { formatPrice } from '@thatsferntastic/utils';
-import React from 'react';
+import NextLink from 'next/link';
+import * as React from 'react';
 
+import { ShopifyImage } from '../components/shopify-image';
 import { Spinner } from '../components/spinner';
 import { useStoreContext } from '../context/store-context';
-import type { LineItem } from '../types';
+import type { CartLine } from '../graphql/cart-fragment';
 import { useCartCount } from '../utils/hooks/use-cart-count';
 
 interface CartPreviewItemProps {
-  product: LineItem;
-  productIdx: number;
+  cartLine: CartLine;
+  index: number;
 }
 
 function CartPreviewItem({
-  product,
-  productIdx,
+  cartLine,
+  index,
 }: CartPreviewItemProps): JSX.Element {
-  const { checkout, removeLineItem, updateLineItem } = useStoreContext();
-  const [isLoading, setIsLoading] = React.useState(false);
+  const { isLoading, removeLineItem, updateLineItem } = useStoreContext();
+  const { product } = cartLine.merchandise;
+  const [{ node: image }] = product.images.edges;
   return (
     <li className="flex py-6 sm:py-10">
       <div className="flex-shrink-0">
         <div className="relative">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={product.variant.image?.src}
-            alt={product.variant.image?.altText ?? ''}
+          <ShopifyImage
+            src={image.transformedSrc}
+            alt={image.altText ?? ''}
+            height={96}
+            width={96}
             className="object-cover object-center w-24 h-24 rounded-md sm:w-48 sm:h-48"
           />
           {isLoading ? (
@@ -42,16 +46,15 @@ function CartPreviewItem({
           <div>
             <div className="flex justify-between">
               <h3 className="text-sm">
-                <a
-                  href={`/products/${product.variant.product.handle}`}
-                  className="font-medium text-gray-700 hover:text-gray-800"
-                >
-                  {product.title}
-                </a>
+                <NextLink href={`/products/${product.handle}`}>
+                  <a className="font-medium text-gray-700 hover:text-gray-800">
+                    {product.title}
+                  </a>
+                </NextLink>
               </h3>
             </div>
             <div className="flex mt-1 text-sm">
-              {product.variant.selectedOptions.map(({ value }, index) => (
+              {cartLine.merchandise.selectedOptions.map(({ value }, index) => (
                 <React.Fragment key={value}>
                   {index === 0 ? (
                     <p className="text-gray-500">{value}</p>
@@ -64,27 +67,28 @@ function CartPreviewItem({
               ))}
             </div>
             <p className="mt-1 text-sm font-medium text-gray-900">
-              {formatPrice(Number(product.variant.priceV2.amount))}
+              {formatPrice(
+                Number(cartLine.estimatedCost.subtotalAmount.amount)
+              )}
             </p>
           </div>
 
           <div className="mt-4 sm:mt-0 sm:pr-9">
-            <label htmlFor={`quantity-${productIdx}`} className="sr-only">
+            <label htmlFor={`quantity-${index}`} className="sr-only">
               Quantity, {product.title}
             </label>
             <select
-              id={`quantity-${productIdx}`}
-              name={`quantity-${productIdx}`}
-              defaultValue={product.quantity}
-              onChange={async event => {
-                setIsLoading(true);
-                await updateLineItem(
-                  checkout?.id as string,
-                  product.id,
-                  Number(event.target.value)
-                );
-                setIsLoading(false);
-              }}
+              id={`quantity-${index}`}
+              name={`quantity-${index}`}
+              defaultValue={cartLine.quantity}
+              onChange={async event =>
+                await updateLineItem([
+                  {
+                    id: product.id,
+                    quantity: Number(event.target.value),
+                  },
+                ])
+              }
               className="max-w-full rounded-md border border-gray-300 py-1.5 text-base leading-5 font-medium text-gray-700 text-left shadow-sm focus:outline-none focus:ring-1 focus:ring-pink-500 focus:border-pink-500 sm:text-sm"
             >
               {Array.from({ length: 8 })
@@ -99,11 +103,7 @@ function CartPreviewItem({
             <div className="absolute top-0 right-0">
               <button
                 type="button"
-                onClick={async () => {
-                  setIsLoading(true);
-                  await removeLineItem(checkout?.id as string, product.id);
-                  setIsLoading(false);
-                }}
+                onClick={async () => await removeLineItem([product.id])}
                 className="inline-flex p-2 -m-2 text-gray-400 hover:text-gray-500"
               >
                 <span className="sr-only">Remove</span>
@@ -114,7 +114,7 @@ function CartPreviewItem({
         </div>
 
         <p className="flex mt-4 space-x-2 text-sm text-gray-700">
-          {product.variant.available ? (
+          {product.availableForSale ? (
             <CheckIcon
               className="flex-shrink-0 w-5 h-5 text-green-500"
               aria-hidden="true"
@@ -126,7 +126,7 @@ function CartPreviewItem({
             />
           )}
 
-          <span>{product.variant.available ? 'In stock' : `Out of stock`}</span>
+          <span>{product.availableForSale ? 'In stock' : `Out of stock`}</span>
         </p>
       </div>
     </li>
@@ -134,7 +134,7 @@ function CartPreviewItem({
 }
 
 export default function CartPage(): JSX.Element {
-  const { checkout, isLoading } = useStoreContext();
+  const { cart, isLoading } = useStoreContext();
   const cartCount = useCartCount();
   return (
     <main className="bg-white">
@@ -152,13 +152,8 @@ export default function CartPage(): JSX.Element {
               role="list"
               className="border-t border-b border-gray-200 divide-y divide-gray-200"
             >
-              {checkout?.lineItems.map((product, productIdx) => (
-                <CartPreviewItem
-                  key={product.id}
-                  // TODO: fix types here
-                  product={product as any as LineItem}
-                  productIdx={productIdx}
-                />
+              {cart?.lines?.edges.map(({ node }, index) => (
+                <CartPreviewItem key={node.id} cartLine={node} index={index} />
               ))}
             </ul>
           </section>
@@ -195,21 +190,17 @@ export default function CartPage(): JSX.Element {
                   Subtotal
                 </dt>
                 <dd className="text-base font-medium text-gray-900">
-                  {checkout?.subtotalPrice
-                    ? formatPrice(Number(checkout.subtotalPrice))
+                  {cart?.estimatedCost
+                    ? formatPrice(
+                        Number(cart.estimatedCost.subtotalAmount.amount)
+                      )
                     : null}
                 </dd>
               </div>
             </dl>
 
             <div className="mt-6">
-              <Button
-                as="a"
-                width="full"
-                size="xl"
-                // @ts-expect-error: Types don't have webUrl for some reason
-                href={checkout?.webUrl as string}
-              >
+              <Button as="a" width="full" size="xl" href={cart?.checkoutUrl}>
                 <span className="relative flex items-center justify-center">
                   {isLoading ? (
                     <span className="absolute inset-y-0 -translate-x-full -left-3 transform-gpu">

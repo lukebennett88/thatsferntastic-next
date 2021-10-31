@@ -2,25 +2,29 @@ import { Dialog, Transition } from '@headlessui/react';
 import { XIcon } from '@heroicons/react/outline';
 import { Button } from '@thatsferntastic/button';
 import { formatPrice } from '@thatsferntastic/utils';
+import NextLink from 'next/link';
 import * as React from 'react';
 
 import { RemoveLineItem, useStoreContext } from '../../context/store-context';
-import { LineItem as LineItemType } from '../../types';
+import type { CartLine } from '../../graphql/cart-fragment';
+import { ShopifyImage } from '../shopify-image';
 
 interface LineItemProps {
-  checkoutId: string;
-  lineItem: LineItemType;
+  cartLine: CartLine;
   removeLineItem: RemoveLineItem;
 }
 
-function LineItem({ checkoutId, lineItem, removeLineItem }: LineItemProps) {
+function LineItem({ cartLine, removeLineItem }: LineItemProps) {
+  const { product } = cartLine.merchandise;
+  const [{ node: image }] = product.images.edges;
   return (
     <li className="flex py-6">
       <div className="flex-shrink-0 w-24 h-24 overflow-hidden border border-gray-200 rounded-md">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={lineItem.variant.image?.src}
-          alt={lineItem.variant.image?.altText ?? ''}
+        <ShopifyImage
+          src={image.transformedSrc}
+          alt={image.altText ?? ''}
+          height={96}
+          width={96}
           className="object-cover object-center w-full h-full"
         />
       </div>
@@ -29,13 +33,17 @@ function LineItem({ checkoutId, lineItem, removeLineItem }: LineItemProps) {
         <div>
           <div className="flex justify-between text-base font-medium text-gray-900">
             <h3>
-              <a href={lineItem.variant.product.handle}>{lineItem.title}</a>
+              <NextLink href={`/products/${product.handle}`}>
+                <a>{product.title}</a>
+              </NextLink>
             </h3>
             <p className="ml-4">
-              {formatPrice(Number(lineItem.variant.priceV2.amount))}
+              {formatPrice(
+                Number(cartLine.estimatedCost.subtotalAmount.amount)
+              )}
             </p>
           </div>
-          {lineItem.variant.selectedOptions.map(({ value }, index) => (
+          {cartLine.merchandise.selectedOptions.map(({ value }, index) => (
             <React.Fragment key={value}>
               {index === 0 ? (
                 <p className="mt-1 text-sm text-gray-500">{value}</p>
@@ -48,14 +56,11 @@ function LineItem({ checkoutId, lineItem, removeLineItem }: LineItemProps) {
           ))}
         </div>
         <div className="flex items-end justify-between flex-1 text-sm">
-          <p className="text-gray-500">Qty {lineItem.quantity}</p>
-
+          {/* <p className="text-gray-500">Qty {lineItem.quantity}</p> */}
           <div className="flex">
             <button
               type="button"
-              onClick={async () =>
-                await removeLineItem(checkoutId, lineItem.id)
-              }
+              onClick={async () => await removeLineItem([cartLine.id])}
               className="font-medium text-pink-600 hover:text-pink-500"
             >
               Remove
@@ -68,7 +73,7 @@ function LineItem({ checkoutId, lineItem, removeLineItem }: LineItemProps) {
 }
 
 export function CartSidebar(): JSX.Element {
-  const { checkout, closeCart, didJustAddToCart, removeLineItem } =
+  const { cart, closeCart, didJustAddToCart, removeLineItem } =
     useStoreContext();
   return (
     <Transition.Root show={didJustAddToCart} as={React.Fragment}>
@@ -125,14 +130,11 @@ export function CartSidebar(): JSX.Element {
                           role="list"
                           className="-my-6 divide-y divide-gray-200"
                         >
-                          {checkout?.lineItems.map(lineItem => (
+                          {cart?.lines?.edges.map(({ node }) => (
                             <LineItem
-                              key={lineItem.id}
-                              // TODO: fix types here
-                              lineItem={lineItem as any as LineItemType}
+                              key={node.id}
+                              cartLine={node}
                               removeLineItem={removeLineItem}
-                              // TODO: fix types here
-                              checkoutId={checkout.id as string}
                             />
                           ))}
                         </ul>
@@ -144,8 +146,10 @@ export function CartSidebar(): JSX.Element {
                     <div className="flex justify-between text-base font-medium text-gray-900">
                       <p>Subtotal</p>
                       <p>
-                        {checkout?.subtotalPrice
-                          ? formatPrice(Number(checkout.subtotalPrice))
+                        {cart?.estimatedCost
+                          ? formatPrice(
+                              Number(cart.estimatedCost.subtotalAmount.amount)
+                            )
                           : null}
                       </p>
                     </div>
@@ -153,12 +157,7 @@ export function CartSidebar(): JSX.Element {
                       Shipping and taxes calculated at checkout.
                     </p>
                     <div className="mt-6">
-                      <Button
-                        width="full"
-                        as="a"
-                        // @ts-expect-error: Types don't have webUrl for some reason
-                        href={checkout?.webUrl as string}
-                      >
+                      <Button width="full" as="a" href={cart?.checkoutUrl}>
                         Checkout
                       </Button>
                     </div>

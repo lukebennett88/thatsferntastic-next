@@ -49,3 +49,6 @@ yarn-error.log*
 # dotEnv Files
 .env.local
 .env.*.local
+
+# TypeScript
+tsconfig.tsbuildinfo

@@ -1,12 +1,12 @@
 import { useStoreContext } from '../../context/store-context';
 
 export function useCartCount(): number {
-  const { checkout } = useStoreContext();
-  if (checkout == null || checkout.lineItems.length === 0) {
-    return 0;
+  const { cart } = useStoreContext();
+  if (cart?.lines?.edges && cart.lines.edges.length > 0) {
+    return cart.lines.edges.reduce(
+      (totalCount, lineItem) => totalCount + lineItem.node.quantity,
+      0
+    );
   }
-  return checkout.lineItems.reduce(
-    (totalCount, lineItem) => totalCount + lineItem.quantity,
-    0
-  );
+  return 0;
 }

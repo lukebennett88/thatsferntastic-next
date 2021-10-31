@@ -6,7 +6,7 @@ import React from 'react';
 import { Spinner } from '../components/spinner';
 import { useStoreContext } from '../context/store-context';
 import type { LineItem } from '../types';
-import { useCartCount } from '../utils/hooks/use-cart-count/use-cart-count';
+import { useCartCount } from '../utils/hooks/use-cart-count';
 
 interface CartPreviewItemProps {
   product: LineItem;

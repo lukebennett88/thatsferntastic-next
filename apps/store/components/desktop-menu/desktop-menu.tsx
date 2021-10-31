@@ -5,7 +5,7 @@ import * as React from 'react';
 
 import { Autocomplete } from '../../components/autocomplete';
 import { siteSettings } from '../../utils/constants';
-import { useCartCount } from '../../utils/hooks/use-cart-count/use-cart-count';
+import { useCartCount } from '../../utils/hooks/use-cart-count';
 import { FlyoutMenus } from '../flyout-menus';
 import { SearchModal } from '../search-modal';
 

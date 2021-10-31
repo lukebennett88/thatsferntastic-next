@@ -1,4 +1,4 @@
-import { useStoreContext } from '../../../context/store-context';
+import { useStoreContext } from '../../context/store-context';
 
 export function useCartCount(): number {
   const { checkout } = useStoreContext();

@@ -32,7 +32,7 @@
     "@ts-gql/tag": "^0.5.3",
     "@typescript-eslint/eslint-plugin": "^5.2.0",
     "@typescript-eslint/parser": "^5.2.0",
-    "eslint": "^8.1.0",
+    "eslint": "7",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "graphql": "^15.6.1",

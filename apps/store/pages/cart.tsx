@@ -54,7 +54,7 @@ function CartPreviewItem({
               </h3>
             </div>
             <div className="flex mt-1 text-sm">
-              {cartLine.merchandise.selectedOptions.map(({ value }, index) => (
+              {cartLine.merchandise.selectedOptions?.map(({ value }, index) => (
                 <React.Fragment key={value}>
                   {index === 0 ? (
                     <p className="text-gray-500">{value}</p>

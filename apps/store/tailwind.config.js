@@ -1,3 +1,4 @@
+// @ts-check
 const colors = require('tailwindcss/colors');
 const defaultTheme = require('tailwindcss/defaultTheme');
 
@@ -12,7 +13,7 @@ const cyan = {
   700: '#1abedb',
   800: '#1e8c9f',
   900: '#236a76',
-}
+};
 
 const teal = {
   50: '#edfafa',
@@ -25,7 +26,7 @@ const teal = {
   700: '#037072',
   800: '#055b5c',
   900: '#015051',
-}
+};
 
 const pink = {
   50: '#fdf2f9',
@@ -38,7 +39,7 @@ const pink = {
   700: '#bf127a',
   800: '#991564',
   900: '#751a51',
-}
+};
 
 module.exports = {
   mode: 'jit',

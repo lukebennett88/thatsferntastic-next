@@ -66,7 +66,7 @@ function LineItem({ cartLine, removeLineItem }: LineItemProps) {
             })}
         </div>
         <div className="flex items-end justify-between flex-1 text-sm">
-          {/* <p className="text-gray-500">Qty {lineItem.quantity}</p> */}
+          <p className="text-gray-500">Qty: {cartLine.quantity}</p>
           <div className="flex">
             <button
               type="button"

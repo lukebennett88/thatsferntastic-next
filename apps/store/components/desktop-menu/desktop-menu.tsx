@@ -1,5 +1,4 @@
 import { MenuIcon, ShoppingBagIcon } from '@heroicons/react/outline';
-import NextImage from 'next/image';
 import NextLink from 'next/link';
 import * as React from 'react';
 
@@ -7,6 +6,7 @@ import { Autocomplete } from '../../components/autocomplete';
 import { siteSettings } from '../../utils/constants';
 import { useCartCount } from '../../utils/hooks/use-cart-count/use-cart-count';
 import { FlyoutMenus } from '../flyout-menus';
+import { Logo } from '../logo';
 import { SearchModal } from '../search-modal';
 
 interface DesktopMenuProps {
@@ -35,12 +35,7 @@ export function DesktopMenu({ setOpen }: DesktopMenuProps): JSX.Element {
                 <a className="rounded-full focus:ring">
                   <span className="sr-only">{siteSettings.title}</span>
                   <div className="flex">
-                    <NextImage
-                      width={32}
-                      height={32}
-                      src="/favicon.png"
-                      alt=""
-                    />
+                    <Logo width={32} height={32} />
                   </div>
                 </a>
               </NextLink>

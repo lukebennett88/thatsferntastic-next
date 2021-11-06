@@ -91,13 +91,14 @@ function CartPreviewItem({
               }
               className="max-w-full rounded-md border border-gray-300 py-1.5 text-base leading-5 font-medium text-gray-700 text-left shadow-sm focus:outline-none focus:ring-1 focus:ring-pink-500 focus:border-pink-500 sm:text-sm"
             >
-              {Array.from({ length: 8 })
-                .fill('')
-                .map((_, index) => (
-                  <option key={index} value={index + 1}>
-                    {index + 1}
+              {Array.from({ length: 8 }, (_, i) => {
+                const value = i + 1;
+                return (
+                  <option key={i} value={value}>
+                    {value}
                   </option>
-                ))}
+                );
+              })}
             </select>
 
             <div className="absolute top-0 right-0">

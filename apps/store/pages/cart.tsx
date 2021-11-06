@@ -21,7 +21,11 @@ function CartPreviewItem({
 }: CartPreviewItemProps): JSX.Element {
   const { isLoading, removeLineItem, updateLineItem } = useStoreContext();
   const { product } = cartLine.merchandise;
-  const [{ node: image }] = product.images.edges;
+  const variantImage = product.variants.edges.find(
+    ({ node }) => node.id === cartLine.merchandise.id
+  )?.node.image;
+  const [{ node: firstImage }] = product.images.edges;
+  const image = variantImage ?? firstImage;
   return (
     <li className="flex py-6 sm:py-10">
       <div className="flex-shrink-0">

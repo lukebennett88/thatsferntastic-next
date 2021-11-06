@@ -5,7 +5,8 @@ import { classNames, formatPrice } from '@thatsferntastic/utils';
 import NextLink from 'next/link';
 import * as React from 'react';
 
-import { RemoveLineItem, useStoreContext } from '../../context/store-context';
+import type { RemoveLineItem } from '../../context/store-context';
+import { useStoreContext } from '../../context/store-context';
 import type { CartLine } from '../../graphql/cart-fragment';
 import { ShopifyImage } from '../shopify-image';
 
@@ -16,17 +17,23 @@ interface LineItemProps {
 
 function LineItem({ cartLine, removeLineItem }: LineItemProps) {
   const { product } = cartLine.merchandise;
-  const [{ node: image }] = product.images.edges;
+  const variantImage = product.variants.edges.find(
+    ({ node }) => node.id === cartLine.merchandise.id
+  )?.node.image;
+  const [{ node: firstImage }] = product.images.edges;
+  const image = variantImage ?? firstImage;
   return (
     <li className="flex py-6">
       <div className="flex-shrink-0 w-24 h-24 overflow-hidden border border-gray-200 rounded-md">
-        <ShopifyImage
-          src={image.transformedSrc}
-          alt={image.altText ?? ''}
-          height={96}
-          width={96}
-          className="object-cover object-center w-full h-full"
-        />
+        {image ? (
+          <ShopifyImage
+            src={image.transformedSrc}
+            alt={image.altText ?? ''}
+            height={96}
+            width={96}
+            className="object-cover object-center w-full h-full"
+          />
+        ) : null}
       </div>
 
       <div className="flex flex-col flex-1 ml-4">

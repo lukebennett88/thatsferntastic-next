@@ -1,7 +1,7 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { XIcon } from '@heroicons/react/outline';
 import { Button } from '@thatsferntastic/button';
-import { formatPrice } from '@thatsferntastic/utils';
+import { classNames, formatPrice } from '@thatsferntastic/utils';
 import NextLink from 'next/link';
 import * as React from 'react';
 
@@ -43,17 +43,27 @@ function LineItem({ cartLine, removeLineItem }: LineItemProps) {
               )}
             </p>
           </div>
-          {cartLine.merchandise.selectedOptions.map(({ value }, index) => (
-            <React.Fragment key={value}>
-              {index === 0 ? (
-                <p className="mt-1 text-sm text-gray-500">{value}</p>
-              ) : (
-                <p className="pl-4 mt-1 ml-4 text-sm text-gray-500 border-l border-gray-200">
-                  {value}
-                </p>
-              )}
-            </React.Fragment>
-          ))}
+          {cartLine.merchandise.selectedOptions
+            .filter(({ value }) => value !== 'Default Title')
+            .map(({ value }, index) => {
+              const baseClasses = 'mt-1 text-sm text-gray-500';
+              return (
+                <React.Fragment key={value}>
+                  {index === 0 ? (
+                    <p className={baseClasses}>{value}</p>
+                  ) : (
+                    <p
+                      className={classNames(
+                        baseClasses,
+                        'pl-4 ml-4 border-l border-gray-200'
+                      )}
+                    >
+                      {value}
+                    </p>
+                  )}
+                </React.Fragment>
+              );
+            })}
         </div>
         <div className="flex items-end justify-between flex-1 text-sm">
           {/* <p className="text-gray-500">Qty {lineItem.quantity}</p> */}

@@ -1,5 +1,4 @@
 import { Button } from '@thatsferntastic/button';
-import NextImage from 'next/image';
 import NextLink from 'next/link';
 import * as React from 'react';
 
@@ -11,6 +10,7 @@ import { getAllProducts, Product } from '../../graphql/get-all-products';
 import { initialiseTsGql } from '../../utils/apollo-client';
 import { siteSettings } from '../../utils/constants';
 import { FacebookIcon, InstagramIcon, TwitterIcon } from '../icons';
+import { Logo } from '../logo';
 
 const footerNavigation = {
   products: [
@@ -95,12 +95,7 @@ export function Footer(): JSX.Element {
                 <a className="inline-flex rounded-full focus:ring">
                   <span className="sr-only">{siteSettings.title}</span>
                   <div className="flex">
-                    <NextImage
-                      width={32}
-                      height={32}
-                      src="/favicon.png"
-                      alt=""
-                    />
+                    <Logo width={32} height={32} />
                   </div>
                 </a>
               </NextLink>

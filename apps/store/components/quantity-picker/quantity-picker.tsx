@@ -13,7 +13,7 @@ export function QuantityPicker({
   setQuantity,
 }: QuantityPickerProps): JSX.Element {
   const increment = () => {
-    setQuantity(prev => {
+    setQuantity((prev) => {
       if (available) {
         if (available > prev) return prev + 1;
         return available;
@@ -23,7 +23,7 @@ export function QuantityPicker({
   };
 
   const decrement = () => {
-    setQuantity(prev => {
+    setQuantity((prev) => {
       if (prev > 1) return prev - 1;
       return prev;
     });

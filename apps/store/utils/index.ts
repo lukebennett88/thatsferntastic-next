@@ -5,8 +5,8 @@ export const variantForOptions = (
   product: NonNullable<Product>,
   options: NonNullable<Product>['variants']['edges'][number]
 ): NonNullable<Product>['variants']['edges'][number] | undefined => {
-  return product.variants.edges.find(variant => {
-    return variant.node.selectedOptions.every(selectedOption => {
+  return product.variants.edges.find((variant) => {
+    return variant.node.selectedOptions.every((selectedOption) => {
       // @ts-expect-error I think types might be too strict here
       return options[selectedOption.name] === selectedOption.value.valueOf();
     });

@@ -76,7 +76,7 @@ function CartPreviewItem({
               id={`quantity-${productIdx}`}
               name={`quantity-${productIdx}`}
               defaultValue={product.quantity}
-              onChange={async event => {
+              onChange={async (event) => {
                 setIsLoading(true);
                 await updateLineItem(
                   checkout?.id as string,

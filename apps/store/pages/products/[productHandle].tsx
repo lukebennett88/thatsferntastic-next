@@ -88,7 +88,7 @@ export default function ProductPage({
       value,
     };
 
-    const selectedVariant = variants.edges.find(v => {
+    const selectedVariant = variants.edges.find((v) => {
       return isEqual(currentOptions, v.node.selectedOptions);
     });
 

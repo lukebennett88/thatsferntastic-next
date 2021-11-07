@@ -63,7 +63,7 @@ export default function CollectionPage({
                   <div className="flex flex-col flex-1 p-4 space-y-2">
                     <h3 className="text-sm font-medium text-gray-900">
                       <NextLink href={`/collections/${collection.handle}`}>
-                        <a href="">
+                        <a>
                           <span
                             aria-hidden="true"
                             className="absolute inset-0"

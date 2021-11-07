@@ -64,12 +64,11 @@ export function TopSellingProducts({
       </div>
 
       <div className="px-4 mt-6 sm:hidden">
-        <a
-          href="#"
-          className="block text-sm font-semibold text-pink-600 hover:text-pink-500"
-        >
-          Browse all products<span aria-hidden="true"> &rarr;</span>
-        </a>
+        <NextLink href="/products">
+          <a className="block text-sm font-semibold text-pink-600 hover:text-pink-500">
+            Browse all products<span aria-hidden="true"> &rarr;</span>
+          </a>
+        </NextLink>
       </div>
     </section>
   );

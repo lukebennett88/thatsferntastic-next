@@ -24,7 +24,7 @@ export const getServerSideProps: GetServerSideProps<ProductsProps> = async ({
   // Optional filters
   const first = !isNaN(Number(query.first)) ? Number(query.first) : undefined;
   const reverse = query.reverse === 'true';
-  const sortKey = SORT_KEYS.find(key => key === query.sortKey);
+  const sortKey = SORT_KEYS.find((key) => key === query.sortKey);
 
   const client = initialiseTsGql();
   const products = await getProducts({

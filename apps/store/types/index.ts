@@ -5,6 +5,7 @@ export interface LayoutProps {
     meta?: {
       title?: string;
     };
+    // eslint-disable-next-line @typescript-eslint/ban-types
     Layout: React.FC;
   };
 }

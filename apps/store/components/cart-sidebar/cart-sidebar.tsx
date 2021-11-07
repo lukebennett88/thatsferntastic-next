@@ -125,7 +125,7 @@ export function CartSidebar(): JSX.Element {
                           role="list"
                           className="-my-6 divide-y divide-gray-200"
                         >
-                          {checkout?.lineItems.map(lineItem => (
+                          {checkout?.lineItems.map((lineItem) => (
                             <LineItem
                               key={lineItem.id}
                               // TODO: fix types here

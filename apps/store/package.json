@@ -13,8 +13,8 @@
     "generate": "DOTENV_CONFIG_PATH=./.env.local graphql-codegen -r dotenv/config --config codegen.json"
   },
   "dependencies": {
-    "@algolia/autocomplete-core": "^1.4.1",
-    "@algolia/autocomplete-js": "^1.4.1",
+    "@algolia/autocomplete-core": "^1.5.0",
+    "@algolia/autocomplete-js": "^1.5.0",
     "@apollo/client": "^3.4.16",
     "@headlessui/react": "^1.4.1",
     "@heroicons/react": "^1.0.5",
@@ -34,26 +34,26 @@
     "graphql": "^15.6.1",
     "http-errors": "^1.8.0",
     "isomorphic-unfetch": "^3.1.0",
-    "next": "12.0.2",
+    "next": "12.0.3",
     "next-seo": "^4.28.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-hook-form": "^7.18.0"
+    "react-hook-form": "^7.19.1"
   },
   "devDependencies": {
     "@algolia/client-search": "^4.11.0",
     "@graphql-codegen/cli": "2.2.2",
-    "@graphql-codegen/schema-ast": "^2.3.0",
+    "@graphql-codegen/schema-ast": "^2.4.0",
     "@tailwindcss/aspect-ratio": "^0.3.0",
     "@tailwindcss/forms": "^0.3.4",
     "@tailwindcss/typography": "^0.4.1",
     "@types/http-errors": "^1.8.1",
-    "@types/node": "16.11.6",
     "@types/lodash": "^4.14.176",
-    "@types/react": "17.0.33",
+    "@types/node": "16.11.6",
+    "@types/react": "17.0.34",
     "autoprefixer": "^10.4.0",
     "eslint": "7",
-    "eslint-config-next": "12.0.2",
+    "eslint-config-next": "12.0.3",
     "postcss": "^8.3.11",
     "tailwindcss": "^2.2.19",
     "typescript": "^4.4.4"

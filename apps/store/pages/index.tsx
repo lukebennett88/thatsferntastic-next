@@ -11,6 +11,7 @@ import {
   TopSellingProducts as TopSellingProductsType,
 } from '../graphql/get-top-selling-products';
 import { addApolloState, initialiseTsGql } from '../utils/apollo-client';
+
 interface HomePageProps {
   collections: Array<Collection>;
   topSellingProducts: TopSellingProductsType;

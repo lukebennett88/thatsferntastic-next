@@ -24,7 +24,7 @@ export default withAuth(
     },
     session,
     ui: {
-      isAccessAllowed: context => !!context.session?.data,
+      isAccessAllowed: (context) => !!context.session?.data,
     },
   })
 );

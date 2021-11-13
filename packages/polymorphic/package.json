@@ -4,7 +4,7 @@
   "main": "dist/thatsferntastic-polymorphic.cjs.js",
   "module": "dist/thatsferntastic-polymorphic.esm.js",
   "dependencies": {
-    "@babel/runtime": "^7.16.0",
+    "@babel/runtime": "^7.16.3",
     "react": "^17.0.2"
   }
 }

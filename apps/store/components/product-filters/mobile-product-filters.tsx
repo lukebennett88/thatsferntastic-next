@@ -94,7 +94,7 @@ export function MobileProductFilters({
 
             {/* Filters */}
             <form className="mt-4">
-              {filters.map(section => (
+              {filters.map((section) => (
                 <Disclosure
                   as="div"
                   key={section.name}

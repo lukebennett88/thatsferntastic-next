@@ -20,8 +20,8 @@ export async function getProductTypes(
       query: GET_PRODUCT_TYPES,
     });
     return data?.productTypes.edges
-      .filter(productType => Boolean(productType.node))
-      .map(p => p.node);
+      .filter((productType) => Boolean(productType.node))
+      .map((p) => p.node);
   } catch (error) {
     console.error(error);
   }

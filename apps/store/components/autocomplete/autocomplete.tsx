@@ -3,8 +3,10 @@ import {
   AutocompleteState,
   createAutocomplete,
 } from '@algolia/autocomplete-core';
-import { getAlgoliaResults } from '@algolia/autocomplete-preset-algolia';
-import { parseAlgoliaHitHighlight } from '@algolia/autocomplete-preset-algolia';
+import {
+  getAlgoliaResults,
+  parseAlgoliaHitHighlight,
+} from '@algolia/autocomplete-preset-algolia';
 import type { Hit } from '@algolia/client-search';
 import { ChevronRightIcon, SearchIcon, XIcon } from '@heroicons/react/outline';
 import { classNames } from '@thatsferntastic/utils';

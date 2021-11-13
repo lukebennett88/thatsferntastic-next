@@ -30,7 +30,7 @@ export const getCurrencySymbol = (
     style: 'currency',
   });
   const parts = formatter.formatToParts(100);
-  const part = parts.find(part => part.type === 'currency');
+  const part = parts.find((part) => part.type === 'currency');
   const symbol = part?.value;
   const formatted = formatter.format(100);
   const symbolAtEnd = formatted.endsWith(symbol as string);

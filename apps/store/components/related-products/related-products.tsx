@@ -24,7 +24,7 @@ export function RelatedProducts(): JSX.Element {
       </h2>
 
       <div className="grid grid-cols-1 mt-8 gap-y-12 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8">
-        {relatedProducts.map(product => (
+        {relatedProducts.map((product) => (
           <div key={product.id}>
             <div className="relative">
               <div className="relative w-full overflow-hidden rounded-lg h-72">

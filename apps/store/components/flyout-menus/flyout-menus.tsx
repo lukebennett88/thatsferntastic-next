@@ -8,7 +8,7 @@ export function FlyoutMenus(): JSX.Element {
   return (
     <Popover.Group className="z-30 hidden lg:ml-8 lg:block lg:self-stretch">
       <div className="flex h-full space-x-8">
-        {navigation.categories.map(category => (
+        {navigation.categories.map((category) => (
           <Popover key={category.name} className="flex">
             {({ open }) => (
               <>
@@ -45,7 +45,7 @@ export function FlyoutMenus(): JSX.Element {
                       <div className="px-8 mx-auto max-w-7xl">
                         <div className="grid grid-cols-2 py-16 gap-y-10 gap-x-8">
                           <div className="grid grid-cols-2 col-start-2 gap-x-8">
-                            {category.featured.map(item => (
+                            {category.featured.map((item) => (
                               <div
                                 key={item.name}
                                 className="relative text-base group sm:text-sm"
@@ -75,7 +75,7 @@ export function FlyoutMenus(): JSX.Element {
                             ))}
                           </div>
                           <div className="grid grid-cols-3 row-start-1 text-sm gap-y-10 gap-x-8">
-                            {category.sections.map(section => (
+                            {category.sections.map((section) => (
                               <div key={section.name}>
                                 <p
                                   id={`${section.name}-heading`}
@@ -88,7 +88,7 @@ export function FlyoutMenus(): JSX.Element {
                                   aria-labelledby={`${section.name}-heading`}
                                   className="mt-6 space-y-6 sm:mt-4 sm:space-y-4"
                                 >
-                                  {section.items.map(item => (
+                                  {section.items.map((item) => (
                                     <li key={item.name} className="flex">
                                       <a
                                         href={item.href}

@@ -62,7 +62,7 @@ module.exports = {
         mono: ['Courier Prime', 'Courier New', ...defaultTheme.fontFamily.mono],
         sans: ['Montserrat', ...defaultTheme.fontFamily.sans],
       },
-      typography: theme => ({
+      typography: (theme) => ({
         DEFAULT: {
           css: {
             'h1, h2, h3, h4': {

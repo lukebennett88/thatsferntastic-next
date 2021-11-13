@@ -85,7 +85,7 @@ function CartPreviewItem({
               id={`quantity-${index}`}
               name={`quantity-${index}`}
               defaultValue={cartLine.quantity}
-              onChange={async event =>
+              onChange={async (event) =>
                 await updateLineItem([
                   {
                     id: product.id,

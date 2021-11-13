@@ -56,7 +56,7 @@ export function ProductDetails(): JSX.Element {
       </h2>
 
       <div className="border-t divide-y divide-gray-200">
-        {product.details.map(detail => (
+        {product.details.map((detail) => (
           <Disclosure as="div" key={detail.name}>
             {({ open }) => (
               <>
@@ -87,7 +87,7 @@ export function ProductDetails(): JSX.Element {
                 </h3>
                 <Disclosure.Panel as="div" className="pb-6 prose-sm prose">
                   <ul role="list">
-                    {detail.items.map(item => (
+                    {detail.items.map((item) => (
                       <li key={item}>{item}</li>
                     ))}
                   </ul>

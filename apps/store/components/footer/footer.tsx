@@ -125,7 +125,7 @@ export function Footer(): JSX.Element {
                     Product categories
                   </h3>
                   <ul role="list" className="mt-6 space-y-6">
-                    {productTypes.map(type => (
+                    {productTypes.map((type) => (
                       <li key={type} className="text-sm">
                         <a
                           href={`/product-types?type=${type}`}
@@ -143,7 +143,7 @@ export function Footer(): JSX.Element {
                   Customer Service
                 </h3>
                 <ul role="list" className="mt-6 space-y-6">
-                  {footerNavigation.customerService.map(item => (
+                  {footerNavigation.customerService.map((item) => (
                     <li key={item.name} className="text-sm">
                       <a
                         href={item.href}

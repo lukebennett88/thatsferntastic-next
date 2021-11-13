@@ -57,7 +57,7 @@ export function CategorySection(): JSX.Element {
         <div className="-my-2">
           <div className="box-content relative py-2 overflow-x-auto h-80 xl:overflow-visible">
             <div className="absolute flex px-4 space-x-8 min-w-screen-xl sm:px-6 lg:px-8 xl:relative xl:px-0 xl:space-x-0 xl:grid xl:grid-cols-5 xl:gap-x-8">
-              {categories.map(category => (
+              {categories.map((category) => (
                 <a
                   key={category.name}
                   href={category.href}
@@ -86,12 +86,12 @@ export function CategorySection(): JSX.Element {
       </div>
 
       <div className="px-4 mt-6 sm:hidden">
-        <a
-          href="#"
-          className="block text-sm font-semibold text-pink-600 hover:text-pink-500"
-        >
-          Browse all categories<span aria-hidden="true"> &rarr;</span>
-        </a>
+        {/* TODO: update this link */}
+        <NextLink href="/collections">
+          <a className="block text-sm font-semibold text-pink-600 hover:text-pink-500">
+            Browse all categories<span aria-hidden="true"> &rarr;</span>
+          </a>
+        </NextLink>
       </div>
     </section>
   );

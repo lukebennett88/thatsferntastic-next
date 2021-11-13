@@ -10,7 +10,7 @@ export function SearchModal(): JSX.Element {
   return (
     <>
       <button
-        onClick={() => setIsOpen(prev => !prev)}
+        onClick={() => setIsOpen((prev) => !prev)}
         title="Submit"
         className={classNames(
           'rounded-md pointer-events-auto p-1 text-gray-400',

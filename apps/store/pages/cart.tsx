@@ -26,6 +26,18 @@ function CartPreviewItem({
   )?.node.image;
   const [{ node: firstImage }] = product.images.edges;
   const image = variantImage ?? firstImage;
+
+  const handleUpdateLineItem = async (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    await updateLineItem([
+      {
+        id: cartLine.id,
+        quantity: Number(event.target.value),
+      },
+    ]);
+  };
+  const handleRemoveLineItem = async () => await removeLineItem([cartLine.id]);
   return (
     <li className="flex py-6 sm:py-10">
       <div className="flex-shrink-0">
@@ -85,14 +97,7 @@ function CartPreviewItem({
               id={`quantity-${index}`}
               name={`quantity-${index}`}
               defaultValue={cartLine.quantity}
-              onChange={async (event) =>
-                await updateLineItem([
-                  {
-                    id: product.id,
-                    quantity: Number(event.target.value),
-                  },
-                ])
-              }
+              onChange={handleUpdateLineItem}
               className="max-w-full rounded-md border border-gray-300 py-1.5 text-base leading-5 font-medium text-gray-700 text-left shadow-sm focus:outline-none focus:ring-1 focus:ring-pink-500 focus:border-pink-500 sm:text-sm"
             >
               {Array.from({ length: 8 }, (_, i) => {
@@ -108,7 +113,7 @@ function CartPreviewItem({
             <div className="absolute top-0 right-0">
               <button
                 type="button"
-                onClick={async () => await removeLineItem([product.id])}
+                onClick={handleRemoveLineItem}
                 className="inline-flex p-2 -m-2 text-gray-400 hover:text-gray-500"
               >
                 <span className="sr-only">Remove</span>

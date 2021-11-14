@@ -54,7 +54,7 @@ export async function getProducts({
   productType,
   reverse,
   sortKey,
-}: GetProducts): Promise<Products | void> {
+}: GetProducts): Promise<Products | undefined> {
   try {
     const { data } = await client.query({
       query: PRODUCTS,

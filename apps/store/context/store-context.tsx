@@ -1,37 +1,39 @@
-import fetch from 'isomorphic-unfetch';
+import { Maybe } from 'graphql/jsutils/Maybe';
 import * as React from 'react';
-import ShopifyBuy from 'shopify-buy';
 
-const client = ShopifyBuy.buildClient(
-  {
-    domain: process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN,
-    storefrontAccessToken:
-      process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN,
-  },
-  // @ts-expect-error: Types are wrong here. Second param in fetch function.
-  fetch
-);
+import type { Line, UpdatedCart } from '../graphql/add-items-to-cart';
+import { addItemsToCart } from '../graphql/add-items-to-cart';
+import { createCart } from '../graphql/create-cart';
+import { removeItemsFromCart } from '../graphql/remove-items-from-cart';
+import { updateItemsInCart } from '../graphql/update-items-in-cart';
+import { initialiseTsGql } from '../utils/apollo-client';
+import { useLocalStorageState } from '../utils/hooks/use-local-storage-state';
 
-export type AddVariantToCart = (
-  variantId: string,
-  quantity: number
-) => Promise<void>;
-export type Checkout = ShopifyBuy.Cart | undefined;
-export type Client = ShopifyBuy.Client | undefined;
-export type RemoveLineItem = (
-  checkoutId: string,
-  lineItemId: string
-) => Promise<void>;
+const SHOPIFY_CART_KEY = 'thatsferntastic:cart';
+
+export type AddVariantToCart = (lines: Line | Array<Line>) => Promise<void>;
+export type RemoveLineItem = (lineIds: Array<string>) => Promise<void>;
 export type UpdateLineItem = (
-  checkoutId: string,
-  lineItemId: string,
-  quantity: number
+  lines: Array<{
+    id: string;
+    quantity: number;
+  }>
 ) => Promise<void>;
+
+type EstimatedCost = NonNullable<UpdatedCart>['estimatedCost'];
+type Lines = NonNullable<UpdatedCart>['lines'];
+
+type Cart = Maybe<{
+  id: string;
+  checkoutUrl: string;
+  estimatedCost?: EstimatedCost;
+  lines?: Lines;
+  __typename: 'Cart';
+}>;
 
 interface StoreState {
   addVariantToCart: AddVariantToCart;
-  checkout: Checkout;
-  client: Client;
+  cart: Cart | undefined;
   didJustAddToCart: boolean;
   isLoading: boolean;
   removeLineItem: RemoveLineItem;
@@ -41,115 +43,89 @@ interface StoreState {
 
 const StoreContext = React.createContext<StoreState | undefined>(undefined);
 
-const isBrowser = typeof window !== 'undefined';
-const localStorageKey = 'shopify_checkout_id';
-
 interface StoreProviderProps {
   children: React.ReactNode;
 }
 
 export function StoreProvider({ children }: StoreProviderProps): JSX.Element {
-  const [checkout, setCheckout] = React.useState<ShopifyBuy.Cart>();
+  const [cart, setCart] = useLocalStorageState<Cart>(SHOPIFY_CART_KEY);
   const [isLoading, setIsLoading] = React.useState(false);
   const [didJustAddToCart, setDidJustAddToCart] = React.useState(false);
+
   const closeCart = () => setDidJustAddToCart(false);
 
-  const setCheckoutItem = (checkout: ShopifyBuy.Cart) => {
-    if (isBrowser) {
-      localStorage.setItem(localStorageKey, checkout.id as string);
-    }
+  const client = initialiseTsGql();
 
-    setCheckout(checkout);
-  };
-
+  // Create a new cart if we don't already have one saved in localStorage
   React.useEffect(() => {
-    const initializeCheckout = async () => {
-      const existingCheckoutId = isBrowser
-        ? localStorage.getItem(localStorageKey)
-        : null;
+    if (cart) return;
+    (async () => {
+      const newCart = await createCart(client);
+      newCart && setCart(newCart);
+    })();
+  }, [cart, client, setCart]);
 
-      if (existingCheckoutId && existingCheckoutId !== 'null') {
-        try {
-          const existingCheckout = await client.checkout.fetch(
-            existingCheckoutId
-          );
-          if (!existingCheckout.completedAt) {
-            setCheckoutItem(existingCheckout);
-            return;
-          }
-        } catch (error) {
-          localStorage.removeItem(localStorageKey);
-        }
+  const addVariantToCart = async (lines: Line | Array<Line>) => {
+    const cartId = cart?.id;
+    if (cartId) {
+      try {
+        setIsLoading(true);
+        const newCart = await addItemsToCart({ client, cartId, lines });
+        console.log({
+          calledBy: 'addVariantToCart',
+          newCart,
+        });
+        setCart(newCart);
+        setDidJustAddToCart(true);
+      } catch (error) {
+        console.error('Error in addVariantToCart:', error);
+      } finally {
+        setIsLoading(false);
       }
-
-      const newCheckout = await client.checkout.create();
-      setCheckoutItem(newCheckout);
-    };
-
-    initializeCheckout();
-  }, []);
-
-  const addVariantToCart = async (variantId: string, quantity: number) => {
-    setIsLoading(true);
-
-    const checkoutId = checkout?.id as string;
-
-    const lineItemsToUpdate = [
-      {
-        variantId,
-        quantity,
-      },
-    ];
-
-    try {
-      const newCheckout = await client.checkout.addLineItems(
-        checkoutId,
-        lineItemsToUpdate
-      );
-      setCheckout(newCheckout);
-      setIsLoading(false);
-      setDidJustAddToCart(true);
-      setTimeout(closeCart, 5000);
-    } catch (error) {
-      console.error('Error in addVariantToCart:', error);
-      setIsLoading(false);
     }
   };
 
-  const removeLineItem = async (checkoutId: string, lineItemId: string) => {
+  const removeLineItem = async (lineIds: Array<string>) => {
     setIsLoading(true);
-
-    try {
-      const newCheckout = await client.checkout.removeLineItems(checkoutId, [
-        lineItemId,
-      ]);
-      setCheckout(newCheckout);
-      setIsLoading(false);
-    } catch (error) {
-      console.error('removeLineItem in addVariantToCart:', error);
-      setIsLoading(false);
+    if (cart?.id) {
+      try {
+        const newCart = await removeItemsFromCart({
+          client,
+          cartId: cart.id,
+          lineIds,
+        });
+        console.log({
+          calledBy: 'removeLineItem',
+          newCart,
+        });
+        setCart(newCart);
+        setIsLoading(false);
+      } catch (error) {
+        console.error('Error in in removeLineItem:', error);
+      }
     }
   };
 
   const updateLineItem = async (
-    checkoutId: string,
-    lineItemId: string,
-    quantity: number
+    lines: Array<{
+      id: string;
+      quantity: number;
+    }>
   ) => {
-    setIsLoading(true);
-
-    const lineItemsToUpdate = [{ id: lineItemId, quantity }];
-
-    try {
-      const newCheckout = await client.checkout.updateLineItems(
-        checkoutId,
-        lineItemsToUpdate
-      );
-      setCheckout(newCheckout);
-      setIsLoading(false);
-    } catch (error) {
-      console.error('Error in updateLineItem:', error);
-      setIsLoading(false);
+    if (cart?.id) {
+      setIsLoading(true);
+      try {
+        const newCart = await updateItemsInCart({
+          client,
+          cartId: cart.id,
+          lines,
+        });
+        setCart(newCart);
+        setIsLoading(false);
+      } catch (error) {
+        console.error('Error in updateLineItem:', error);
+        setIsLoading(false);
+      }
     }
   };
 
@@ -157,8 +133,7 @@ export function StoreProvider({ children }: StoreProviderProps): JSX.Element {
     <StoreContext.Provider
       value={{
         addVariantToCart,
-        checkout,
-        client,
+        cart,
         didJustAddToCart,
         isLoading,
         removeLineItem,

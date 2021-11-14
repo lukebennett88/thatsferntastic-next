@@ -113,7 +113,9 @@ export default function ProductPage({
   const { addVariantToCart } = useStoreContext();
 
   const addToCart = async () => {
-    await addVariantToCart(productVariant.node.id, quantity);
+    await addVariantToCart([
+      { merchandiseId: productVariant.node.id, quantity },
+    ]);
   };
 
   const { isLoading } = useStoreContext();

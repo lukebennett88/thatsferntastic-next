@@ -15,7 +15,7 @@ export type Product = typeof GET_PRODUCT_BY_ID['___type']['result']['product'];
 export async function getProductById(
   client: Client,
   id: string
-): Promise<Product | void> {
+): Promise<Product | undefined> {
   try {
     const { data } = await client.query({
       query: GET_PRODUCT_BY_ID,

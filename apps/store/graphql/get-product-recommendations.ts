@@ -20,7 +20,7 @@ export type ProductRecommendations =
 export async function getProductRecommendations(
   client: Client,
   productId: string
-): Promise<ProductRecommendations | void> {
+): Promise<ProductRecommendations | undefined> {
   try {
     const { data } = await client.query({
       query: GET_PRODUCT_RECOMMENDATIONS,

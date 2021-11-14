@@ -48,7 +48,9 @@ export async function getAllProducts(client: Client): Promise<Product[]> {
   async function getAllProductsFromQuery() {
     let newCursor = '';
 
-    async function getNextProducts(cursor: string): Promise<Product[] | void> {
+    async function getNextProducts(
+      cursor: string
+    ): Promise<Product[] | undefined> {
       try {
         const { data } = await client.query({
           query: GET_NEXT_PRODUCTS,

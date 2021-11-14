@@ -1,5 +1,6 @@
-const { withTsGql } = require('@ts-gql/next');
+// @ts-check
 const withPreconstruct = require('@preconstruct/next');
+const { withTsGql } = require('@ts-gql/next');
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {

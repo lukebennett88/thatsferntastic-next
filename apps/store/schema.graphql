@@ -29,7 +29,8 @@ directive @inContext(
 ) on MUTATION | QUERY
 
 """
-A version of the API.
+A version of the API, as defined by [Shopify API versioning](https://shopify.dev/api/usage/versioning).
+Versions are commonly referred to by their handle (for example, `2021-10`).
 """
 type ApiVersion {
   """
@@ -4291,7 +4292,8 @@ type Currency {
 }
 
 """
-Currency codes.
+The three-letter currency codes that represent the world currencies used in stores. These include standard ISO 4217 codes as well as some legacy
+and non-standard codes.
 """
 enum CurrencyCode {
   """
@@ -5832,12 +5834,16 @@ type CustomerUserError implements DisplayableError {
 }
 
 """
-An ISO-8601 encoded UTC date time string. Example value: `"2019-07-03T20:47:55Z"`.
+Represents an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)-encoded date and time string.
+For example, 3:30 pm on September 7, 2019 in the time zone of UTC (Coordinated Universal Time) is
+represented as `"2019-09-07T15:50:00Z`".
 """
 scalar DateTime
 
 """
-A signed decimal number, which supports arbitrary precision and is serialized as a string. Example value: `"29.99"`.
+A signed decimal number, which supports arbitrary precision and is serialized as a string.
+
+Example values: `"29.99"`, `"29.999"`.
 """
 scalar Decimal
 
@@ -6226,7 +6232,10 @@ input GeoCoordinateInput {
 }
 
 """
-A string containing HTML code. Example value: `"<p>Grey cotton knit sweater.</p>"`.
+A string containing HTML code. Refer to the [HTML spec](https://html.spec.whatwg.org/#elements-3) for a
+complete list of HTML elements.
+
+Example value: `"<p>Grey cotton knit sweater.</p>"`.
 """
 scalar HTML
 
@@ -6309,15 +6318,12 @@ type Image {
 
   If there are any existing transformations in the original source URL, they will remain and not be stripped.
   """
-  originalSrc: URL!
+  originalSrc: URL! @deprecated(reason: "Use `url` instead")
 
   """
   The location of the image as a URL.
   """
-  src: URL!
-    @deprecated(
-      reason: "Previously an image had a single `src` field. This could either return the original image\nlocation or a URL that contained transformations such as sizing or scale.\n\nThese transformations were specified by arguments on the parent field.\n\nNow an image has two distinct URL fields: `originalSrc` and `transformedSrc`.\n\n* `originalSrc` - the original unmodified image URL\n* `transformedSrc` - the image URL with the specified transformations included\n\nTo migrate to the new fields, image transformations should be moved from the parent field to `transformedSrc`.\n\nBefore:\n```graphql\n{\n  shop {\n    productImages(maxWidth: 200, scale: 2) {\n      edges {\n        node {\n          src\n        }\n      }\n    }\n  }\n}\n```\n\nAfter:\n```graphql\n{\n  shop {\n    productImages {\n      edges {\n        node {\n          transformedSrc(maxWidth: 200, scale: 2)\n        }\n      }\n    }\n  }\n}\n```\n"
-    )
+  src: URL! @deprecated(reason: "Use `url` instead")
 
   """
   The location of the transformed image as a URL.
@@ -6342,7 +6348,7 @@ type Image {
     maxWidth: Int
 
     """
-    Best effort conversion of image into content type (SVG -> PNG, Anything -> JGP, Anything -> WEBP are supported).
+    Best effort conversion of image into content type (SVG -> PNG, Anything -> JPG, Anything -> WEBP are supported).
     """
     preferredContentType: ImageContentType
 
@@ -6350,7 +6356,7 @@ type Image {
     Image size multiplier for high-resolution retina displays. Must be between 1 and 3.
     """
     scale: Int = 1
-  ): URL!
+  ): URL! @deprecated(reason: "Use `url(transform:)` instead")
 
   """
   The original width of the image in pixels. Returns `null` if the image is not hosted by Shopify.
@@ -7038,6 +7044,11 @@ Metafield value types.
 """
 enum MetafieldValueType {
   """
+  A boolean metafield.
+  """
+  BOOLEAN
+
+  """
   An integer metafield.
   """
   INTEGER
@@ -7109,7 +7120,7 @@ type Model3dSource {
 }
 
 """
-A monetary value string. Example value: `"100.57"`.
+A monetary value string without currency. Example value: `"100.57"`.
 """
 scalar Money
 
@@ -7926,7 +7937,10 @@ type Mutation {
 }
 
 """
-An object with an ID to support global identification.
+An object with an ID field to support global identification, in accordance with the
+[Relay specification](https://relay.dev/graphql/objectidentification.htm#sec-Node-Interface).
+This interface is used by the [node](https://shopify.dev/api/admin-graphql/unstable/queries/node)
+and [nodes](https://shopify.dev/api/admin-graphql/unstable/queries/nodes) queries.
 """
 interface Node {
   """
@@ -8627,16 +8641,17 @@ type PageEdge {
 }
 
 """
-Information about pagination in a connection.
+Returns information about pagination in a connection, in accordance with the
+[Relay specification](https://relay.dev/graphql/connections.htm#sec-undefined.PageInfo).
 """
 type PageInfo {
   """
-  Indicates if there are more pages to fetch.
+  Whether there are more pages to fetch following the current page.
   """
   hasNextPage: Boolean!
 
   """
-  Indicates if there are any pages prior to the current page.
+  Whether there are any pages prior to the current page.
   """
   hasPreviousPage: Boolean!
 }
@@ -11186,7 +11201,7 @@ type StoreAvailabilityEdge {
 }
 
 """
-An auto-generated type for paginating through multiple Strings.
+An auto-generated type for paginating through a list of Strings.
 """
 type StringConnection {
   """
@@ -11430,9 +11445,11 @@ enum TransactionStatus {
 }
 
 """
-An RFC 3986 and RFC 3987 compliant URI string.
+Represents an [RFC 3986](https://datatracker.ietf.org/doc/html/rfc3986) and
+[RFC 3987](https://datatracker.ietf.org/doc/html/rfc3987)-compliant URI string.
 
-Example value: `"https://johns-apparel.myshopify.com"`.
+For example, `"https://johns-apparel.myshopify.com"` is a valid URL. It includes a scheme (`https`) and a host
+(`johns-apparel.myshopify.com`).
 """
 scalar URL
 

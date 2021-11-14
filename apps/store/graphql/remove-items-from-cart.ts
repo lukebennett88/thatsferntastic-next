@@ -10,6 +10,11 @@ export const REMOVE_ITEMS_FROM_CART = gql`
         id
         ...Cart_Fragment
       }
+      userErrors {
+        code
+        field
+        message
+      }
     }
   }
 ` as import('../../../__generated__/ts-gql/RemoveItemsFromCart').type;

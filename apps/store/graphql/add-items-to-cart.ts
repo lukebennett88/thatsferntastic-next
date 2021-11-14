@@ -9,6 +9,11 @@ export const ADD_ITEMS_TO_CART = gql`
         id
         ...Cart_Fragment
       }
+      userErrors {
+        code
+        field
+        message
+      }
     }
   }
 ` as import('../../../__generated__/ts-gql/AddItemsToCart').type;

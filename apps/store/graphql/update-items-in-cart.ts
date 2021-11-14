@@ -10,6 +10,11 @@ export const UPDATE_ITEMS_IN_CART = gql`
         id
         ...Cart_Fragment
       }
+      userErrors {
+        code
+        field
+        message
+      }
     }
   }
 ` as import('../../../__generated__/ts-gql/UpdateItemsInCart').type;

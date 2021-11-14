@@ -8,6 +8,7 @@ import * as React from 'react';
 import type { RemoveLineItem } from '../../context/store-context';
 import { useStoreContext } from '../../context/store-context';
 import type { CartLine } from '../../graphql/cart-fragment';
+import { InternalLink } from '../internal-link';
 import { ShopifyImage } from '../shopify-image';
 
 interface LineItemProps {
@@ -174,8 +175,13 @@ export function CartSidebar(): JSX.Element {
                       Shipping and taxes calculated at checkout.
                     </p>
                     <div className="mt-6">
-                      <Button width="full" as="a" href={cart?.checkoutUrl}>
-                        Checkout
+                      <Button
+                        as={InternalLink}
+                        onClick={closeCart}
+                        href="/cart"
+                        width="full"
+                      >
+                        Go to cart
                       </Button>
                     </div>
                     <div className="flex justify-center mt-6 text-sm text-center text-gray-500">

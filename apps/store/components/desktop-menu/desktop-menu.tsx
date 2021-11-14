@@ -63,7 +63,12 @@ export function DesktopMenu({ setOpen }: DesktopMenuProps): JSX.Element {
                       className="flex-shrink-0 w-6 h-6 text-gray-400 group-hover:text-gray-500"
                       aria-hidden="true"
                     />
-                    <div className="relative w-2 ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">
+                    <div
+                      className={classNames(
+                        cartCount ? 'opacity-100' : 'opacity-0',
+                        'relative w-2 ml-2 text-sm font-medium text-gray-700 transition duration-300 ease-in-out group-hover:text-gray-800'
+                      )}
+                    >
                       {cartCount}
                     </div>
                     <span className="sr-only">items in cart, view bag</span>

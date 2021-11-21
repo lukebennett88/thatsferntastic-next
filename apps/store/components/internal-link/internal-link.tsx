@@ -1,6 +1,6 @@
-import { forwardRef } from 'react';
 import type { LinkProps as NextLinkProps } from 'next/link';
 import NextLink from 'next/link';
+import { forwardRef } from 'react';
 
 export type InternalLinkProps = Omit<
   React.DetailedHTMLProps<

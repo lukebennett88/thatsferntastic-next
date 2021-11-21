@@ -1,6 +1,7 @@
-import { gql } from '@ts-gql/tag';
+import { gql } from '@ts-gql/tag/no-transform';
 
 import type { Client } from '../utils/apollo-client';
+import { CART_FRAGMENT } from './cart-fragment';
 
 export const ADD_ITEMS_TO_CART = gql`
   mutation AddItemsToCart($lines: [CartLineInput!]!, $cartId: ID!) {
@@ -16,6 +17,7 @@ export const ADD_ITEMS_TO_CART = gql`
       }
     }
   }
+  ${CART_FRAGMENT}
 ` as import('../../../__generated__/ts-gql/AddItemsToCart').type;
 
 export type UpdatedCart = NonNullable<

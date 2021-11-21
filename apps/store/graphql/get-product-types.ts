@@ -1,4 +1,4 @@
-import { gql } from '@ts-gql/tag';
+import { gql } from '@ts-gql/tag/no-transform';
 
 import { Client } from '../utils/apollo-client';
 

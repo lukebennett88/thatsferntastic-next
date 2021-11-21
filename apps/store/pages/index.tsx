@@ -4,16 +4,17 @@ import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { CollectionSection } from '../components/collection-section';
 // import { FeaturedSection } from '../components/featured-section';
 import { Hero } from '../components/hero';
-import { TopSellingProducts } from '../components/top-selling-products';
+import { ProductList } from '../components/product-list';
 import { Collection, getAllCollections } from '../graphql/get-all-collections';
-import {
-  getTopSellingProducts,
-  TopSellingProducts as TopSellingProductsType,
-} from '../graphql/get-top-selling-products';
+import type { RecentProducts } from '../graphql/get-recent-products';
+import { getRecentProducts } from '../graphql/get-recent-products';
+import type { TopSellingProducts as TopSellingProductsType } from '../graphql/get-top-selling-products';
+import { getTopSellingProducts } from '../graphql/get-top-selling-products';
 import { addApolloState, initialiseTsGql } from '../utils/apollo-client';
 
 interface HomePageProps {
   collections: Array<Collection>;
+  recentProducts: RecentProducts;
   topSellingProducts: TopSellingProductsType;
 }
 
@@ -21,6 +22,10 @@ export const getServerSideProps: GetServerSideProps<HomePageProps> =
   async () => {
     const client = initialiseTsGql();
     const collections = await getAllCollections(client);
+    const recentProducts = await getRecentProducts({
+      client,
+      first: 8,
+    });
     const topSellingProducts = await getTopSellingProducts({
       client,
       first: 8,
@@ -29,18 +34,20 @@ export const getServerSideProps: GetServerSideProps<HomePageProps> =
       props: {
         collections,
         topSellingProducts,
+        recentProducts,
       },
     });
   };
 
 export default function HomePage({
   collections,
+  recentProducts,
   topSellingProducts,
 }: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
   return (
     <div className="pb-24 sm:pb-32">
       <Hero />
-      <TopSellingProducts topSellingProducts={topSellingProducts} />
+      <ProductList heading="New Arrivals" topSellingProducts={recentProducts} />
       {/* <CategorySection /> */}
       {/* <FeaturedSection
         id="social-impact-heading"
@@ -54,6 +61,10 @@ export default function HomePage({
         href="#"
       /> */}
       <CollectionSection collections={collections} />
+      <ProductList
+        heading="Top Selling Products"
+        topSellingProducts={topSellingProducts}
+      />
       {/* <FeaturedSection
         id="comfort-heading"
         heading="Simple productivity"

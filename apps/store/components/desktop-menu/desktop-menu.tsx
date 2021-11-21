@@ -1,13 +1,13 @@
 import { MenuIcon, ShoppingBagIcon } from '@heroicons/react/outline';
+import { classNames } from '@thatsferntastic/utils';
 import NextLink from 'next/link';
 import * as React from 'react';
 
-import { Autocomplete } from '../../components/autocomplete';
 import { siteSettings } from '../../utils/constants';
 import { useCartCount } from '../../utils/hooks/use-cart-count';
 import { FlyoutMenus } from '../flyout-menus';
 import { Logo } from '../logo';
-import { SearchModal } from '../search-modal';
+import { SearchButton } from '../search-button';
 
 interface DesktopMenuProps {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -46,14 +46,7 @@ export function DesktopMenu({ setOpen }: DesktopMenuProps): JSX.Element {
 
             <div className="flex items-center ml-auto">
               {/* Search */}
-              <div className="relative flex lg:ml-6">
-                <div className="block sm:hidden">
-                  <SearchModal />
-                </div>
-                <div className="hidden sm:block">
-                  <Autocomplete />
-                </div>
-              </div>
+              <SearchButton />
 
               {/* Cart */}
               <div className="flow-root ml-4 text-sm lg:relative lg:ml-8">

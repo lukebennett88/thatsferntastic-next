@@ -1,26 +1,29 @@
+import { slugify } from '@thatsferntastic/utils';
 import NextLink from 'next/link';
 
-import { TopSellingProducts as TopSellingProductsType } from '../../graphql/get-top-selling-products';
+import { TopSellingProducts as ProductsType } from '../../graphql/get-top-selling-products';
 import { ShopifyImage } from '../shopify-image';
 
-interface TopSellingProductsProps {
-  topSellingProducts: TopSellingProductsType;
+interface ProductListProps {
+  heading: string;
+  topSellingProducts: ProductsType;
 }
 
-export function TopSellingProducts({
+export function ProductList({
+  heading,
   topSellingProducts,
-}: TopSellingProductsProps): JSX.Element {
+}: ProductListProps): JSX.Element {
   return (
     <section
-      aria-labelledby="category-heading"
+      aria-labelledby={slugify(heading)}
       className="px-4 pt-24 sm:pt-32 sm:px-6 lg:px-8 lg:max-w-7xl lg:mx-auto"
     >
       <div className="sm:flex sm:items-center sm:justify-between">
         <h2
-          id="category-heading"
+          id={slugify(heading)}
           className="font-mono text-2xl tracking-tight text-pink-600"
         >
-          Top Selling Products
+          {heading}
         </h2>
         <NextLink href="/products">
           <a className="hidden text-sm font-semibold text-pink-600 hover:text-pink-500 sm:block">

@@ -1,4 +1,4 @@
-import { gql } from '@ts-gql/tag';
+import { gql } from '@ts-gql/tag/no-transform';
 
 export const COLLECTION_FRAGMENT = gql`
   fragment Collection_Fragment on Collection {

@@ -1,6 +1,8 @@
-import { gql } from '@ts-gql/tag';
+import { gql } from '@ts-gql/tag/no-transform';
 
 import { Client } from '../utils/apollo-client';
+import { COLLECTION_FRAGMENT } from './collection-fragments';
+import { PRODUCT_FRAGMENT } from './product-fragments';
 
 const GET_COLLECTION = gql`
   query GetCollection($handle: String!) {
@@ -16,6 +18,8 @@ const GET_COLLECTION = gql`
       }
     }
   }
+  ${COLLECTION_FRAGMENT}
+  ${PRODUCT_FRAGMENT}
 ` as import('../../../__generated__/ts-gql/GetCollection').type;
 
 export type Collection =

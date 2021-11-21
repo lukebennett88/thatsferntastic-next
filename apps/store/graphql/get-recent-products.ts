@@ -3,9 +3,9 @@ import { gql } from '@ts-gql/tag/no-transform';
 import type { Client } from '../utils/apollo-client';
 import { PRODUCT_FRAGMENT } from './product-fragments';
 
-const TOP_SELLING_PRODUCTS = gql`
-  query TopSellingProducts($first: Int = 4, $query: String) {
-    products(first: $first, sortKey: BEST_SELLING, query: $query) {
+const RECENT_PRODUCTS = gql`
+  query RecentProducts($first: Int = 4, $query: String) {
+    products(first: $first, sortKey: CREATED_AT, query: $query, reverse: true) {
       edges {
         node {
           ...Product_Fragment
@@ -14,25 +14,25 @@ const TOP_SELLING_PRODUCTS = gql`
     }
   }
   ${PRODUCT_FRAGMENT}
-` as import('../../../__generated__/ts-gql/TopSellingProducts').type;
+` as import('../../../__generated__/ts-gql/RecentProducts').type;
 
-export type TopSellingProducts =
-  typeof TOP_SELLING_PRODUCTS['___type']['result']['products']['edges'];
+export type RecentProducts =
+  typeof RECENT_PRODUCTS['___type']['result']['products']['edges'];
 
-interface GetTopSellingProducts {
+interface GetRecentProducts {
   client: Client;
   first?: number;
   productType?: string;
 }
 
-export async function getTopSellingProducts({
+export async function getRecentProducts({
   client,
   first,
   productType,
-}: GetTopSellingProducts): Promise<TopSellingProducts | undefined> {
+}: GetRecentProducts): Promise<RecentProducts | undefined> {
   try {
     const { data } = await client.query({
-      query: TOP_SELLING_PRODUCTS,
+      query: RECENT_PRODUCTS,
       variables: {
         first,
         query: `${

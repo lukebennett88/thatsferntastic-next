@@ -1,6 +1,7 @@
-import { gql } from '@ts-gql/tag';
+import { gql } from '@ts-gql/tag/no-transform';
 
 import type { Client } from '../utils/apollo-client';
+import { PRODUCT_FRAGMENT } from './product-fragments';
 
 export const GET_PRODUCT_RECOMMENDATIONS = gql`
   query GetProductRecommendations($productId: ID!) {
@@ -8,6 +9,7 @@ export const GET_PRODUCT_RECOMMENDATIONS = gql`
       ...Product_Fragment
     }
   }
+  ${PRODUCT_FRAGMENT}
 ` as import('../../../__generated__/ts-gql/GetProductRecommendations').type;
 
 export type ProductRecommendations =

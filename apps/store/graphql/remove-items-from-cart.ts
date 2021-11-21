@@ -1,7 +1,8 @@
-import { gql } from '@ts-gql/tag';
+import { gql } from '@ts-gql/tag/no-transform';
 
 import type { Client } from '../utils/apollo-client';
 import type { UpdatedCart } from './add-items-to-cart';
+import { CART_FRAGMENT } from './cart-fragment';
 
 export const REMOVE_ITEMS_FROM_CART = gql`
   mutation RemoveItemsFromCart($cartId: ID!, $lineIds: [ID!]!) {
@@ -17,6 +18,7 @@ export const REMOVE_ITEMS_FROM_CART = gql`
       }
     }
   }
+  ${CART_FRAGMENT}
 ` as import('../../../__generated__/ts-gql/RemoveItemsFromCart').type;
 
 export type Line = {

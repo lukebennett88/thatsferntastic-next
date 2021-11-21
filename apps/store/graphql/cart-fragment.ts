@@ -1,4 +1,6 @@
-import { gql } from '@ts-gql/tag';
+import { gql } from '@ts-gql/tag/no-transform';
+
+import { MONEY_V2_FRAGMENT, PRODUCT_FRAGMENT } from './product-fragments';
 
 export const CART_FRAGMENT = gql`
   fragment Cart_Fragment on Cart {
@@ -35,6 +37,8 @@ export const CART_FRAGMENT = gql`
       }
     }
   }
+  ${MONEY_V2_FRAGMENT}
+  ${PRODUCT_FRAGMENT}
 ` as import('../../../__generated__/ts-gql/Cart_Fragment').type;
 
 export type CartLine = NonNullable<

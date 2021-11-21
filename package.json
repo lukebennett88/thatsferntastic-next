@@ -67,7 +67,8 @@
     ]
   },
   "ts-gql": {
-    "schema": "apps/store/schema.graphql"
+    "schema": "apps/store/schema.graphql",
+    "mode": "no-transform"
   },
   "workspaces": [
     "packages/*",

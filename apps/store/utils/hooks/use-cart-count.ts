@@ -1,12 +1,19 @@
+import * as React from 'react';
+
 import { useStoreContext } from '../../context/store-context';
 
 export function useCartCount(): number {
+  const [cartCount, setCartCount] = React.useState(0);
   const { cart } = useStoreContext();
-  if (cart?.lines?.edges && cart.lines.edges.length > 0) {
-    return cart.lines.edges.reduce(
-      (totalCount, lineItem) => totalCount + lineItem.node.quantity,
-      0
-    );
-  }
-  return 0;
+  React.useEffect(() => {
+    if (cart?.lines?.edges && cart.lines.edges.length > 0) {
+      setCartCount(
+        cart.lines.edges.reduce(
+          (totalCount, lineItem) => totalCount + lineItem.node.quantity,
+          0
+        )
+      );
+    }
+  }, [cart?.lines?.edges, cartCount]);
+  return cartCount;
 }

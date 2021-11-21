@@ -1,4 +1,4 @@
-import { gql } from '@ts-gql/tag';
+import { gql } from '@ts-gql/tag/no-transform';
 
 export const IMAGE_FRAGMENT = gql`
   fragment Image_Fragment on Image {
@@ -27,6 +27,20 @@ export const PRODUCT_PRICE_RANGE_FRAGMENT = gql`
   }
 ` as import('../../../__generated__/ts-gql/ProductPriceRange_Fragment').type;
 
+export const MONEY_V2_FRAGMENT = gql`
+  fragment MoneyV2_Fragment on MoneyV2 {
+    amount
+    currencyCode
+  }
+` as import('../../../__generated__/ts-gql/MoneyV2_Fragment').type;
+
+export const SELECTED_OPTION_FRAGMENT = gql`
+  fragment SelectedOption_Fragment on SelectedOption {
+    name
+    value
+  }
+` as import('../../../__generated__/ts-gql/SelectedOption_Fragment').type;
+
 export const PRODUCT_VARIANT_EDGE_FRAGMENT = gql`
   fragment ProductVariantEdge_Fragment on ProductVariantEdge {
     node {
@@ -45,21 +59,10 @@ export const PRODUCT_VARIANT_EDGE_FRAGMENT = gql`
       title
     }
   }
+  ${IMAGE_FRAGMENT}
+  ${MONEY_V2_FRAGMENT}
+  ${SELECTED_OPTION_FRAGMENT}
 ` as import('../../../__generated__/ts-gql/ProductVariantEdge_Fragment').type;
-
-export const SELECTED_OPTION_FRAGMENT = gql`
-  fragment SelectedOption_Fragment on SelectedOption {
-    name
-    value
-  }
-` as import('../../../__generated__/ts-gql/SelectedOption_Fragment').type;
-
-export const MONEY_V2_FRAGMENT = gql`
-  fragment MoneyV2_Fragment on MoneyV2 {
-    amount
-    currencyCode
-  }
-` as import('../../../__generated__/ts-gql/MoneyV2_Fragment').type;
 
 export const PRODUCT_FRAGMENT = gql`
   fragment Product_Fragment on Product {
@@ -90,4 +93,8 @@ export const PRODUCT_FRAGMENT = gql`
       }
     }
   }
+  ${IMAGE_FRAGMENT}
+  ${PRODUCT_OPTION_FRAGMENT}
+  ${PRODUCT_PRICE_RANGE_FRAGMENT}
+  ${PRODUCT_VARIANT_EDGE_FRAGMENT}
 ` as import('../../../__generated__/ts-gql/Product_Fragment').type;

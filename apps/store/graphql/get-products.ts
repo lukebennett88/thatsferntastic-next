@@ -1,6 +1,7 @@
-import { gql } from '@ts-gql/tag';
+import { gql } from '@ts-gql/tag/no-transform';
 
 import type { Client } from '../utils/apollo-client';
+import { PRODUCT_FRAGMENT } from './product-fragments';
 
 const PRODUCTS = gql`
   query Products(
@@ -22,6 +23,7 @@ const PRODUCTS = gql`
       }
     }
   }
+  ${PRODUCT_FRAGMENT}
 ` as import('../../../__generated__/ts-gql/Products').type;
 
 export type Products =

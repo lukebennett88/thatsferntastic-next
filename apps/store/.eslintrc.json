@@ -19,14 +19,15 @@
         "project": ["tsconfig.json"]
       },
       "plugins": ["@typescript-eslint", "@ts-gql"],
-      "extends": [
-        "eslint:recommended",
-        "plugin:@typescript-eslint/recommended",
-        "prettier"
-      ],
+      "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended", "prettier"],
       "rules": {
         "@ts-gql/ts-gql": "error"
       }
     }
-  ]
+  ],
+  "settings": {
+    "next": {
+      "rootDir": ["apps/store/"]
+    }
+  }
 }

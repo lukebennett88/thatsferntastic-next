@@ -1,6 +1,7 @@
-dist/
 __generated__/
-coverage/
-.keystone
 .deploy
+.keystone
+.next
+coverage/
+dist/
 postman

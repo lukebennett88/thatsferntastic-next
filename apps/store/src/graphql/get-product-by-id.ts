@@ -10,7 +10,7 @@ export const GET_PRODUCT_BY_ID = gql`
     }
   }
   ${PRODUCT_FRAGMENT}
-` as import("../../../__generated__/ts-gql/GetProductById").type;
+` as import("../../__generated__/ts-gql/GetProductById").type;
 
 export type Product = typeof GET_PRODUCT_BY_ID["___type"]["result"]["product"];
 

@@ -19,7 +19,7 @@ const PRODUCTS = gql`
     }
   }
   ${PRODUCT_FRAGMENT}
-` as import("../../../__generated__/ts-gql/Products").type;
+` as import("../../__generated__/ts-gql/Products").type;
 
 export type Products = typeof PRODUCTS["___type"]["result"]["products"]["edges"];
 

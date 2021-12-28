@@ -8,7 +8,7 @@ export const IMAGE_FRAGMENT = gql`
     width
     transformedSrc
   }
-` as import("../../../__generated__/ts-gql/Image_Fragment").type;
+` as import("../../__generated__/ts-gql/Image_Fragment").type;
 
 export const PRODUCT_OPTION_FRAGMENT = gql`
   fragment ProductOption_Fragment on ProductOption {
@@ -16,7 +16,7 @@ export const PRODUCT_OPTION_FRAGMENT = gql`
     name
     values
   }
-` as import("../../../__generated__/ts-gql/ProductOption_Fragment").type;
+` as import("../../__generated__/ts-gql/ProductOption_Fragment").type;
 
 export const PRODUCT_PRICE_RANGE_FRAGMENT = gql`
   fragment ProductPriceRange_Fragment on ProductPriceRange {
@@ -25,21 +25,21 @@ export const PRODUCT_PRICE_RANGE_FRAGMENT = gql`
       currencyCode
     }
   }
-` as import("../../../__generated__/ts-gql/ProductPriceRange_Fragment").type;
+` as import("../../__generated__/ts-gql/ProductPriceRange_Fragment").type;
 
 export const MONEY_V2_FRAGMENT = gql`
   fragment MoneyV2_Fragment on MoneyV2 {
     amount
     currencyCode
   }
-` as import("../../../__generated__/ts-gql/MoneyV2_Fragment").type;
+` as import("../../__generated__/ts-gql/MoneyV2_Fragment").type;
 
 export const SELECTED_OPTION_FRAGMENT = gql`
   fragment SelectedOption_Fragment on SelectedOption {
     name
     value
   }
-` as import("../../../__generated__/ts-gql/SelectedOption_Fragment").type;
+` as import("../../__generated__/ts-gql/SelectedOption_Fragment").type;
 
 export const PRODUCT_VARIANT_EDGE_FRAGMENT = gql`
   fragment ProductVariantEdge_Fragment on ProductVariantEdge {
@@ -62,7 +62,7 @@ export const PRODUCT_VARIANT_EDGE_FRAGMENT = gql`
   ${IMAGE_FRAGMENT}
   ${MONEY_V2_FRAGMENT}
   ${SELECTED_OPTION_FRAGMENT}
-` as import("../../../__generated__/ts-gql/ProductVariantEdge_Fragment").type;
+` as import("../../__generated__/ts-gql/ProductVariantEdge_Fragment").type;
 
 export const PRODUCT_FRAGMENT = gql`
   fragment Product_Fragment on Product {
@@ -97,4 +97,4 @@ export const PRODUCT_FRAGMENT = gql`
   ${PRODUCT_OPTION_FRAGMENT}
   ${PRODUCT_PRICE_RANGE_FRAGMENT}
   ${PRODUCT_VARIANT_EDGE_FRAGMENT}
-` as import("../../../__generated__/ts-gql/Product_Fragment").type;
+` as import("../../__generated__/ts-gql/Product_Fragment").type;

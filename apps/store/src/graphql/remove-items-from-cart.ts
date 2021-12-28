@@ -19,7 +19,7 @@ export const REMOVE_ITEMS_FROM_CART = gql`
     }
   }
   ${CART_FRAGMENT}
-` as import("../../../__generated__/ts-gql/RemoveItemsFromCart").type;
+` as import("../../__generated__/ts-gql/RemoveItemsFromCart").type;
 
 export type Line = {
   merchandiseId: string;

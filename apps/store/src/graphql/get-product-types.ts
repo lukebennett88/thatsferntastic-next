@@ -10,7 +10,7 @@ const GET_PRODUCT_TYPES = gql`
       }
     }
   }
-` as import("../../../__generated__/ts-gql/GetProductTypes").type;
+` as import("../../__generated__/ts-gql/GetProductTypes").type;
 
 export async function getProductTypes(client: Client): Promise<string[] | undefined> {
   try {

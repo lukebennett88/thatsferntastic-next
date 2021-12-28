@@ -19,7 +19,7 @@ const GET_FIRST_PRODUCTS = gql`
       }
     }
   }
-` as import("../../../__generated__/ts-gql/GetFirstProducts").type;
+` as import("../../__generated__/ts-gql/GetFirstProducts").type;
 
 const GET_NEXT_PRODUCTS = gql`
   query GetNextProducts($cursor: String!) {
@@ -38,7 +38,7 @@ const GET_NEXT_PRODUCTS = gql`
       }
     }
   }
-` as import("../../../__generated__/ts-gql/GetNextProducts").type;
+` as import("../../__generated__/ts-gql/GetNextProducts").type;
 
 export type Product = typeof GET_FIRST_PRODUCTS["___type"]["result"]["products"]["edges"][number];
 

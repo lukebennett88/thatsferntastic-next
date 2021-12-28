@@ -13,4 +13,4 @@ export const COLLECTION_FRAGMENT = gql`
     }
     title
   }
-` as import("../../../__generated__/ts-gql/Collection_Fragment").type;
+` as import("../../__generated__/ts-gql/Collection_Fragment").type;

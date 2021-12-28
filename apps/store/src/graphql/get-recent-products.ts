@@ -14,7 +14,7 @@ const RECENT_PRODUCTS = gql`
     }
   }
   ${PRODUCT_FRAGMENT}
-` as import("../../../__generated__/ts-gql/RecentProducts").type;
+` as import("../../__generated__/ts-gql/RecentProducts").type;
 
 export type RecentProducts = typeof RECENT_PRODUCTS["___type"]["result"]["products"]["edges"];
 

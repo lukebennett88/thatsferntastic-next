@@ -19,7 +19,7 @@ export const UPDATE_ITEMS_IN_CART = gql`
     }
   }
   ${CART_FRAGMENT}
-` as import("../../../__generated__/ts-gql/UpdateItemsInCart").type;
+` as import("../../__generated__/ts-gql/UpdateItemsInCart").type;
 
 interface UpdateItemsInCart {
   client: Client;

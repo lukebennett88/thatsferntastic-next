@@ -18,7 +18,7 @@ export const ADD_ITEMS_TO_CART = gql`
     }
   }
   ${CART_FRAGMENT}
-` as import("../../../__generated__/ts-gql/AddItemsToCart").type;
+` as import("../../__generated__/ts-gql/AddItemsToCart").type;
 
 export type UpdatedCart = NonNullable<typeof ADD_ITEMS_TO_CART["___type"]["result"]["cartLinesAdd"]>["cart"];
 

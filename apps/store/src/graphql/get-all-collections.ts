@@ -24,7 +24,7 @@ const GET_FIRST_COLLECTIONS = gql`
       }
     }
   }
-` as import("../../../__generated__/ts-gql/GetFirstCollections").type;
+` as import("../../__generated__/ts-gql/GetFirstCollections").type;
 
 const GET_NEXT_COLLECTIONS = gql`
   query getNextCollections($cursor: String!) {
@@ -48,7 +48,7 @@ const GET_NEXT_COLLECTIONS = gql`
       }
     }
   }
-` as import("../../../__generated__/ts-gql/getNextCollections").type;
+` as import("../../__generated__/ts-gql/getNextCollections").type;
 
 export type Collection = typeof GET_FIRST_COLLECTIONS["___type"]["result"]["collections"]["edges"][number];
 

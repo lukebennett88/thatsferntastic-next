@@ -39,6 +39,6 @@ export const CART_FRAGMENT = gql`
   }
   ${MONEY_V2_FRAGMENT}
   ${PRODUCT_FRAGMENT}
-` as import("../../../__generated__/ts-gql/Cart_Fragment").type;
+` as import("../../__generated__/ts-gql/Cart_Fragment").type;
 
 export type CartLine = NonNullable<typeof CART_FRAGMENT["___type"]["result"]["lines"]>["edges"][number]["node"];

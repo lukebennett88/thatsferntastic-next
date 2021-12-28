@@ -11,7 +11,7 @@ const CREATE_CART = gql`
       }
     }
   }
-` as import("../../../__generated__/ts-gql/CreateCart").type;
+` as import("../../__generated__/ts-gql/CreateCart").type;
 
 export type InitialCart = NonNullable<typeof CREATE_CART["___type"]["result"]["cartCreate"]>["cart"];
 

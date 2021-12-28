@@ -10,7 +10,7 @@ export const GET_PRODUCT_RECOMMENDATIONS = gql`
     }
   }
   ${PRODUCT_FRAGMENT}
-` as import("../../../__generated__/ts-gql/GetProductRecommendations").type;
+` as import("../../__generated__/ts-gql/GetProductRecommendations").type;
 
 export type ProductRecommendations = typeof GET_PRODUCT_RECOMMENDATIONS["___type"]["result"]["productRecommendations"];
 

@@ -20,7 +20,7 @@ const GET_COLLECTION = gql`
   }
   ${COLLECTION_FRAGMENT}
   ${PRODUCT_FRAGMENT}
-` as import("../../../__generated__/ts-gql/GetCollection").type;
+` as import("../../__generated__/ts-gql/GetCollection").type;
 
 export type Collection = typeof GET_COLLECTION["___type"]["result"]["collectionByHandle"];
 

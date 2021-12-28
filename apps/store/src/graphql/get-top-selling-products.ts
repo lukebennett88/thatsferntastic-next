@@ -14,7 +14,7 @@ const TOP_SELLING_PRODUCTS = gql`
     }
   }
   ${PRODUCT_FRAGMENT}
-` as import("../../../__generated__/ts-gql/TopSellingProducts").type;
+` as import("../../__generated__/ts-gql/TopSellingProducts").type;
 
 export type TopSellingProducts = typeof TOP_SELLING_PRODUCTS["___type"]["result"]["products"]["edges"];
 

@@ -72,6 +72,7 @@ export function Footer(): JSX.Element {
     })();
   }, []);
   const productTypes = [
+    // @ts-expect-error: Set not allowed here
     ...new Set(products.filter(({ node }) => Boolean(node.productType)).map(({ node }) => node.productType)),
   ];
   return (

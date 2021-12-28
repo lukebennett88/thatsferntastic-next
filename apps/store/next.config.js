@@ -1,13 +1,18 @@
-// @ts-check
-const withPreconstruct = require('@preconstruct/next');
-const { withTsGql } = require('@ts-gql/next');
+const { withTsGql } = require("@ts-gql/next");
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['cdn.shopify.com'],
+    domains: ["cdn.shopify.com"],
   },
   reactStrictMode: true,
+  typescript: {
+    // !! WARN !!
+    // Dangerously allow production builds to successfully complete even if
+    // your project has type errors.
+    // !! WARN !!
+    ignoreBuildErrors: true,
+  },
 };
 
-module.exports = withTsGql(withPreconstruct({ ...nextConfig }));
+module.exports = withTsGql(nextConfig);

@@ -1,9 +1,0 @@
-{
-  "name": "@thatsferntastic/utils",
-  "version": "0.0.0",
-  "main": "dist/thatsferntastic-utils.cjs.js",
-  "module": "dist/thatsferntastic-utils.esm.js",
-  "dependencies": {
-    "@babel/runtime": "^7.16.3"
-  }
-}

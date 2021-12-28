@@ -21,7 +21,7 @@ yarn-error.log*
 .next
 
 # TS-GQL Generated Files
-/__generated__
+__generated__
 
 # OS
 .DS_Store
@@ -47,8 +47,10 @@ yarn-error.log*
 !.vscode/extensions.json
 
 # dotEnv Files
-.env.local
-.env.*.local
+*.local
 
 # TS
 tsconfig.tsbuildinfo
+
+# Turborepo
+.turbo

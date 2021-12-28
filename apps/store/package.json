@@ -1,12 +1,13 @@
 {
   "name": "@thatsferntastic/store",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "dev": "next dev",
+    "lint": "TIMING=1 next lint",
+    "clean": "rm -rf __generated__ && rm -rf .next && rm -rf .turbo && rm -rf node_modules",
     "postdev": "yarn ts-gql:watch",
     "postinstall": "yarn ts-gql:build",
     "ts-gql:build": "ts-gql build",
@@ -14,13 +15,11 @@
     "generate": "DOTENV_CONFIG_PATH=./.env.local graphql-codegen -r dotenv/config --config codegen.json"
   },
   "dependencies": {
-    "@algolia/autocomplete-core": "^1.5.0",
-    "@algolia/autocomplete-js": "^1.5.0",
-    "@algolia/autocomplete-plugin-recent-searches": "1.5.0",
+    "@algolia/autocomplete-core": "^1.5.1",
+    "@algolia/autocomplete-plugin-recent-searches": "1.5.1",
     "@apollo/client": "^3.4.17",
     "@headlessui/react": "^1.4.2",
     "@heroicons/react": "^1.0.5",
-    "@preconstruct/next": "^3.0.1",
     "@thatsferntastic/button": "0.0.0",
     "@thatsferntastic/utils": "0.0.0",
     "@ts-gql/apollo": "^0.11.0",
@@ -30,19 +29,16 @@
     "@ts-gql/next": "^16.0.0",
     "@ts-gql/tag": "^0.6.0",
     "algoliasearch": "^4.11.0",
-    "cross-fetch": "^3.1.4",
-    "dayjs": "^1.10.7",
+    "deepmerge": "4.2.2",
     "dotenv": "^10.0.0",
-    "eslint-plugin-prettier": "4.0.0",
-    "framer-motion": "5.4.5",
+    "fast-deep-equal": "3.1.3",
+    "framer-motion": "5.5.5",
     "graphql": "^15.6.1",
-    "http-errors": "^1.8.1",
-    "isomorphic-unfetch": "^3.1.0",
     "next": "12.0.7",
     "next-seo": "^4.28.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-hook-form": "^7.21.2"
+    "react-hook-form": "^7.22.5"
   },
   "devDependencies": {
     "@algolia/client-search": "^4.11.0",
@@ -50,20 +46,21 @@
     "@graphql-codegen/schema-ast": "^2.4.0",
     "@tailwindcss/aspect-ratio": "^0.4.0",
     "@tailwindcss/forms": "^0.4.0",
+    "@tailwindcss/line-clamp": "^0.3.0",
     "@tailwindcss/typography": "^0.5.0",
-    "@types/http-errors": "^1.8.1",
-    "@types/lodash": "^4.14.178",
-    "@types/node": "16.11.12",
-    "@types/react": "17.0.37",
-    "autoprefixer": "^10.4.0",
-    "eslint": "8.4.1",
-    "eslint-config-next": "12.0.7",
-    "postcss": "^8.4.4",
-    "prettier": "^2.5.1",
-    "tailwindcss": "^3.0.1",
-    "typescript": "^4.5.3"
+    "@types/react": "^17.0.38",
+    "@types/react-dom": "^17.0.11",
+    "autoprefixer": "10.4.0",
+    "eslint-preset-thatsferntastic": "*",
+    "postcss": "8.4.5",
+    "tailwindcss": "3.0.7",
+    "typescript": "^4.5.4"
   },
   "engines": {
     "node": ">=14.x"
+  },
+  "ts-gql": {
+    "schema": "schema.graphql",
+    "mode": "no-transform"
   }
 }

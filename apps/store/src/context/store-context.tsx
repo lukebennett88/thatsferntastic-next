@@ -71,10 +71,6 @@ export function StoreProvider({ children }: StoreProviderProps): JSX.Element {
       try {
         setIsLoading(true);
         const newCart = await addItemsToCart({ client, cartId, lines });
-        console.log({
-          calledBy: "addVariantToCart",
-          newCart,
-        });
         setCart(newCart);
         setDidJustAddToCart(true);
       } catch (error) {
@@ -93,10 +89,6 @@ export function StoreProvider({ children }: StoreProviderProps): JSX.Element {
           client,
           cartId: cart.id,
           lineIds,
-        });
-        console.log({
-          calledBy: "removeLineItem",
-          newCart,
         });
         setCart(newCart);
         setIsLoading(false);

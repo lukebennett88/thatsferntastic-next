@@ -23,11 +23,11 @@
   },
   "dependencies": {
     "@manypkg/cli": "^0.19.1",
-    "eslint": "^8.5.0",
+    "eslint": "^8.6.0",
     "husky": "7.0.4",
-    "lint-staged": "12.1.4",
+    "lint-staged": "12.1.7",
     "prettier": "^2.5.1",
-    "turbo": "^1.0.23",
+    "turbo": "^1.0.24",
     "yarn-deduplicate": "^3.1.0"
   },
   "engines": {

@@ -1,6 +1,6 @@
 import { gql } from "@ts-gql/tag/no-transform";
 
-import type { Client } from "../utils/apollo-client";
+import { initialiseTsGql } from "../utils/apollo-client";
 import type { UpdatedCart } from "./add-items-to-cart";
 import { CART_FRAGMENT } from "./cart-fragment";
 
@@ -27,16 +27,12 @@ export type Line = {
 };
 
 interface RemoveItemsFromCart {
-  client: Client;
   cartId: string;
   lineIds: Array<string>;
 }
 
-export async function removeItemsFromCart({
-  client,
-  cartId,
-  lineIds,
-}: RemoveItemsFromCart): Promise<UpdatedCart | undefined> {
+export async function removeItemsFromCart({ cartId, lineIds }: RemoveItemsFromCart): Promise<UpdatedCart | undefined> {
+  const client = initialiseTsGql();
   try {
     const { data } = await client.mutate({
       mutation: REMOVE_ITEMS_FROM_CART,

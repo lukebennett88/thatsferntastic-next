@@ -4,7 +4,6 @@ import * as React from "react";
 
 import { Collection, getAllCollections } from "../../graphql/get-all-collections";
 import { getAllProducts, Product } from "../../graphql/get-all-products";
-import { initialiseTsGql } from "../../utils/apollo-client";
 import { siteSettings } from "../../utils/constants";
 import { FacebookIcon, InstagramIcon, TwitterIcon } from "../icons";
 import { Logo } from "../logo";
@@ -59,15 +58,12 @@ export function Footer(): JSX.Element {
   const [collections, setCollections] = React.useState<Collection[]>([]);
   React.useEffect(() => {
     (async () => {
-      // Initialise client
-      const client = initialiseTsGql();
-
       // Get all products and save to state
-      const products = await getAllProducts(client);
+      const products = await getAllProducts();
       setProducts(products);
 
       // Get all collections and save to state
-      const collections = await getAllCollections(client);
+      const collections = await getAllCollections();
       setCollections(collections);
     })();
   }, []);

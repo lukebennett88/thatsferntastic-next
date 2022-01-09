@@ -16,7 +16,7 @@ import { useStoreContext } from "../../context/store-context";
 import { getAllProducts } from "../../graphql/get-all-products";
 import { getProductByHandle, Product } from "../../graphql/get-product-by-handle";
 import { variantForOptions } from "../../utils";
-import { addApolloState, initialiseTsGql } from "../../utils/apollo-client";
+import { addApolloState } from "../../utils/apollo-client";
 import { siteSettings } from "../../utils/constants";
 
 interface ProductPageProps {
@@ -24,8 +24,7 @@ interface ProductPageProps {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const client = initialiseTsGql();
-  const products = await getAllProducts(client);
+  const products = await getAllProducts();
   const paths = products.map(({ node }) => ({
     params: { productHandle: node.handle },
   }));
@@ -39,10 +38,9 @@ export const getStaticProps: GetStaticProps<ProductPageProps> = async ({ params 
   if (typeof params?.productHandle !== "string") {
     return { notFound: true };
   }
-  const client = initialiseTsGql();
-  const product = await getProductByHandle(client, params.productHandle);
+  const product = await getProductByHandle(params.productHandle);
   if (!product) return { notFound: true };
-  return addApolloState(client, {
+  return addApolloState({
     props: {
       product,
     },

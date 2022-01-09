@@ -1,6 +1,6 @@
 import { gql } from "@ts-gql/tag/no-transform";
 
-import type { Client } from "../utils/apollo-client";
+import { initialiseTsGql } from "../utils/apollo-client";
 import { PRODUCT_FRAGMENT } from "./product-fragments";
 
 export const GET_PRODUCT_RECOMMENDATIONS = gql`
@@ -18,10 +18,8 @@ export type ProductRecommendations = typeof GET_PRODUCT_RECOMMENDATIONS["___type
  * This is returning an empty array currently, I think this feature might not be
  * enabled on the Shopify Lite plan.
  */
-export async function getProductRecommendations(
-  client: Client,
-  productId: string,
-): Promise<ProductRecommendations | undefined> {
+export async function getProductRecommendations(productId: string): Promise<ProductRecommendations | undefined> {
+  const client = initialiseTsGql();
   try {
     const { data } = await client.query({
       query: GET_PRODUCT_RECOMMENDATIONS,

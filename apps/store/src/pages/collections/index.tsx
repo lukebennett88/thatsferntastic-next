@@ -2,19 +2,18 @@ import type { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import NextLink from "next/link";
 
 import { Collection, getAllCollections } from "../../graphql/get-all-collections";
-import { addApolloState, initialiseTsGql } from "../../utils/apollo-client";
+import { addApolloState } from "../../utils/apollo-client";
 
 interface CollectionProps {
   collections: NonNullable<Collection[]>;
 }
 
 export const getServerSideProps: GetServerSideProps<CollectionProps> = async () => {
-  const client = initialiseTsGql();
-  const collections = await getAllCollections(client);
+  const collections = await getAllCollections();
   if (!collections) {
     return { notFound: true };
   }
-  return addApolloState(client, {
+  return addApolloState({
     props: {
       collections,
     },

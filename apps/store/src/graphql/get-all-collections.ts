@@ -1,6 +1,6 @@
 import { gql } from "@ts-gql/tag/no-transform";
 
-import type { Client } from "../utils/apollo-client";
+import { Client, initialiseTsGql } from "../utils/apollo-client";
 
 const GET_FIRST_COLLECTIONS = gql`
   query GetFirstCollections {
@@ -52,7 +52,8 @@ const GET_NEXT_COLLECTIONS = gql`
 
 export type Collection = typeof GET_FIRST_COLLECTIONS["___type"]["result"]["collections"]["edges"][number];
 
-export async function getAllCollections(client: Client): Promise<Collection[]> {
+export async function getAllCollections(): Promise<Collection[]> {
+  const client = initialiseTsGql();
   let collections: Collection[] = [];
   async function getAllCollectionsFromQuery() {
     let newCursor = "";

@@ -1,6 +1,6 @@
 import { gql } from "@ts-gql/tag/no-transform";
 
-import type { Client } from "../utils/apollo-client";
+import { initialiseTsGql } from "../utils/apollo-client";
 import { PRODUCT_FRAGMENT } from "./product-fragments";
 
 const TOP_SELLING_PRODUCTS = gql`
@@ -19,16 +19,15 @@ const TOP_SELLING_PRODUCTS = gql`
 export type TopSellingProducts = typeof TOP_SELLING_PRODUCTS["___type"]["result"]["products"]["edges"];
 
 interface GetTopSellingProducts {
-  client: Client;
   first?: number;
   productType?: string;
 }
 
 export async function getTopSellingProducts({
-  client,
   first,
   productType,
 }: GetTopSellingProducts): Promise<TopSellingProducts | undefined> {
+  const client = initialiseTsGql();
   try {
     const { data } = await client.query({
       query: TOP_SELLING_PRODUCTS,

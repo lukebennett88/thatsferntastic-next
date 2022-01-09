@@ -6,7 +6,6 @@ import { addItemsToCart } from "../graphql/add-items-to-cart";
 import { createCart } from "../graphql/create-cart";
 import { removeItemsFromCart } from "../graphql/remove-items-from-cart";
 import { updateItemsInCart } from "../graphql/update-items-in-cart";
-import { initialiseTsGql } from "../utils/apollo-client";
 import { useLocalStorageState } from "../utils/hooks/use-local-storage-state";
 
 const SHOPIFY_CART_KEY = "thatsferntastic:cart";
@@ -54,23 +53,21 @@ export function StoreProvider({ children }: StoreProviderProps): JSX.Element {
 
   const closeCart = () => setDidJustAddToCart(false);
 
-  const client = initialiseTsGql();
-
   // Create a new cart if we don't already have one saved in localStorage
   React.useEffect(() => {
     if (cart) return;
     (async () => {
-      const newCart = await createCart(client);
+      const newCart = await createCart();
       newCart && setCart(newCart);
     })();
-  }, [cart, client, setCart]);
+  }, [cart, setCart]);
 
   const addVariantToCart = async (lines: Line | Array<Line>) => {
     const cartId = cart?.id;
     if (cartId) {
       try {
         setIsLoading(true);
-        const newCart = await addItemsToCart({ client, cartId, lines });
+        const newCart = await addItemsToCart({ cartId, lines });
         setCart(newCart);
         setDidJustAddToCart(true);
       } catch (error) {
@@ -86,7 +83,6 @@ export function StoreProvider({ children }: StoreProviderProps): JSX.Element {
     if (cart?.id) {
       try {
         const newCart = await removeItemsFromCart({
-          client,
           cartId: cart.id,
           lineIds,
         });
@@ -108,7 +104,6 @@ export function StoreProvider({ children }: StoreProviderProps): JSX.Element {
       setIsLoading(true);
       try {
         const newCart = await updateItemsInCart({
-          client,
           cartId: cart.id,
           lines,
         });

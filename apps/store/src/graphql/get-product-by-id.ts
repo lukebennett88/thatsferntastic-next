@@ -1,6 +1,6 @@
 import { gql } from "@ts-gql/tag/no-transform";
 
-import type { Client } from "../utils/apollo-client";
+import { initialiseTsGql } from "../utils/apollo-client";
 import { PRODUCT_FRAGMENT } from "./product-fragments";
 
 export const GET_PRODUCT_BY_ID = gql`
@@ -14,7 +14,8 @@ export const GET_PRODUCT_BY_ID = gql`
 
 export type Product = typeof GET_PRODUCT_BY_ID["___type"]["result"]["product"];
 
-export async function getProductById(client: Client, id: string): Promise<Product | undefined> {
+export async function getProductById(id: string): Promise<Product | undefined> {
+  const client = initialiseTsGql();
   try {
     const { data } = await client.query({
       query: GET_PRODUCT_BY_ID,

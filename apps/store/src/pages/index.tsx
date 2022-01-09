@@ -10,7 +10,7 @@ import type { RecentProducts } from "../graphql/get-recent-products";
 import { getRecentProducts } from "../graphql/get-recent-products";
 import type { TopSellingProducts as TopSellingProductsType } from "../graphql/get-top-selling-products";
 import { getTopSellingProducts } from "../graphql/get-top-selling-products";
-import { addApolloState, initialiseTsGql } from "../utils/apollo-client";
+import { addApolloState } from "../utils/apollo-client";
 
 interface HomePageProps {
   collections: Array<Collection>;
@@ -19,17 +19,14 @@ interface HomePageProps {
 }
 
 export const getServerSideProps: GetServerSideProps<HomePageProps> = async () => {
-  const client = initialiseTsGql();
-  const collections = await getAllCollections(client);
+  const collections = await getAllCollections();
   const recentProducts = await getRecentProducts({
-    client,
     first: 8,
   });
   const topSellingProducts = await getTopSellingProducts({
-    client,
     first: 8,
   });
-  return addApolloState(client, {
+  return addApolloState({
     props: {
       collections,
       topSellingProducts,

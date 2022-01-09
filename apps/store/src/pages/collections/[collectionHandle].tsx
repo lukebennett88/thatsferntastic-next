@@ -16,14 +16,13 @@ export const getServerSideProps: GetServerSideProps<CollectionProps> = async ({ 
   if (typeof collectionHandle !== "string") {
     return { notFound: true };
   }
-  const client = initialiseTsGql();
-  const collection = await getCollectionByHandle(client, {
+  const collection = await getCollectionByHandle({
     handle: collectionHandle,
   });
   if (!collection) {
     return { notFound: true };
   }
-  return addApolloState(client, {
+  return addApolloState({
     props: {
       collection,
     },

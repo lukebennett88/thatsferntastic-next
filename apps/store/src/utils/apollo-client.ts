@@ -64,7 +64,8 @@ export function useApollo(pageProps: PageProps): ApolloClient<NormalizedCacheObj
   return store;
 }
 
-export function addApolloState(client: Client, pageProps: PageProps): PageProps {
+export function addApolloState(pageProps: PageProps): PageProps {
+  const client = initialiseTsGql();
   if (pageProps?.props) {
     pageProps.props[APOLLO_STATE_PROP_NAME] = client.cache.extract();
   }

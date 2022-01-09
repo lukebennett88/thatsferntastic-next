@@ -5,7 +5,7 @@ import { ProductCard } from "../../components/product-card";
 import { DesktopProductFilters, MobileProductFilters } from "../../components/product-filters";
 import type { Products } from "../../graphql/get-products";
 import { getProducts, SORT_KEYS } from "../../graphql/get-products";
-import { addApolloState, initialiseTsGql } from "../../utils/apollo-client";
+import { addApolloState } from "../../utils/apollo-client";
 
 interface ProductsProps {
   products: NonNullable<Products>;
@@ -17,9 +17,7 @@ export const getServerSideProps: GetServerSideProps<ProductsProps> = async ({ qu
   const reverse = query.reverse === "true";
   const sortKey = SORT_KEYS.find((key) => key === query.sortKey);
 
-  const client = initialiseTsGql();
   const products = await getProducts({
-    client,
     first,
     sortKey,
     reverse,
@@ -29,7 +27,7 @@ export const getServerSideProps: GetServerSideProps<ProductsProps> = async ({ qu
     return { notFound: true };
   }
 
-  return addApolloState(client, {
+  return addApolloState({
     props: {
       products,
     },

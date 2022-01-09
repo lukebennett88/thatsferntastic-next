@@ -1,6 +1,6 @@
 import { gql } from "@ts-gql/tag/no-transform";
 
-import type { Client } from "../utils/apollo-client";
+import { initialiseTsGql } from "../utils/apollo-client";
 
 const GET_FIRST_PRODUCTS = gql`
   query GetFirstProducts {
@@ -42,8 +42,9 @@ const GET_NEXT_PRODUCTS = gql`
 
 export type Product = typeof GET_FIRST_PRODUCTS["___type"]["result"]["products"]["edges"][number];
 
-export async function getAllProducts(client: Client): Promise<Product[]> {
+export async function getAllProducts(): Promise<Product[]> {
   let products: Product[] = [];
+  const client = initialiseTsGql();
   async function getAllProductsFromQuery() {
     let newCursor = "";
 

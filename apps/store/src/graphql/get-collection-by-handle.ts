@@ -1,6 +1,6 @@
 import { gql } from "@ts-gql/tag/no-transform";
 
-import { Client } from "../utils/apollo-client";
+import { initialiseTsGql } from "../utils/apollo-client";
 import { COLLECTION_FRAGMENT } from "./collection-fragments";
 import { PRODUCT_FRAGMENT } from "./product-fragments";
 
@@ -28,7 +28,8 @@ interface Variables {
   handle: string;
 }
 
-export async function getCollectionByHandle(client: Client, variables: Variables): Promise<Collection | undefined> {
+export async function getCollectionByHandle(variables: Variables): Promise<Collection | undefined> {
+  const client = initialiseTsGql();
   try {
     const { data } = await client.query({
       query: GET_COLLECTION,

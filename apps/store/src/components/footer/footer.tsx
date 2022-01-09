@@ -8,32 +8,13 @@ import { siteSettings } from "../../utils/constants";
 import { FacebookIcon, InstagramIcon, TwitterIcon } from "../icons";
 import { Logo } from "../logo";
 
-const footerNavigation = {
-  products: [
-    { name: "Bags", href: "#" },
-    { name: "Tees", href: "#" },
-    { name: "Objects", href: "#" },
-    { name: "Home Goods", href: "#" },
-    { name: "Accessories", href: "#" },
-  ],
-  company: [
-    { name: "Who we are", href: "#" },
-    { name: "Sustainability", href: "#" },
-    { name: "Press", href: "#" },
-    { name: "Careers", href: "#" },
-    { name: "Terms & Conditions", href: "#" },
-    { name: "Privacy", href: "#" },
-  ],
-  customerService: [
-    { name: "Contact", href: "#" },
-    { name: "Shipping", href: "#" },
-    { name: "Returns", href: "#" },
-    { name: "Warranty", href: "#" },
-    { name: "Secure Payments", href: "#" },
-    { name: "FAQ", href: "#" },
-    { name: "Find a store", href: "#" },
-  ],
-};
+const footerNavigation = [
+  { name: "About", href: "/about" },
+  { name: "Privacy Policy", href: "/privacy-policy" },
+  { name: "Refund Policy", href: "/refund-policy" },
+  { name: "Shipping and Processing Times", href: "/shipping-and-processing-times" },
+  { name: "Terms of Service", href: "/terms-of-service" },
+];
 
 const socialLinks = [
   {
@@ -122,11 +103,11 @@ export function Footer(): JSX.Element {
               <div>
                 <h3 className="text-sm font-medium text-gray-900">Customer Service</h3>
                 <ul role="list" className="mt-6 space-y-6">
-                  {footerNavigation.customerService.map((item) => (
+                  {footerNavigation.map((item) => (
                     <li key={item.name} className="text-sm">
-                      <a href={item.href} className="text-gray-500 hover:text-gray-600">
-                        {item.name}
-                      </a>
+                      <NextLink href={item.href}>
+                        <a className="text-gray-500 hover:text-gray-600">{item.name}</a>
+                      </NextLink>
                     </li>
                   ))}
                 </ul>

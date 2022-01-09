@@ -12,7 +12,8 @@
     "postinstall": "yarn ts-gql:build",
     "ts-gql:build": "ts-gql build",
     "ts-gql:watch": "ts-gql watch",
-    "generate": "DOTENV_CONFIG_PATH=./.env.local graphql-codegen -r dotenv/config --config codegen.json"
+    "generate": "DOTENV_CONFIG_PATH=./.env.local graphql-codegen -r dotenv/config --config codegen.json",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@algolia/autocomplete-core": "^1.5.1",

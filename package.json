@@ -19,7 +19,7 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "postinstall": "yarn-deduplicate yarn.lock && manypkg check && yarn workspace @thatsferntastic/store ts-gql:build",
     "prepare": "husky install",
-    "typecheck": "manypkg exec tsc --noEmit"
+    "typecheck": "turbo run typecheck"
   },
   "dependencies": {
     "@manypkg/cli": "^0.19.1",
@@ -57,6 +57,9 @@
         ]
       },
       "lint": {
+        "outputs": []
+      },
+      "typecheck": {
         "outputs": []
       },
       "dev": {

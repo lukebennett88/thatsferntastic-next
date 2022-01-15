@@ -1,13 +1,8 @@
 import type { ImageProps } from "next/image";
 import NextImage from "next/image";
 
-interface ShopifyImageProps extends ImageProps {
-  height?: number;
-  width?: number;
-}
-
-export function ShopifyImage({ height, width, src, ...rest }: ShopifyImageProps): JSX.Element {
-  const doubleHeight = height ? `&height=${height * 2}` : "";
-  const doubleWidth = width ? `&width=${width * 2}` : "";
-  return <NextImage height={height} width={width} src={src + doubleHeight + doubleWidth} {...rest} />;
+export function ShopifyImage({ height, width, src, ...rest }: ImageProps): JSX.Element {
+  const renderedHeight = height ? `&height=${Number(height) * 1.5}` : "";
+  const renderedWidth = width ? `&width=${Number(width) * 1.5}` : "";
+  return <NextImage height={height} width={width} src={src + renderedHeight + renderedWidth} {...rest} />;
 }

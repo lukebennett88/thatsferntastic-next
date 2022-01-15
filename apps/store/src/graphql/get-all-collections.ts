@@ -1,6 +1,6 @@
 import { gql } from "@ts-gql/tag/no-transform";
 
-import { Client, initialiseTsGql } from "../utils/apollo-client";
+import { initialiseTsGql } from "../utils/apollo-client";
 
 const GET_FIRST_COLLECTIONS = gql`
   query GetFirstCollections {
@@ -18,6 +18,8 @@ const GET_FIRST_COLLECTIONS = gql`
             id
             altText
             transformedSrc
+            height
+            width
           }
           title
         }
@@ -42,6 +44,8 @@ const GET_NEXT_COLLECTIONS = gql`
             id
             altText
             transformedSrc
+            height
+            width
           }
           title
         }

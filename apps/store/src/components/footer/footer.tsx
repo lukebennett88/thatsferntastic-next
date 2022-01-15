@@ -5,6 +5,7 @@ import * as React from "react";
 import { Collection, getAllCollections } from "../../graphql/get-all-collections";
 import { getAllProducts, Product } from "../../graphql/get-all-products";
 import { siteSettings } from "../../utils/constants";
+import { useGetAllCategories } from "../../utils/hooks/use-get-all-categories";
 import { FacebookIcon, InstagramIcon, TwitterIcon } from "../icons";
 import { Logo } from "../logo";
 
@@ -35,23 +36,15 @@ const socialLinks = [
 ];
 
 export function Footer(): JSX.Element {
-  const [products, setProducts] = React.useState<Product[]>([]);
   const [collections, setCollections] = React.useState<Collection[]>([]);
   React.useEffect(() => {
     (async () => {
-      // Get all products and save to state
-      const products = await getAllProducts();
-      setProducts(products);
-
       // Get all collections and save to state
       const collections = await getAllCollections();
       setCollections(collections);
     })();
   }, []);
-  const productTypes = [
-    // @ts-expect-error: Set not allowed here
-    ...new Set(products.filter(({ node }) => Boolean(node.productType)).map(({ node }) => node.productType)),
-  ];
+  const categories = useGetAllCategories();
   return (
     <footer aria-labelledby="footer-heading" className="bg-gray-50">
       <h2 id="footer-heading" className="sr-only">
@@ -90,10 +83,10 @@ export function Footer(): JSX.Element {
                 <div>
                   <h3 className="text-sm font-medium text-gray-900">Product categories</h3>
                   <ul role="list" className="mt-6 space-y-6">
-                    {productTypes.map((type) => (
-                      <li key={type} className="text-sm">
-                        <a href={`/product-types?type=${type}`} className="text-gray-500 hover:text-gray-600">
-                          {type}
+                    {categories.map(({ category, href }) => (
+                      <li key={category} className="text-sm">
+                        <a href={href} className="text-gray-500 hover:text-gray-600">
+                          {category}
                         </a>
                       </li>
                     ))}

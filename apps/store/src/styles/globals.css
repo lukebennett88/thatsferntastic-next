@@ -12,3 +12,14 @@
     @apply focus:outline-none focus:ring;
   }
 }
+
+@layer utilities {
+  .full-bleed {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+  }
+  .reset-bleed {
+    width: auto;
+    margin-left: 0px;
+  }
+}

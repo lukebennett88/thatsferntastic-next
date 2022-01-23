@@ -1,0 +1,19 @@
+{
+  "include": ["remix.env.d.ts", "app/**/*.ts", "app/**/*.tsx", "cypress/**/*.ts"],
+  "compilerOptions": {
+    "baseUrl": ".",
+    "esModuleInterop": true,
+    "jsx": "react-jsx",
+    "lib": ["DOM", "DOM.Iterable", "ES2019"],
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "paths": { "~/*": ["./app/*"] },
+    "resolveJsonModule": true,
+    "strict": true,
+    "target": "ES2019",
+    "types": ["cypress"],
+
+    // Remix takes care of building everything in `remix build`.
+    "noEmit": true
+  }
+}

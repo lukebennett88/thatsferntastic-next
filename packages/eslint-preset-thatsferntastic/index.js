@@ -1,14 +1,19 @@
+const OFF = 0;
+const WARN = 1;
+const ERROR = 2;
+
 module.exports = {
   extends: ["next/core-web-vitals", "prettier"],
   plugins: ["simple-import-sort", "import"],
   rules: {
-    "@next/next/no-html-link-for-pages": "off",
-    "import/first": "error",
-    "import/newline-after-import": "error",
-    "import/no-duplicates": "error",
-    "react/no-unescaped-entities": "off",
-    "simple-import-sort/exports": "error",
-    "simple-import-sort/imports": "error",
+    "@next/next/no-html-link-for-pages": OFF,
+    "import/first": ERROR,
+    "import/newline-after-import": ERROR,
+    "import/no-duplicates": ERROR,
+    "no-unused-vars": WARN,
+    "react/no-unescaped-entities": OFF,
+    "simple-import-sort/exports": ERROR,
+    "simple-import-sort/imports": ERROR,
   },
   settings: { next: { rootDir: ["./apps/*/", "./packages/*/"] } },
 };

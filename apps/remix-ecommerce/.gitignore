@@ -1,0 +1,16 @@
+.DS_Store
+node_modules
+
+.cache
+.vercel
+.output
+
+public/build
+api/_build
+build
+app/styles/global.css
+.env
+
+cypress/videos
+cypress/screenshots
+runner-results

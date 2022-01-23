@@ -2,7 +2,7 @@ import { AutocompleteOptions, AutocompleteState, createAutocomplete } from "@alg
 import { createLocalStorageRecentSearchesPlugin } from "@algolia/autocomplete-plugin-recent-searches";
 import { getAlgoliaResults, parseAlgoliaHitHighlight } from "@algolia/autocomplete-preset-algolia";
 import type { Hit } from "@algolia/client-search";
-import { ChevronRightIcon, SearchIcon } from "@heroicons/react/outline";
+import { ChevronRightIcon, SearchIcon, XIcon } from "@heroicons/react/outline";
 import { classNames } from "@thatsferntastic/utils";
 import router from "next/router";
 import * as React from "react";
@@ -54,7 +54,6 @@ function Highlight({
 }
 
 interface SearchResultItemProps {
-  close: () => void;
   item: AutocompleteProduct;
   itemProps: {
     "id": string;
@@ -68,7 +67,7 @@ interface SearchResultItemProps {
   isLast: boolean;
 }
 
-function SearchResultItem({ close, item, itemProps, isFirst, isLast }: SearchResultItemProps) {
+function SearchResultItem({ item, itemProps, isFirst, isLast }: SearchResultItemProps) {
   return (
     <li {...itemProps} className="overflow-hidden">
       <InternalLink
@@ -134,11 +133,7 @@ const recentSearchesPlugin = createLocalStorageRecentSearchesPlugin({
   limit: 3,
 });
 
-interface AutocompleteProps extends Partial<AutocompleteOptions<AutocompleteProduct>> {
-  close: () => void;
-}
-
-export function Autocomplete(props: AutocompleteProps): JSX.Element {
+export function Autocomplete(props: Partial<AutocompleteOptions<AutocompleteProduct>>): JSX.Element {
   const [autocompleteState, setAutocompleteState] = React.useState<AutocompleteState<AutocompleteProduct>>({
     collections: [],
     completion: null,
@@ -183,7 +178,6 @@ export function Autocomplete(props: AutocompleteProps): JSX.Element {
           navigate({ itemUrl }) {
             formRef.current?.reset();
             router.push(itemUrl);
-            props.close();
           },
         },
         plugins: [recentSearchesPlugin],
@@ -230,40 +224,69 @@ export function Autocomplete(props: AutocompleteProps): JSX.Element {
     inputRef.current?.focus();
   }, []);
 
+  React.useEffect(() => {
+    function onKeyDown(event: KeyboardEvent) {
+      if (
+        !autocompleteState.isOpen &&
+        // The `Cmd+K` shortcut focuses search input
+        event.key === "k" &&
+        (event.metaKey || event.ctrlKey)
+      ) {
+        inputRef.current?.focus();
+      }
+    }
+
+    window.addEventListener("keydown", onKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+    };
+  }, [autocompleteState.isOpen]);
+
   return (
-    <div className="relative divide-y" {...autocomplete.getRootProps()}>
-      <form ref={formRef} {...formProps} className="px-4 py-3">
+    <div className="relative w-full divide-y" {...autocomplete.getRootProps()}>
+      <form ref={formRef} {...formProps}>
         <label className="sr-only" {...labelProps}>
           Search
         </label>
         <div className="relative text-gray-400 focus-within:text-gray-600">
-          <div className="absolute inset-y-0 left-0 flex items-center pointer-events-none">
+          <div className="absolute inset-y-0 flex items-center pointer-events-none left-3">
             <SearchIcon className="w-5 h-5" aria-hidden="true" />
           </div>
           <input
             ref={inputRef}
             {...inputProps}
             className={classNames(
-              "block w-full px-10 py-2 leading-5 text-gray-900 placeholder-gray-500 bg-white border-transparent",
+              "block w-full px-10 py-2 leading-5 text-gray-900 placeholder-gray-500 bg-white border-transparent rounded-full",
               "sm:text-sm",
               "focus:outline-none focus:border-transparent focus:ring-0",
             )}
             placeholder="Search products"
             type="text"
           />
-          <div className="absolute inset-y-0 right-0 flex items-center pointer-events-none">
-            <button
-              type="button"
-              onClick={props.close}
-              className="px-1.5 py-0.5 text-sm border rounded pointer-events-auto focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-600"
-            >
-              esc
-            </button>
+          <div className="absolute inset-y-0 flex items-center right-3">
+            {inputRef.current?.value !== "" ? (
+              <button
+                type="reset"
+                onClick={() => {
+                  if (inputRef.current) {
+                    inputRef.current.value = "";
+                  }
+                }}
+              >
+                <span className="sr-only">Clear search results</span>
+                <XIcon className="w-5 h-5" aria-hidden="true" />
+              </button>
+            ) : null}
           </div>
         </div>
       </form>
       {autocompleteState.isOpen ? (
-        <div ref={panelRef} className="overflow-hidden bg-white" {...panelProps}>
+        <div
+          ref={panelRef}
+          className="absolute mt-3 overflow-hidden -translate-y-px bg-white rounded-lg shadow-lg full-bleed"
+          {...panelProps}
+        >
           <div className="overflow-y-auto max-h-96">
             {autocompleteState.collections.map((collection, index) => {
               const { source, items } = collection;
@@ -279,7 +302,6 @@ export function Autocomplete(props: AutocompleteProps): JSX.Element {
                         return (
                           <SearchResultItem
                             key={item.objectID}
-                            close={props.close}
                             item={item}
                             itemProps={itemProps}
                             isFirst={index === 0}

@@ -1,4 +1,4 @@
-import { slugify } from "@thatsferntastic/utils";
+import { toSlug } from "@thatsferntastic/utils";
 import NextLink from "next/link";
 
 import { TopSellingProducts as ProductsType } from "../../graphql/get-top-selling-products";
@@ -11,9 +11,9 @@ interface ProductListProps {
 
 export function ProductList({ heading, topSellingProducts }: ProductListProps): JSX.Element {
   return (
-    <section aria-labelledby={slugify(heading)} className="px-4 pt-24 sm:pt-32 sm:px-6 lg:px-8 lg:max-w-7xl lg:mx-auto">
+    <section aria-labelledby={toSlug(heading)} className="px-4 pt-24 sm:pt-32 sm:px-6 lg:px-8 lg:max-w-7xl lg:mx-auto">
       <div className="sm:flex sm:items-center sm:justify-between">
-        <h2 id={slugify(heading)} className="font-mono text-2xl tracking-tight text-pink-600">
+        <h2 id={toSlug(heading)} className="font-mono text-2xl tracking-tight text-pink-600">
           {heading}
         </h2>
         <NextLink href="/products">

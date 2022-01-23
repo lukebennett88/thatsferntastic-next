@@ -16,6 +16,7 @@
     "cypress": "cypress open",
     "start": "remix-serve build",
     "postinstall": "run-s setup:*",
+    "setup:install-sharp": "(cd ../../node_modules/sharp && yarn install)",
     "setup:remix": "remix setup node"
   },
   "dependencies": {

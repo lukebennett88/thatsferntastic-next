@@ -7,7 +7,7 @@ node_modules
 
 public/build
 api/_build
-build
+api/index.js
 app/styles/global.css
 .env
 

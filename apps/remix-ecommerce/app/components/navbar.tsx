@@ -36,25 +36,7 @@ export function Navbar({
         <div className="flex items-center flex-1">
           <Link prefetch="intent" to="/">
             <span className="sr-only">Home</span>
-            {logoHref.endsWith(".svg") ? (
-              <img className="w-10 h-10" src={logoHref} alt="" width={40} height={40} />
-            ) : (
-              <OptimizedImage
-                className="w-10 h-10"
-                src={logoHref}
-                alt=""
-                width={40}
-                height={40}
-                responsive={[
-                  {
-                    size: {
-                      width: 80,
-                      height: 80,
-                    },
-                  },
-                ]}
-              />
-            )}
+            <img className="w-10 h-10" src={logoHref} alt="" width={40} height={40} />
           </Link>
           {storeName ? <h1 className="sr-only">{storeName}</h1> : null}
           <ul className="items-center hidden mx-4 overflow-x-auto lg:flex">
@@ -141,7 +123,7 @@ export function Navbar({
                   <Popover.Panel className="fixed top-0 bottom-0 left-0 right-0 z-10 p-4" focus>
                     <div className="flex">
                       <div className="flex items-center flex-1">
-                        <OptimizedImage className="w-10 h-10" src={logoHref} alt="" width={40} height={40} />
+                        <img className="w-10 h-10" src={logoHref} alt="" width={40} height={40} />
                       </div>
                       <div className="flex flex-row-reverse">
                         <Popover.Button className="hover:text-gray-300">

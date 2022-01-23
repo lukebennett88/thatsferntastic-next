@@ -6,7 +6,7 @@
     "build": "run-s build:css build:remix",
     "build:remix": "remix build && rollup -c",
     "build:css": "postcss styles/global.css -o app/styles/global.css",
-    "clean": "rimraf ./public/build ./build ./.cache ./node_modules",
+    "clean": "rimraf ./api/_build ./api/index.js ./public/build ./build ./.cache ./node_modules",
     "dev": "yarn build:css && run-p dev:*",
     "dev:remix": "PORT=7777 dotenv -- remix dev",
     "dev:css": "postcss styles/global.css -o app/styles/global.css --watch",
@@ -16,7 +16,6 @@
     "cypress": "cypress open",
     "start": "remix-serve build",
     "postinstall": "run-s setup:*",
-    "setup:install-sharp": "(cd ../../node_modules/sharp && yarn install)",
     "setup:remix": "remix setup node"
   },
   "dependencies": {
@@ -32,8 +31,7 @@
     "decimal.js": "^10.3.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "remix": "^1.1.3",
-    "sharp": "^0.29.3"
+    "remix": "^1.1.3"
   },
   "devDependencies": {
     "@remix-run/dev": "^1.1.3",

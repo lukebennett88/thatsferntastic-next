@@ -16,7 +16,7 @@ export function Footer({ logoHref, pages, storeName }: { logoHref: string; pages
       <div className="px-4 py-16 border-t lg:flex border-zinc-700 lg:px-6">
         <div className="mb-6 lg:mr-20">
           <div className="flex items-center flex-1">
-            <OptimizedImage className="w-10 h-10" src={logoHref} alt="" width={40} height={40} />
+            <img className="w-10 h-10" src={logoHref} alt="" width={40} height={40} />
             {storeName ? <h1 className="ml-4 text-lg font-semibold">{storeName}</h1> : null}
           </div>
         </div>

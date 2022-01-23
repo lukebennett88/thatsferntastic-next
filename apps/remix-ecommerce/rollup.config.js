@@ -11,12 +11,12 @@ const rollupConfig = {
     format: "cjs",
     exports: "auto",
   },
-  external: ["fs/promises", "fs", "https", "path", "crypto", "stream", "http", "zlib", "os", "child_process"],
+  external: ["fs/promises"],
   plugins: [
     commonJs(),
     resolve({
       moduleDirectories: ["node_modules"],
-      preferBuiltins: false,
+      preferBuiltins: true,
     }),
     jsonPlugin(),
   ],

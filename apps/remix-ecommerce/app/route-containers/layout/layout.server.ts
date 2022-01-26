@@ -18,7 +18,7 @@ export type LoaderData = {
 export let loader: LoaderFunction = async ({ request }) => {
   let session = await getSession(request);
   let [categories, pages, cart, wishlist] = await Promise.all([
-    commerce.getCategories(2),
+    commerce.getCategories(250),
     commerce.getPages(),
     session.getCart().then((cartItems) => commerce.getCartInfo(cartItems)),
     session.getWishlist().then((wishlistItems) => commerce.getWishlistInfo(wishlistItems)),

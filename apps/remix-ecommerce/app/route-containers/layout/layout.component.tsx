@@ -1,17 +1,7 @@
 import type { ReactNode } from "react";
 import { lazy, Suspense, useMemo, useState } from "react";
 import type { MetaFunction, ShouldReloadFunction } from "remix";
-import {
-  Links,
-  LinksFunction,
-  LiveReload,
-  Meta,
-  Outlet,
-  Scripts,
-  ScrollRestoration,
-  useLoaderData,
-  useMatches,
-} from "remix";
+import { Links, LinksFunction, LiveReload, Meta, Outlet, Scripts, ScrollRestoration, useLoaderData } from "remix";
 
 import { ClientOnly } from "~/components/client-only";
 import { Footer } from "~/components/footer";
@@ -26,11 +16,6 @@ import type { LoaderData } from "./layout.server";
 let CartPopover = lazy(() =>
   import("~/components/cart-popover").then(({ CartPopover }) => ({
     default: CartPopover,
-  })),
-);
-let WishlistPopover = lazy(() =>
-  import("~/components/wishlist-popover").then(({ WishlistPopover }) => ({
-    default: WishlistPopover,
   })),
 );
 
@@ -72,7 +57,6 @@ export function Document({ children, loaderData }: { children: ReactNode; loader
   const cart = loaderData?.cart;
   const categories = loaderData?.categories;
   const pages = loaderData?.pages ?? [];
-  const wishlist = loaderData?.wishlist;
 
   let allCategories = useMemo(() => {
     let results: NavbarCategory[] = [
@@ -89,11 +73,10 @@ export function Document({ children, loaderData }: { children: ReactNode; loader
   }, [categories]);
 
   let [cartOpen, setCartOpen] = useState(false);
-  let [wishlistOpen, setWishlistOpen] = useState(false);
 
   let cartCount = useMemo(() => cart?.items?.reduce((sum, item) => sum + item.quantity, 0), [cart]);
 
-  let wishlistCount = useMemo(() => wishlist?.reduce((sum, item) => sum + item.quantity, 0), [wishlist]);
+  let storeName = "@thatsferntastic";
 
   return (
     <html lang="en-AU" className="text-gray-800">
@@ -104,31 +87,12 @@ export function Document({ children, loaderData }: { children: ReactNode; loader
         <Links />
       </head>
       <body className="flex min-h-screen flex-col">
-        <Navbar
-          cartCount={cartCount}
-          wishlistCount={wishlistCount}
-          logoHref={logoHref}
-          storeName="Store Name"
-          categories={allCategories}
-          onOpenCart={() => setCartOpen(true)}
-          onOpenWishlist={() => setWishlistOpen(true)}
-        />
+        <Navbar cartCount={cartCount} storeName={storeName} onOpenCart={() => setCartOpen(true)} />
         <div className="flex-1">{children}</div>
-        <Footer logoHref={logoHref} pages={pages} storeName="Store Name" />
+        <Footer logoHref={logoHref} pages={pages} storeName={storeName} />
 
         <ClientOnly>
-          <Suspense fallback="">
-            <WishlistPopover
-              wishlistCount={wishlistCount}
-              wishlist={wishlist}
-              open={wishlistOpen}
-              onClose={() => setWishlistOpen(false)}
-            />
-          </Suspense>
-        </ClientOnly>
-
-        <ClientOnly>
-          <Suspense fallback="">
+          <Suspense fallback={null}>
             <CartPopover cartCount={cartCount} cart={cart} open={cartOpen} onClose={() => setCartOpen(false)} />
           </Suspense>
         </ClientOnly>

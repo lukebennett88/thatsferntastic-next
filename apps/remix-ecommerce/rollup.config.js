@@ -1,4 +1,3 @@
-// @ts-check
 import commonJs from "@rollup/plugin-commonjs";
 import jsonPlugin from "@rollup/plugin-json";
 import resolve from "@rollup/plugin-node-resolve";
@@ -9,9 +8,8 @@ const rollupConfig = {
   output: {
     file: "api/index.js",
     format: "cjs",
-    exports: "auto",
+    exports: "default",
   },
-  external: ["fs/promises"],
   plugins: [
     commonJs(),
     resolve({

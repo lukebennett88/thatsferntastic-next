@@ -2,6 +2,8 @@
 node_modules
 
 /.cache
+/api/index.js
+/api/_build
 /build
 /public/build
 /app/styles/global.css

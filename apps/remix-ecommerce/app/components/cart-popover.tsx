@@ -20,7 +20,7 @@ export function CartPopover({
 }) {
   return (
     <Transition appear show={open} as={Fragment}>
-      <Dialog as="div" className="fixed inset-0 z-10" onClose={onClose}>
+      <Dialog as="div" className="fixed inset-0 z-20" onClose={onClose}>
         <div className="relative min-h-screen w-full">
           <Transition.Child
             as={Fragment}

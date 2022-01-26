@@ -46,8 +46,8 @@ export default function SanityPage({ sanityPage }: InferGetStaticPropsType<typeo
         }
         openGraph={{ ...(shareImage ? { images: [{ url: shareImage }] } : {}) }}
       />
-      <main className="max-w-2xl px-4 mx-auto lg:max-w-7xl lg:px-8">
-        <div className="py-24 mx-auto prose">
+      <main className="mx-auto max-w-2xl px-4 lg:max-w-7xl lg:px-8">
+        <div className="prose mx-auto py-24">
           <h1>{sanityPage.title}</h1>
           {sanityPage.content?.map((content) => {
             if (content._type !== "richText" || !content.blockContent) return null;

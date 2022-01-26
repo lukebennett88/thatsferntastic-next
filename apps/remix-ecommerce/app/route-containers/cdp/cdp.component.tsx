@@ -17,7 +17,7 @@ export default function CDP() {
 
   return (
     <main className="grid-cols-12 gap-6 lg:grid">
-      <nav className="hidden col-span-2 py-8 pl-6 lg:block">
+      <nav className="col-span-2 hidden py-8 pl-6 lg:block">
         <h1 className="text-lg font-semibold">Categories</h1>
         <ul>
           {categories.map((cat) => (
@@ -25,7 +25,7 @@ export default function CDP() {
               <Link
                 data-testid="category-link"
                 aria-selected={cat.slug !== category}
-                className="focus:underline hover:underline whitespace-nowrap"
+                className="whitespace-nowrap hover:underline focus:underline"
                 prefetch="intent"
                 to={(() => {
                   let params = new URLSearchParams(location.search);
@@ -49,7 +49,7 @@ export default function CDP() {
               <Link
                 data-testid="sort-by-link"
                 aria-selected={sortBy.value !== sort}
-                className="focus:underline hover:underline whitespace-nowrap"
+                className="whitespace-nowrap hover:underline focus:underline"
                 prefetch="intent"
                 to={(() => {
                   let params = new URLSearchParams(location.search);
@@ -82,7 +82,7 @@ export default function CDP() {
             data-testid="category-select"
             key={category}
             defaultValue={category}
-            className="block w-full p-2 border border-zinc-700"
+            className="block w-full border border-zinc-700 p-2"
             onChange={submitForm}
             name="category"
           >
@@ -94,11 +94,11 @@ export default function CDP() {
           </select>
         </label>
         <noscript>
-          <button className="block px-4 py-2 mt-4 border border-zinc-700">Update</button>
+          <button className="mt-4 block border border-zinc-700 px-4 py-2">Update</button>
         </noscript>
       </Form>
       <Form
-        className="px-4 pb-2 border-b border-zinc-700 lg:hidden"
+        className="border-b border-zinc-700 px-4 pb-2 lg:hidden"
         action={(() => {
           let params = new URLSearchParams(location.search);
           params.delete("cursor");
@@ -114,7 +114,7 @@ export default function CDP() {
             data-testid="sort-by-select"
             key={sort}
             defaultValue={sort}
-            className="block w-full p-2 mt-4 border border-zinc-700"
+            className="mt-4 block w-full border border-zinc-700 p-2"
             onChange={submitForm}
             name="sort"
           >
@@ -126,12 +126,12 @@ export default function CDP() {
           </select>
         </label>
         <noscript>
-          <button className="block px-4 py-2 mt-4 border border-zinc-700">Update</button>
+          <button className="mt-4 block border border-zinc-700 px-4 py-2">Update</button>
         </noscript>
       </Form>
 
       <article className="col-span-10 col-start-3 mb-8 sm:px-4 lg:px-0 lg:pr-6">
-        <p data-testid="search-results-label" className="pl-4 mt-4 mb-8">
+        <p data-testid="search-results-label" className="mt-4 mb-8 pl-4">
           Showing {products.length} results
           {search ? ` for "${search}"` : ""}
         </p>
@@ -143,7 +143,7 @@ export default function CDP() {
         {hasNextPage && nextPageCursor && (
           <p className="mt-8">
             <Link
-              className="text-lg font-semibold focus:underline hover:underline"
+              className="text-lg font-semibold hover:underline focus:underline"
               to={(() => {
                 let params = new URLSearchParams(location.search);
                 params.set("cursor", nextPageCursor);

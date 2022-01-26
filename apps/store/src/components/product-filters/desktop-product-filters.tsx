@@ -57,7 +57,7 @@ function FilterOption({ label, name, value }: FilterOptionProps) {
         name={name}
         defaultValue={value}
         type="checkbox"
-        className="w-4 h-4 text-pink-600 border-gray-300 rounded focus:ring-pink-500"
+        className="h-4 w-4 rounded border-gray-300 text-pink-600 focus:ring-pink-500"
       />
       <label htmlFor={value} className="ml-3 text-sm text-gray-600">
         {label}
@@ -77,7 +77,7 @@ function FilterOptionGroup({ hasPaddingTop, name, children }: FilterOptionGroupP
     <div className={classNames(hasPaddingTop && "pt-10")}>
       <fieldset>
         <legend className="block text-sm font-medium text-gray-900">{name}</legend>
-        <div className="pt-6 space-y-3">{children}</div>
+        <div className="space-y-3 pt-6">{children}</div>
       </fieldset>
     </div>
   );
@@ -110,7 +110,7 @@ export function DesktopProductFilters({ setMobileFiltersOpen }: DesktopProductFi
       <h2 className="sr-only">Filters</h2>
       <button type="button" className="inline-flex items-center lg:hidden" onClick={() => setMobileFiltersOpen(true)}>
         <span className="text-sm font-medium text-gray-700">Filters</span>
-        <PlusSmIcon className="flex-shrink-0 w-5 h-5 ml-1 text-gray-400" aria-hidden="true" />
+        <PlusSmIcon className="ml-1 h-5 w-5 flex-shrink-0 text-gray-400" aria-hidden="true" />
       </button>
       <div className="hidden lg:block">
         <form className="space-y-10 divide-y divide-gray-200">

@@ -36,29 +36,29 @@ export function MobileMenu({ open, setOpen }: MobileMenuProps): JSX.Element {
           leaveFrom="translate-x-0"
           leaveTo="-translate-x-full"
         >
-          <div className="relative flex flex-col w-full max-w-xs pb-12 overflow-y-auto bg-white shadow-xl">
+          <div className="relative flex w-full max-w-xs flex-col overflow-y-auto bg-white pb-12 shadow-xl">
             <div className="flex px-4 pt-5 pb-2">
               <button
                 type="button"
-                className="inline-flex items-center justify-center p-2 -m-2 text-gray-400 rounded-md"
+                className="-m-2 inline-flex items-center justify-center rounded-md p-2 text-gray-400"
                 onClick={() => setOpen(false)}
               >
                 <span className="sr-only">Close menu</span>
-                <XIcon aria-hidden="true" className="w-6 h-6" />
+                <XIcon aria-hidden="true" className="h-6 w-6" />
               </button>
             </div>
 
             {/* Links */}
             <Tab.Group as="div" className="mt-2">
               <div className="border-b border-gray-200">
-                <Tab.List className="flex px-4 -mb-px space-x-8">
+                <Tab.List className="-mb-px flex space-x-8 px-4">
                   {navigation.categories.map((category) => (
                     <Tab
                       key={category.name}
                       className={({ selected }) =>
                         classNames(
-                          selected ? "text-pink-600 border-pink-600" : "text-gray-900 border-transparent",
-                          "flex-1 whitespace-nowrap py-4 px-1 border-b-2 text-base font-medium",
+                          selected ? "border-pink-600 text-pink-600" : "border-transparent text-gray-900",
+                          "flex-1 whitespace-nowrap border-b-2 py-4 px-1 text-base font-medium",
                         )
                       }
                     >
@@ -69,14 +69,14 @@ export function MobileMenu({ open, setOpen }: MobileMenuProps): JSX.Element {
               </div>
               <Tab.Panels as={React.Fragment}>
                 {navigation.categories.map((category) => (
-                  <Tab.Panel key={category.name} className="px-4 pt-10 pb-8 space-y-10">
+                  <Tab.Panel key={category.name} className="space-y-10 px-4 pt-10 pb-8">
                     <div className="grid grid-cols-2 gap-x-4">
                       {category.featured.map((item) => (
-                        <div key={item.name} className="relative text-sm group">
-                          <div className="overflow-hidden bg-gray-100 rounded-lg aspect-w-1 aspect-h-1 group-hover:opacity-75">
+                        <div key={item.name} className="group relative text-sm">
+                          <div className="aspect-w-1 aspect-h-1 overflow-hidden rounded-lg bg-gray-100 group-hover:opacity-75">
                             <img src={item.imageSrc} alt={item.imageAlt} className="object-cover object-center" />
                           </div>
-                          <a href={item.href} className="block mt-6 font-medium text-gray-900">
+                          <a href={item.href} className="mt-6 block font-medium text-gray-900">
                             <span aria-hidden="true" className="absolute inset-0 z-10" />
                             {item.name}
                           </a>
@@ -94,11 +94,11 @@ export function MobileMenu({ open, setOpen }: MobileMenuProps): JSX.Element {
                         <ul
                           role="list"
                           aria-labelledby={`${category.id}-${section.id}-heading-mobile`}
-                          className="flex flex-col mt-6 space-y-6"
+                          className="mt-6 flex flex-col space-y-6"
                         >
                           {section.items.map((item) => (
                             <li key={item.name} className="flow-root">
-                              <a href={item.href} className="block p-2 -m-2 text-gray-500">
+                              <a href={item.href} className="-m-2 block p-2 text-gray-500">
                                 {item.name}
                               </a>
                             </li>

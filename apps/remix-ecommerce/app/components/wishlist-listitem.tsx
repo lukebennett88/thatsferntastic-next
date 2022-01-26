@@ -28,7 +28,7 @@ export function WishlistListItem({
   return (
     <li key={variantId} className="mb-6">
       <div className="flex">
-        <div className="relative block w-16 mr-4 aspect-square">
+        <div className="relative mr-4 block aspect-square w-16">
           <OptimizedImage
             className="absolute inset-0 bg-pink-500"
             src={image}
@@ -55,7 +55,7 @@ export function WishlistListItem({
         </div>
         <p className="text-sm">{formattedPrice}</p>
       </div>
-      <div className="flex mt-2">
+      <div className="mt-2 flex">
         <Form method="post" action="/wishlist">
           <input type="hidden" name="_action" defaultValue="delete" />
           <input
@@ -68,13 +68,13 @@ export function WishlistListItem({
           <button
             data-testid="remove-from-wishlist"
             type="submit"
-            className="flex items-center justify-center mr-2 border w-9 h-9 border-zinc-700"
+            className="mr-2 flex h-9 w-9 items-center justify-center border border-zinc-700"
           >
             <span className="sr-only">Remove from wishlist</span>
-            <CloseIcon className="w-6 h-6" />
+            <CloseIcon className="h-6 w-6" />
           </button>
         </Form>
-        <div className="flex-1 p-1 px-3 border border-zinc-700 h-9">
+        <div className="h-9 flex-1 border border-zinc-700 p-1 px-3">
           <span className="sr-only">{"Quantity: $1".replace("$1", quantity.toString())}</span>
           <span aria-hidden={true}>{quantity}</span>
         </div>
@@ -100,12 +100,12 @@ export function WishlistListItem({
             type="submit"
             disabled={quantity - 1 <= 0}
             className={cn(
-              "w-9 h-9 flex items-center justify-center border border-zinc-700 border-l-0",
+              "flex h-9 w-9 items-center justify-center border border-l-0 border-zinc-700",
               quantity - 1 <= 0 && "text-gray-300",
             )}
           >
             <span className="sr-only">Subtract item</span>
-            <MinusIcon className="w-6 h-6" />
+            <MinusIcon className="h-6 w-6" />
           </button>
         </Form>
         <Form action="/wishlist" method="post">
@@ -122,10 +122,10 @@ export function WishlistListItem({
           <button
             data-testid="increment-wishlist"
             type="submit"
-            className="flex items-center justify-center border border-l-0 w-9 h-9 border-zinc-700"
+            className="flex h-9 w-9 items-center justify-center border border-l-0 border-zinc-700"
           >
             <span className="sr-only">Add item</span>
-            <PlusIcon className="w-6 h-6" />
+            <PlusIcon className="h-6 w-6" />
           </button>
         </Form>
         <Form method="post" action="/wishlist">
@@ -140,11 +140,11 @@ export function WishlistListItem({
           <button
             data-testid="move-to-cart"
             type="submit"
-            className="flex items-center justify-center ml-2 border w-9 h-9 border-zinc-700"
+            className="ml-2 flex h-9 w-9 items-center justify-center border border-zinc-700"
             title="Move to cart"
           >
             <span className="sr-only">Move to cart</span>
-            <CartIcon className="w-6 h-6" />
+            <CartIcon className="h-6 w-6" />
           </button>
         </Form>
       </div>

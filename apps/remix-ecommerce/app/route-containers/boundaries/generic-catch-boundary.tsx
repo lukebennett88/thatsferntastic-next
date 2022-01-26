@@ -9,7 +9,7 @@ export function GenericCatchBoundary() {
 
   return (
     <div className="py-16">
-      <div className="max-w-xl px-4 mx-auto prose prose-invert text-gray-50">
+      <div className="prose prose-invert mx-auto max-w-xl px-4 text-gray-50">
         <h1>{message}</h1>
       </div>
     </div>

@@ -19,20 +19,20 @@ export function CtaBanner({
   return (
     <article
       className={cn(
-        "px-4 lg:px-6 py-24 lg:py-32 lg:flex",
-        variant === "secondary" && "bg-gray-50 text-zinc-900 border-t border-zinc-700",
+        "px-4 py-24 lg:flex lg:px-6 lg:py-32",
+        variant === "secondary" && "border-t border-zinc-700 bg-gray-50 text-zinc-900",
       )}
     >
-      <h1 className="text-6xl font-bold max-w-lg lg:text-right">{headline}</h1>
-      <div className="flex-1 mt-3 lg:ml-8">
-        <p className="text-xl font-light mb-4">{description}</p>
+      <h1 className="max-w-lg text-6xl font-bold lg:text-right">{headline}</h1>
+      <div className="mt-3 flex-1 lg:ml-8">
+        <p className="mb-4 text-xl font-light">{description}</p>
         <p>
           <Link className="group inline-flex items-center" prefetch="intent" to={ctaTo}>
-            <span className="text-xl font-semibold group-focus:underline group-hover:underline focus:underline hover:underline">
+            <span className="text-xl font-semibold hover:underline focus:underline group-hover:underline group-focus:underline">
               {ctaText}
             </span>
             <svg
-              className="h-6 w-6 motion-safe:group-focus:animate-pulse motion-safe:group-hover:animate-pulse"
+              className="h-6 w-6 motion-safe:group-hover:animate-pulse motion-safe:group-focus:animate-pulse"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"

@@ -55,32 +55,32 @@ export function ProductDetails(): JSX.Element {
         Additional details
       </h2>
 
-      <div className="border-t divide-y divide-gray-200">
+      <div className="divide-y divide-gray-200 border-t">
         {product.details.map((detail) => (
           <Disclosure as="div" key={detail.name}>
             {({ open }) => (
               <>
                 <h3>
-                  <Disclosure.Button className="relative flex items-center justify-between w-full py-6 text-left group">
+                  <Disclosure.Button className="group relative flex w-full items-center justify-between py-6 text-left">
                     <span className={classNames(open ? "text-pink-600" : "text-gray-900", "text-sm font-medium")}>
                       {detail.name}
                     </span>
-                    <span className="flex items-center ml-6">
+                    <span className="ml-6 flex items-center">
                       {open ? (
                         <MinusSmIcon
                           aria-hidden="true"
-                          className="block w-6 h-6 text-pink-400 group-hover:text-pink-500"
+                          className="block h-6 w-6 text-pink-400 group-hover:text-pink-500"
                         />
                       ) : (
                         <PlusSmIcon
                           aria-hidden="true"
-                          className="block w-6 h-6 text-gray-400 group-hover:text-gray-500"
+                          className="block h-6 w-6 text-gray-400 group-hover:text-gray-500"
                         />
                       )}
                     </span>
                   </Disclosure.Button>
                 </h3>
-                <Disclosure.Panel as="div" className="pb-6 prose-sm prose">
+                <Disclosure.Panel as="div" className="prose prose-sm pb-6">
                   <ul role="list">
                     {detail.items.map((item) => (
                       <li key={item}>{item}</li>

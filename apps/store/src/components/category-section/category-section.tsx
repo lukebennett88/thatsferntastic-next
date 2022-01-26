@@ -30,8 +30,8 @@ const categories = [
 
 export function CategorySection(): JSX.Element {
   return (
-    <section aria-labelledby="category-heading" className="pt-24 sm:pt-32 xl:max-w-7xl xl:mx-auto xl:px-8">
-      <div className="px-4 sm:px-6 sm:flex sm:items-center sm:justify-between lg:px-8 xl:px-0">
+    <section aria-labelledby="category-heading" className="pt-24 sm:pt-32 xl:mx-auto xl:max-w-7xl xl:px-8">
+      <div className="px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8 xl:px-0">
         <h2 id="category-heading" className="font-mono text-2xl tracking-tight text-pink-600">
           Shop by Category
         </h2>
@@ -42,25 +42,25 @@ export function CategorySection(): JSX.Element {
         </NextLink>
       </div>
 
-      <div className="flow-root mt-4">
+      <div className="mt-4 flow-root">
         <div className="-my-2">
-          <div className="box-content relative py-2 overflow-x-auto h-80 xl:overflow-visible">
-            <div className="absolute flex px-4 space-x-8 min-w-screen-xl sm:px-6 lg:px-8 xl:relative xl:px-0 xl:space-x-0 xl:grid xl:grid-cols-5 xl:gap-x-8">
+          <div className="relative box-content h-80 overflow-x-auto py-2 xl:overflow-visible">
+            <div className="min-w-screen-xl absolute flex space-x-8 px-4 sm:px-6 lg:px-8 xl:relative xl:grid xl:grid-cols-5 xl:gap-x-8 xl:space-x-0 xl:px-0">
               {categories.map((category) => (
                 <a
                   key={category.name}
                   href={category.href}
-                  className="relative flex flex-col w-56 p-6 overflow-hidden rounded-lg h-80 hover:opacity-75 xl:w-auto"
+                  className="relative flex h-80 w-56 flex-col overflow-hidden rounded-lg p-6 hover:opacity-75 xl:w-auto"
                 >
                   <span aria-hidden="true" className="absolute inset-0">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={category.imageSrc} alt="" className="object-cover object-center w-full h-full" />
+                    <img src={category.imageSrc} alt="" className="h-full w-full object-cover object-center" />
                   </span>
                   <span
                     aria-hidden="true"
-                    className="absolute inset-x-0 bottom-0 opacity-50 h-2/3 bg-gradient-to-t from-gray-800"
+                    className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-gray-800 opacity-50"
                   />
-                  <span className="relative mt-auto text-xl font-bold text-center text-white">{category.name}</span>
+                  <span className="relative mt-auto text-center text-xl font-bold text-white">{category.name}</span>
                 </a>
               ))}
             </div>
@@ -68,7 +68,7 @@ export function CategorySection(): JSX.Element {
         </div>
       </div>
 
-      <div className="px-4 mt-6 sm:hidden">
+      <div className="mt-6 px-4 sm:hidden">
         {/* TODO: update this link */}
         <NextLink href="/collections">
           <a className="block text-sm font-semibold text-pink-600 hover:text-pink-500">

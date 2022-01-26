@@ -8,12 +8,12 @@ const bannerText = ["Free Australian shipping for order over $60", "Free Worldwi
 
 function AnnouncementBanner(): JSX.Element {
   return (
-    <p className="px-4 py-1 text-sm font-medium text-center text-teal-900 bg-teal-50 sm:px-6 lg:px-8">
+    <p className="bg-teal-50 px-4 py-1 text-center text-sm font-medium text-teal-900 sm:px-6 lg:px-8">
       {bannerText.map((line, index) => (
         <React.Fragment key={index}>
           <span className="block lg:inline-block">{line}</span>
           {index !== bannerText.length - 1 ? (
-            <span aria-hidden="true" className="hidden mx-4 lg:inline-block">
+            <span aria-hidden="true" className="mx-4 hidden lg:inline-block">
               |
             </span>
           ) : null}

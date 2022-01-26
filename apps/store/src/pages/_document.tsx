@@ -18,7 +18,7 @@ export default class Document extends NextDocument {
             rel="stylesheet"
           />
         </Head>
-        <body className="overflow-x-hidden font-sans bg-teal-200">
+        <body className="overflow-x-hidden bg-teal-200 font-sans">
           <Main />
           <NextScript />
         </body>

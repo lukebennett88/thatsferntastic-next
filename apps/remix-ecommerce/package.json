@@ -43,6 +43,8 @@
     "postcss": "^8.4.5",
     "postcss-cli": "^9.1.0",
     "postcss-load-config": "^3.1.1",
+    "prettier-plugin-tailwindcss": "0.1.4",
+    "prettier-preset-thatsferntastic": "*",
     "rimraf": "^3.0.2",
     "rollup": "^2.63.0",
     "tailwindcss": "^3.0.16",

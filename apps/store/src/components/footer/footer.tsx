@@ -50,11 +50,11 @@ export function Footer(): JSX.Element {
       <h2 id="footer-heading" className="sr-only">
         Footer
       </h2>
-      <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
-        <div className="py-20 border-t border-gray-200">
-          <div className="grid grid-cols-1 md:grid-cols-12 md:grid-flow-col md:gap-x-8 md:gap-y-16 md:auto-rows-min">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="border-t border-gray-200 py-20">
+          <div className="grid grid-cols-1 md:grid-flow-col md:auto-rows-min md:grid-cols-12 md:gap-x-8 md:gap-y-16">
             {/* Image section */}
-            <div className="col-span-1 md:col-span-2 lg:row-start-1 lg:col-start-1">
+            <div className="col-span-1 md:col-span-2 lg:col-start-1 lg:row-start-1">
               <NextLink href="/">
                 <a className="inline-flex rounded-full focus:ring">
                   <span className="sr-only">{siteSettings.title}</span>
@@ -66,7 +66,7 @@ export function Footer(): JSX.Element {
             </div>
 
             {/* Sitemap sections */}
-            <div className="grid grid-cols-2 col-span-6 gap-8 mt-10 sm:grid-cols-3 md:mt-0 md:row-start-1 md:col-start-3 md:col-span-8 lg:col-start-2 lg:col-span-6">
+            <div className="col-span-6 mt-10 grid grid-cols-2 gap-8 sm:grid-cols-3 md:col-span-8 md:col-start-3 md:row-start-1 md:mt-0 lg:col-span-6 lg:col-start-2">
               <div className="grid grid-cols-1 gap-y-12 sm:col-span-2 sm:grid-cols-2 sm:gap-x-8">
                 <div>
                   <h3 className="text-sm font-medium text-gray-900">Collections</h3>
@@ -107,14 +107,14 @@ export function Footer(): JSX.Element {
               </div>
             </div>
 
-            <div className="mt-12 md:mt-0 md:row-start-2 md:col-start-3 md:col-span-8 lg:row-start-1 lg:col-start-9 lg:col-span-4">
+            <div className="mt-12 md:col-span-8 md:col-start-3 md:row-start-2 md:mt-0 lg:col-span-4 lg:col-start-9 lg:row-start-1">
               {/* Newsletter section */}
               <div>
                 <h3 className="text-sm font-medium text-gray-900">Sign up for our newsletter</h3>
                 <p className="mt-6 text-sm text-gray-500">
                   Intermittent updates, when I remember to send them, about new releases, sales and good news!
                 </p>
-                <form className="flex mt-2 sm:max-w-md">
+                <form className="mt-2 flex sm:max-w-md">
                   <label htmlFor="email-address" className="sr-only">
                     Email address
                   </label>
@@ -124,9 +124,9 @@ export function Footer(): JSX.Element {
                     autoComplete="email"
                     required
                     placeholder="Enter your email"
-                    className="w-full min-w-0 px-4 py-2 text-base text-gray-900 placeholder-gray-500 bg-white border border-gray-300 rounded-full appearance-none sm:text-sm focus:outline-none focus:border-pink-500 focus:ring-1 focus:ring-pink-500"
+                    className="w-full min-w-0 appearance-none rounded-full border border-gray-300 bg-white px-4 py-2 text-base text-gray-900 placeholder-gray-500 focus:border-pink-500 focus:outline-none focus:ring-1 focus:ring-pink-500 sm:text-sm"
                   />
-                  <div className="flex-shrink-0 ml-4">
+                  <div className="ml-4 flex-shrink-0">
                     <Button type="submit" size="lg">
                       Sign up
                     </Button>
@@ -142,11 +142,11 @@ export function Footer(): JSX.Element {
                   to add a little more sunshine to your day. Offering flat rate shipping from my little studio on the
                   coast of NSW.
                 </p>
-                <div className="flex mt-6 space-x-6">
+                <div className="mt-6 flex space-x-6">
                   {socialLinks.map(({ href, icon: Icon, name }) => (
                     <a key={name} href={href} className="text-gray-400 hover:text-gray-500">
                       <span className="sr-only">{name}</span>
-                      <Icon className="w-6 h-6" />
+                      <Icon className="h-6 w-6" />
                     </a>
                   ))}
                 </div>
@@ -155,7 +155,7 @@ export function Footer(): JSX.Element {
           </div>
         </div>
 
-        <div className="py-10 text-center border-t border-gray-200">
+        <div className="border-t border-gray-200 py-10 text-center">
           <p className="text-sm text-gray-500">
             &copy; {new Date().getFullYear()} {siteSettings.title}. All rights reserved.
           </p>

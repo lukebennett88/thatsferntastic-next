@@ -39,13 +39,13 @@ const ProductsPage: NextPage<InferGetServerSidePropsType<typeof getServerSidePro
   return (
     <>
       <MobileProductFilters mobileFiltersOpen={mobileFiltersOpen} setMobileFiltersOpen={setMobileFiltersOpen} />
-      <main className="max-w-2xl px-4 mx-auto lg:max-w-7xl lg:px-8">
-        <div className="pt-24 pb-10 border-b border-gray-200">
+      <main className="mx-auto max-w-2xl px-4 lg:max-w-7xl lg:px-8">
+        <div className="border-b border-gray-200 pt-24 pb-10">
           <h1 className="text-4xl font-extrabold tracking-tight text-gray-900">Products</h1>
         </div>
         <div className="pt-12 pb-24 lg:grid lg:grid-cols-3 lg:gap-x-8 xl:grid-cols-4">
           <DesktopProductFilters products={products} setMobileFiltersOpen={setMobileFiltersOpen} />
-          <section aria-labelledby="product-heading" className="mt-6 lg:mt-0 lg:col-span-2 xl:col-span-3">
+          <section aria-labelledby="product-heading" className="mt-6 lg:col-span-2 lg:mt-0 xl:col-span-3">
             <h2 id="product-heading" className="sr-only">
               Products
             </h2>

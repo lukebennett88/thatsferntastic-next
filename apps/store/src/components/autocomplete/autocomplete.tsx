@@ -41,7 +41,7 @@ function Highlight({
       }).map(({ value, isHighlighted }, index) => {
         if (isHighlighted) {
           return (
-            <mark key={index} className="text-pink-700 bg-pink-100">
+            <mark key={index} className="bg-pink-100 text-pink-700">
               {value}
             </mark>
           );
@@ -77,34 +77,34 @@ function SearchResultItem({ item, itemProps, isFirst, isLast }: SearchResultItem
           isFirst && "rounded-t-md",
           isLast && "rounded-b-md",
           itemProps["aria-selected"] &&
-            "bg-gray-50 outline-none ring-inset ring-2 ring-offset-2 ring-offset-pink-600 ring-white border-white",
+            "border-white bg-gray-50 outline-none ring-2 ring-inset ring-white ring-offset-2 ring-offset-pink-600",
           "block border-2 border-transparent",
           "hover:bg-gray-50",
-          "focus:outline-none focus:ring-inset focus:ring-2 focus:ring-offset-2 focus:ring-offset-pink-600 focus:ring-white focus:border-white",
+          "focus:border-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white focus:ring-offset-2 focus:ring-offset-pink-600",
         )}
       >
         <div className="flex items-center px-4 py-4 sm:px-6">
-          <div className="flex items-start flex-1 min-w-0">
-            <div className="flex-shrink-0 w-12 h-12 overflow-hidden rounded">
+          <div className="flex min-w-0 flex-1 items-start">
+            <div className="h-12 w-12 flex-shrink-0 overflow-hidden rounded">
               <ShopifyImage
-                className="object-contain w-12 h-12"
+                className="h-12 w-12 object-contain"
                 src={item.image.originalSrc}
                 height={48}
                 width={48}
                 alt=""
               />
             </div>
-            <div className="flex-1 min-w-0 px-4">
+            <div className="min-w-0 flex-1 px-4">
               <div>
-                <p className="text-sm font-medium text-pink-700 truncate">
+                <p className="truncate text-sm font-medium text-pink-700">
                   <Highlight hit={item} attribute="title" />
                 </p>
-                <div className="flex items-center mt-2 text-sm text-gray-500">
+                <div className="mt-2 flex items-center text-sm text-gray-500">
                   <p title={item.description} className="truncate">
                     <Highlight hit={item} attribute="description" />
                   </p>
                 </div>
-                <div className="flex items-center mt-2 text-sm text-gray-500">
+                <div className="mt-2 flex items-center text-sm text-gray-500">
                   <p className="truncate">
                     By{" "}
                     <strong className="font-semibold">
@@ -120,7 +120,7 @@ function SearchResultItem({ item, itemProps, isFirst, isLast }: SearchResultItem
             </div>
           </div>
           <div>
-            <ChevronRightIcon className="w-5 h-5 text-gray-400" aria-hidden="true" />
+            <ChevronRightIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
           </div>
         </div>
       </InternalLink>
@@ -250,21 +250,21 @@ export function Autocomplete(props: Partial<AutocompleteOptions<AutocompleteProd
           Search
         </label>
         <div className="relative text-gray-400 focus-within:text-gray-600">
-          <div className="absolute inset-y-0 flex items-center pointer-events-none left-3">
-            <SearchIcon className="w-5 h-5" aria-hidden="true" />
+          <div className="pointer-events-none absolute inset-y-0 left-3 flex items-center">
+            <SearchIcon className="h-5 w-5" aria-hidden="true" />
           </div>
           <input
             ref={inputRef}
             {...inputProps}
             className={classNames(
-              "block w-full px-10 py-2 leading-5 text-gray-900 placeholder-gray-500 bg-white border-transparent rounded-full",
+              "block w-full rounded-full border-transparent bg-white px-10 py-2 leading-5 text-gray-900 placeholder-gray-500",
               "sm:text-sm",
-              "focus:outline-none focus:border-transparent focus:ring-0",
+              "focus:border-transparent focus:outline-none focus:ring-0",
             )}
             placeholder="Search products"
             type="text"
           />
-          <div className="absolute inset-y-0 flex items-center right-3">
+          <div className="absolute inset-y-0 right-3 flex items-center">
             {inputRef.current?.value !== "" ? (
               <button
                 type="reset"
@@ -275,7 +275,7 @@ export function Autocomplete(props: Partial<AutocompleteOptions<AutocompleteProd
                 }}
               >
                 <span className="sr-only">Clear search results</span>
-                <XIcon className="w-5 h-5" aria-hidden="true" />
+                <XIcon className="h-5 w-5" aria-hidden="true" />
               </button>
             ) : null}
           </div>
@@ -284,10 +284,10 @@ export function Autocomplete(props: Partial<AutocompleteOptions<AutocompleteProd
       {autocompleteState.isOpen ? (
         <div
           ref={panelRef}
-          className="absolute mt-3 overflow-hidden -translate-y-px bg-white rounded-lg shadow-lg full-bleed"
+          className="full-bleed absolute mt-3 -translate-y-px overflow-hidden rounded-lg bg-white shadow-lg"
           {...panelProps}
         >
-          <div className="overflow-y-auto max-h-96">
+          <div className="max-h-96 overflow-y-auto">
             {autocompleteState.collections.map((collection, index) => {
               const { source, items } = collection;
               return (

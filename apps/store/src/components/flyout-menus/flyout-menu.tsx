@@ -13,7 +13,7 @@ export function FlyoutMenu({ children, label }: { children: React.ReactNode; lab
             <Popover.Button
               className={classNames(
                 open ? "border-pink-600 text-pink-600" : "border-transparent text-gray-700 hover:text-gray-800",
-                "relative z-10 flex items-center transition-colors ease-out duration-200 text-sm font-medium border-b-2 -mb-px pt-px",
+                "relative z-10 -mb-px flex items-center border-b-2 pt-px text-sm font-medium transition-colors duration-200 ease-out",
               )}
             >
               {label}
@@ -29,13 +29,13 @@ export function FlyoutMenu({ children, label }: { children: React.ReactNode; lab
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Popover.Panel className="absolute inset-x-0 text-sm text-gray-500 top-full">
+            <Popover.Panel className="absolute inset-x-0 top-full text-sm text-gray-500">
               {/* Presentational element used to render the bottom shadow, if we put the shadow on the actual panel it pokes out the top, so we use this shorter element to hide the top of the shadow */}
-              <div aria-hidden="true" className="absolute inset-0 bg-white shadow top-1/2" />
+              <div aria-hidden="true" className="absolute inset-0 top-1/2 bg-white shadow" />
 
               <div className="relative bg-white">
-                <div className="px-8 mx-auto max-w-7xl">
-                  <div className="grid grid-cols-2 py-16 gap-y-10 gap-x-8">{open && children}</div>
+                <div className="mx-auto max-w-7xl px-8">
+                  <div className="grid grid-cols-2 gap-y-10 gap-x-8 py-16">{open && children}</div>
                 </div>
               </div>
             </Popover.Panel>
@@ -47,7 +47,7 @@ export function FlyoutMenu({ children, label }: { children: React.ReactNode; lab
 }
 
 export function FlyoutCtas({ children }: { children: React.ReactNode }) {
-  return <div className="grid grid-cols-2 col-start-2 gap-x-8">{children}</div>;
+  return <div className="col-start-2 grid grid-cols-2 gap-x-8">{children}</div>;
 }
 
 export function FlyoutCta({
@@ -62,13 +62,13 @@ export function FlyoutCta({
   title: string;
 }) {
   return (
-    <div className="relative text-base group sm:text-sm">
-      <div className="overflow-hidden bg-gray-100 rounded-lg aspect-w-1 aspect-h-1 group-hover:opacity-75">
+    <div className="group relative text-base sm:text-sm">
+      <div className="aspect-w-1 aspect-h-1 overflow-hidden rounded-lg bg-gray-100 group-hover:opacity-75">
         <div>
           <ShopifyImage src={imgSrc} height={280} width={280} layout="fill" alt={altText ?? ""} />
         </div>
       </div>
-      <a href={href} className="block mt-6 font-medium text-gray-900">
+      <a href={href} className="mt-6 block font-medium text-gray-900">
         <span aria-hidden="true" className="absolute inset-0 z-10" />
         {title}
       </a>
@@ -93,7 +93,7 @@ export function FlyoutList({
       <p id={headingId} className="font-medium text-gray-900">
         {heading}
       </p>
-      <ul aria-labelledby={headingId} role="list" className="grid grid-flow-col grid-rows-6 gap-4 mt-6">
+      <ul aria-labelledby={headingId} role="list" className="mt-6 grid grid-flow-col grid-rows-6 gap-4">
         {children}
       </ul>
     </div>

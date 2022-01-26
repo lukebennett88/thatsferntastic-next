@@ -124,22 +124,22 @@ export default function ProductPage({ product }: InferGetStaticPropsType<typeof 
         ]}
       />
 
-      <main className="pb-16 mx-auto max-w-7xl sm:py-16 sm:px-6 lg:px-8">
-        <div className="max-w-2xl mx-auto lg:max-w-none">
+      <main className="mx-auto max-w-7xl pb-16 sm:py-16 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-2xl lg:max-w-none">
           {/* Product */}
-          <div className="lg:grid lg:grid-cols-2 lg:gap-x-8 lg:items-start">
+          <div className="lg:grid lg:grid-cols-2 lg:items-start lg:gap-x-8">
             {/* Image gallery */}
             <Tab.Group as="div" className="flex flex-col-reverse">
               {/* Image selector */}
-              <div className="hidden w-full max-w-2xl mx-auto mt-6 sm:block lg:max-w-none">
+              <div className="mx-auto mt-6 hidden w-full max-w-2xl sm:block lg:max-w-none">
                 <Tab.List className="grid grid-cols-4 gap-6">
                   {images.edges.map(({ node: image }) => (
                     <Tab
                       key={image.id}
                       className={classNames(
-                        "relative flex aspect-w-1 aspect-h-1 items-center justify-center h-24 text-sm font-medium text-gray-900 uppercase bg-white rounded-md cursor-pointer",
+                        "aspect-w-1 aspect-h-1 relative flex h-24 cursor-pointer items-center justify-center rounded-md bg-white text-sm font-medium uppercase text-gray-900",
                         "hover:bg-gray-50",
-                        "focus:outline-none focus:ring focus:ring-offset-4 focus:ring-opacity-50",
+                        "focus:outline-none focus:ring focus:ring-opacity-50 focus:ring-offset-4",
                       )}
                     >
                       {({ selected }) => (
@@ -151,14 +151,14 @@ export default function ProductPage({ product }: InferGetStaticPropsType<typeof 
                               alt=""
                               width={150}
                               height={150}
-                              className="object-cover object-center w-full h-full"
+                              className="h-full w-full object-cover object-center"
                             />
                           </span>
                           <span
                             aria-hidden="true"
                             className={classNames(
                               selected ? "ring-pink-500" : "ring-transparent",
-                              "absolute inset-0 rounded-md ring-2 ring-offset-2 pointer-events-none",
+                              "pointer-events-none absolute inset-0 rounded-md ring-2 ring-offset-2",
                             )}
                           />
                         </>
@@ -168,7 +168,7 @@ export default function ProductPage({ product }: InferGetStaticPropsType<typeof 
                 </Tab.List>
               </div>
 
-              <Tab.Panels className="w-full aspect-w-1 aspect-h-1">
+              <Tab.Panels className="aspect-w-1 aspect-h-1 w-full">
                 {images.edges.map(({ node: image }) => (
                   <Tab.Panel key={image.id} className="overflow-hidden sm:rounded-lg">
                     <ShopifyImage
@@ -176,7 +176,7 @@ export default function ProductPage({ product }: InferGetStaticPropsType<typeof 
                       alt={image.altText ?? ""}
                       height={700}
                       width={700}
-                      className="object-cover object-center w-full h-full sm:rounded-lg"
+                      className="h-full w-full object-cover object-center sm:rounded-lg"
                     />
                   </Tab.Panel>
                 ))}
@@ -184,7 +184,7 @@ export default function ProductPage({ product }: InferGetStaticPropsType<typeof 
             </Tab.Group>
 
             {/* Product info */}
-            <div className="px-4 mt-10 sm:px-0 sm:mt-16 lg:mt-0">
+            <div className="mt-10 px-4 sm:mt-16 sm:px-0 lg:mt-0">
               <h1 className="text-3xl font-extrabold tracking-tight text-gray-900">{title}</h1>
 
               <div className="mt-3">
@@ -228,11 +228,11 @@ export default function ProductPage({ product }: InferGetStaticPropsType<typeof 
                 ) : null}
 
                 {/* Add to cart */}
-                <div className="flex mt-10">
+                <div className="mt-10 flex">
                   <Button size="lg" width="fixed" type="button" disabled={!isAvailable} onClick={addToCart}>
                     <span className="relative flex items-center justify-center">
                       {isLoading ? (
-                        <span className="absolute inset-y-0 -translate-x-full -left-3 transform-gpu">
+                        <span className="absolute inset-y-0 -left-3 -translate-x-full transform-gpu">
                           <Spinner />
                         </span>
                       ) : null}

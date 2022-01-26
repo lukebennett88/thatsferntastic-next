@@ -9,30 +9,30 @@ export function CheckoutForm({ className, cart }: { className: string; cart: Car
       <table className="w-full table-auto">
         <tbody>
           <tr>
-            <th className="font-normal text-left">Subtotal</th>
+            <th className="text-left font-normal">Subtotal</th>
             <td className="text-right">{cart.formattedSubTotal}</td>
           </tr>
           <tr>
-            <th className="font-normal text-left">Taxes</th>
+            <th className="text-left font-normal">Taxes</th>
             <td className="text-right">{cart.formattedTaxes}</td>
           </tr>
           <tr>
-            <th className="font-normal text-left">Shipping</th>
+            <th className="text-left font-normal">Shipping</th>
             <td className="text-right">{cart.formattedShipping}</td>
           </tr>
         </tbody>
       </table>
-      <div className="pt-3 mt-3 border-t border-zinc-700">
+      <div className="mt-3 border-t border-zinc-700 pt-3">
         <table className="w-full table-auto">
           <tbody>
             <tr>
-              <th className="font-semibold text-left">Total</th>
-              <td className="font-semibold text-right">{cart.formattedTotal}</td>
+              <th className="text-left font-semibold">Total</th>
+              <td className="text-right font-semibold">{cart.formattedTotal}</td>
             </tr>
           </tbody>
         </table>
       </div>
-      <button className={cn("mt-6 py-4 bg-gray-50 text-gray-900 block w-full text-center font-semibold uppercase")}>
+      <button className={cn("mt-6 block w-full bg-gray-50 py-4 text-center font-semibold uppercase text-gray-900")}>
         Proceed to checkout
       </button>
     </Form>

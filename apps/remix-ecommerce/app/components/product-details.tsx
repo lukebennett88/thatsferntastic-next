@@ -16,12 +16,12 @@ export function ProductDetails({ product }: { product: FullProduct }) {
 
   return (
     <main>
-      <div className="pb-8 border-b product-details-grid lg:grid border-zinc-700">
-        <aside className="relative mb-4 overflow-hidden border-b product-details-grid__media border-zinc-700 lg:border-none lg:mb-0">
+      <div className="product-details-grid border-b border-zinc-700 pb-8 lg:grid">
+        <aside className="product-details-grid__media relative mb-4 overflow-hidden border-b border-zinc-700 lg:mb-0 lg:border-none">
           <ImageSlider images={product.images} />
         </aside>
-        <article className="relative product-details-grid__details">
-          <div className="sticky top-0 px-4 pt-4 lg:pt-8 lg:p-6 lg:pb-0">
+        <article className="product-details-grid__details relative">
+          <div className="sticky top-0 px-4 pt-4 lg:p-6 lg:pt-8 lg:pb-0">
             <h1 className="mb-3 text-3xl font-bold">{product.title}</h1>
             <p className="mb-6 text-xl">{product.formattedPrice}</p>
             {product.descriptionHtml ? (
@@ -39,11 +39,11 @@ export function ProductDetails({ product }: { product: FullProduct }) {
                     <h2 className="font-semibold">{option.name}</h2>
                     <ul className="mt-2" data-testid="product-option">
                       {option.values.map((value) => (
-                        <li key={value} className="inline-block mr-2">
+                        <li key={value} className="mr-2 inline-block">
                           <button
                             aria-selected={searchParams.get(option.name) === value}
                             className={cn(
-                              "px-4 py-2 border rounded hover:text-gray-300",
+                              "rounded border px-4 py-2 hover:text-gray-300",
                               searchParams.get(option.name) === value ? "border-gray-50" : "border-zinc-700",
                             )}
                             name={option.name}
@@ -78,7 +78,7 @@ export function ProductDetails({ product }: { product: FullProduct }) {
               <button
                 data-testid="add-to-cart"
                 className={cn(
-                  "py-4 text-gray-900 active:bg-gray-300 block w-full text-center font-semibold uppercase",
+                  "block w-full py-4 text-center font-semibold uppercase text-gray-900 active:bg-gray-300",
                   disabled ? "bg-gray-300" : "bg-gray-50",
                 )}
                 disabled={disabled}
@@ -124,18 +124,18 @@ function ImageSlider({ images }: { images: string[] }) {
 
   return (
     <div className="relative">
-      <div className="sticky top-0 flex flex-col w-full max-h-screen overflow-hidden bg-pink-500 lg:h-screen aspect-auto">
-        <div className="relative flex-1 w-full overflow-hidden aspect-square lg:aspect-auto">
+      <div className="sticky top-0 flex aspect-auto max-h-screen w-full flex-col overflow-hidden bg-pink-500 lg:h-screen">
+        <div className="relative aspect-square w-full flex-1 overflow-hidden lg:aspect-auto">
           <ul
             ref={sliderListRef}
-            className="absolute top-0 bottom-0 left-0 right-0 overflow-x-auto overflow-y-hidden whitespace-nowrap snap-x snap-mandatory"
+            className="absolute top-0 bottom-0 left-0 right-0 snap-x snap-mandatory overflow-x-auto overflow-y-hidden whitespace-nowrap"
           >
             {images.map((image, index) => (
-              <li key={`${index}|${image}`} className="inline-block w-full h-full snap-start">
+              <li key={`${index}|${image}`} className="inline-block h-full w-full snap-start">
                 <OptimizedImage
                   data-source={image}
                   loading={index === 0 ? "eager" : "lazy"}
-                  className="object-contain w-full h-full"
+                  className="h-full w-full object-contain"
                   src={image}
                   alt=""
                   height={480}
@@ -165,14 +165,14 @@ function ImageSlider({ images }: { images: string[] }) {
             ))}
           </ul>
         </div>
-        <ul className="flex overflow-x-auto bg-pink-600 h-full max-h-[20%]">
+        <ul className="flex h-full max-h-[20%] overflow-x-auto bg-pink-600">
           {images.map((image, index) => (
-            <li key={`${index}|${image}`} className="w-full aspect-square max-w-[25%]">
-              <button className="relative block w-full h-full hover:bg-pink-400" onClick={scrollToImage}>
+            <li key={`${index}|${image}`} className="aspect-square w-full max-w-[25%]">
+              <button className="relative block h-full w-full hover:bg-pink-400" onClick={scrollToImage}>
                 <span className="sr-only">Focus image {index + 1}</span>
                 <OptimizedImage
                   data-source={image}
-                  className="object-cover w-full h-full"
+                  className="h-full w-full object-cover"
                   src={image}
                   alt=""
                   height={200}

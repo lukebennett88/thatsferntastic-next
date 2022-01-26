@@ -9,14 +9,14 @@ export default function Wishlist() {
   let { wishlist } = useLoaderData<LoaderData>();
 
   return (
-    <main className="max-w-xl p-4 mx-auto lg:p-6">
+    <main className="mx-auto max-w-xl p-4 lg:p-6">
       <h1 className="mb-8 text-3xl">Wishlist</h1>
       {!wishlist ? (
         <div className="flex flex-col items-center justify-center">
-          <span className="flex items-center justify-center w-24 h-24 border border-dashed rounded-full border-primary bg-secondary text-secondary">
-            <WishlistIcon className="block w-8 h-8" />
+          <span className="border-primary bg-secondary text-secondary flex h-24 w-24 items-center justify-center rounded-full border border-dashed">
+            <WishlistIcon className="block h-8 w-8" />
           </span>
-          <h1 className="pt-6 text-2xl font-bold tracking-wide text-center">Your wishlist is empty</h1>
+          <h1 className="pt-6 text-center text-2xl font-bold tracking-wide">Your wishlist is empty</h1>
         </div>
       ) : (
         <>

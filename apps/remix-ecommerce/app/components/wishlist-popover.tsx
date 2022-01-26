@@ -20,7 +20,7 @@ export function WishlistPopover({
   return (
     <Transition appear show={open} as={Fragment}>
       <Dialog as="div" className="fixed inset-0 z-10" onClose={onClose}>
-        <div className="relative w-full min-h-screen">
+        <div className="relative min-h-screen w-full">
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -42,35 +42,35 @@ export function WishlistPopover({
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="fixed top-0 bottom-0 right-0 flex flex-col w-full max-w-md overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl">
+            <div className="fixed top-0 bottom-0 right-0 flex w-full max-w-md transform flex-col overflow-hidden bg-white text-left align-middle shadow-xl transition-all">
               <div className="flex justify-between p-4 lg:px-6">
                 <button
                   data-testid="close-wishlist"
                   className="relative flex items-center hover:text-gray-300"
                   onClick={onClose}
                 >
-                  <CloseIcon className="w-6 h-6" />
+                  <CloseIcon className="h-6 w-6" />
                   <span className="ml-2">Close</span>
                 </button>
                 <span className="relative flex items-center">
-                  <WishlistIcon className="w-8 h-8" />
+                  <WishlistIcon className="h-8 w-8" />
                   {!!wishlistCount && (
                     <span
                       style={{ lineHeight: "0.75rem" }}
-                      className="absolute bottom-0 left-0 translate translate-y-[25%] translate-x-[-25%] inline-flex items-center justify-center px-[0.25rem] py-[0.125rem] text-xs text-zinc-900 bg-gray-50 rounded-full"
+                      className="translate absolute bottom-0 left-0 inline-flex translate-y-[25%] translate-x-[-25%] items-center justify-center rounded-full bg-gray-50 px-[0.25rem] py-[0.125rem] text-xs text-zinc-900"
                     >
                       {wishlistCount}
                     </span>
                   )}
                 </span>
               </div>
-              <div className="flex flex-col flex-1 overflow-y-auto">
+              <div className="flex flex-1 flex-col overflow-y-auto">
                 {!wishlist ? (
-                  <div className="flex flex-col items-center justify-center h-full p-4 lg:px-6">
-                    <span className="flex items-center justify-center w-24 h-24 border border-dashed rounded-full border-primary bg-secondary text-secondary">
-                      <WishlistIcon className="block w-8 h-8" />
+                  <div className="flex h-full flex-col items-center justify-center p-4 lg:px-6">
+                    <span className="border-primary bg-secondary text-secondary flex h-24 w-24 items-center justify-center rounded-full border border-dashed">
+                      <WishlistIcon className="block h-8 w-8" />
                     </span>
-                    <Dialog.Title as="h1" className="pt-6 text-2xl font-bold tracking-wide text-center">
+                    <Dialog.Title as="h1" className="pt-6 text-center text-2xl font-bold tracking-wide">
                       Your wishlist is empty
                     </Dialog.Title>
                   </div>

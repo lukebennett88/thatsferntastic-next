@@ -35,10 +35,10 @@ function ThreeProductGridItem({
 
   return (
     <li key={product.id} className={`three-product-grid__item-${index % 3}`}>
-      <div className={cn("group block relative aspect-square overflow-hidden", backgroundColor)}>
-        <Link className="block group" prefetch="intent" to={product.to} aria-labelledby={id}>
+      <div className={cn("group relative block aspect-square overflow-hidden", backgroundColor)}>
+        <Link className="group block" prefetch="intent" to={product.to} aria-labelledby={id}>
           <OptimizedImage
-            className="object-cover w-full h-full transition duration-500 transform motion-safe:group-focus:scale-110 motion-safe:group-hover:scale-110"
+            className="h-full w-full transform object-cover transition duration-500 motion-safe:group-hover:scale-110 motion-safe:group-focus:scale-110"
             src={product.image}
             width={480}
             height={480}
@@ -84,7 +84,7 @@ function ThreeProductGridItem({
         </Link>
         <div className="absolute top-0 left-0 right-0">
           <div className="flex">
-            <Link prefetch="intent" to={product.to} className="flex-1 block group-tpgi" tabIndex={-1} id={id}>
+            <Link prefetch="intent" to={product.to} className="group-tpgi block flex-1" tabIndex={-1} id={id}>
               <h1 className="inline-block px-4 py-2 text-2xl font-semibold">{product.title}</h1>
               <br />
               <p className="inline-block px-4 py-2 text-sm ">{product.formattedPrice}</p>
@@ -108,12 +108,12 @@ function ThreeProductGridItem({
               <button
                 data-testid="add-to-wishlist"
                 className={cn(
-                  "p-2  focus: hover: transition-colors ease-in-out duration-300",
+                  "focus:  hover: p-2 transition-colors duration-300 ease-in-out",
                   product.favorited ? "text-red-500" : wishlistColors,
                 )}
               >
                 <span className="sr-only">{product.favorited ? "Remove from wishlist" : "Add to wishlist"}</span>
-                <WishlistIcon className="w-8 h-8" />
+                <WishlistIcon className="h-8 w-8" />
               </button>
             </Form>
           </div>

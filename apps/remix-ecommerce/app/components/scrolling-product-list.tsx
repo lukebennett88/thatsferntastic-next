@@ -25,16 +25,16 @@ function ScrollingProductItem({
   disabled?: boolean;
 }) {
   return (
-    <li className="lg:pr-12 relative">
+    <li className="relative lg:pr-12">
       <Link
         prefetch="intent"
         to={to}
-        className="group block aspect-square overflow-hidden w-screen max-w-sm"
+        className="group block aspect-square w-screen max-w-sm overflow-hidden"
         tabIndex={disabled ? -1 : undefined}
       >
         <OptimizedImage
           loading="lazy"
-          className="object-cover w-full h-full transform transition duration-500 motion-safe:group-focus:scale-105 motion-safe:group-hover:scale-105"
+          className="h-full w-full transform object-cover transition duration-500 motion-safe:group-hover:scale-105 motion-safe:group-focus:scale-105"
           src={image}
           alt=""
           width={480}
@@ -78,13 +78,13 @@ export function ScrollingProductList({
   return (
     <section
       className={cn(
-        "flex whitespace-no-wrap overflow-x-scroll motion-safe:overflow-x-hidden border-t border-zinc-700",
+        "whitespace-no-wrap flex overflow-x-scroll border-t border-zinc-700 motion-safe:overflow-x-hidden",
         variant === "secondary" ? "bg-gray-50" : "",
       )}
     >
       <div className="relative">
         <ul className="flex motion-safe:animate-marquee">{items}</ul>
-        <ul aria-hidden className="flex absolute top-0 motion-safe:animate-marquee2">
+        <ul aria-hidden className="absolute top-0 flex motion-safe:animate-marquee2">
           {itemsDisabled}
         </ul>
       </div>

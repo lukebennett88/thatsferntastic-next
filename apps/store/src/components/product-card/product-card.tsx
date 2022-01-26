@@ -12,7 +12,7 @@ interface ProductCardProps {
 export function ProductCard({ product }: ProductCardProps): JSX.Element {
   const image = product.images.edges[0]?.node;
   return (
-    <div className="relative flex flex-col overflow-hidden bg-white border border-gray-200 rounded-lg group">
+    <div className="group relative flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white">
       <div className="relative">
         <div className={classNames("aspect-w-1 aspect-h-1 flex", "group-hover:opacity-75", "sm:aspect-none sm:h-96")}>
           <div className={classNames("absolute flex flex-1 bg-teal-100", styles.nextWrapper)}>
@@ -22,15 +22,15 @@ export function ProductCard({ product }: ProductCardProps): JSX.Element {
                 alt={image.altText ?? ""}
                 height={620}
                 width={620}
-                className="absolute object-cover object-center w-full h-full sm:w-full sm:h-full"
+                className="absolute h-full w-full object-cover object-center sm:h-full sm:w-full"
               />
             ) : (
-              <span className="self-center flex-1 text-center">Image not found</span>
+              <span className="flex-1 self-center text-center">Image not found</span>
             )}
           </div>
         </div>
       </div>
-      <div className="flex flex-col flex-1 p-4 space-y-2">
+      <div className="flex flex-1 flex-col space-y-2 p-4">
         <h3 className="text-sm font-medium text-gray-900">
           <NextLink href={`/products/${product.handle}`}>
             <a>

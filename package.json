@@ -3,10 +3,6 @@
   "version": "1.0.0",
   "private": true,
   "author": "Luke Bennett <hello@lukebennett.com.au>",
-  "workspaces": [
-    "packages/*",
-    "apps/*"
-  ],
   "scripts": {
     "build": "turbo run build",
     "build:store": "turbo run build --scope=@thatsferntastic/store --include-dependencies --no-deps",
@@ -18,7 +14,7 @@
     "clean:nuclear": "git clean -fXd",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "preinstall": "npx only-allow pnpm",
-    "postinstall": "manypkg check && yarn workspace @thatsferntastic/store ts-gql:build",
+    "postinstall": "manypkg check && pnpm recursive run ts-gql:build --filter @thatsferntastic/store",
     "prepare": "husky install",
     "typecheck": "turbo run typecheck"
   },
@@ -28,49 +24,18 @@
     "husky": "^7.0.4",
     "lint-staged": "^12.3.1",
     "prettier": "^2.5.1",
-    "turbo": "^1.0.28",
-    "yarn-deduplicate": "^3.1.0"
+    "turbo": "^1.0.29"
   },
   "engines": {
     "node": ">=14.x",
-    "yarn": ">=1.22.0",
-    "npm": "please-use-yarn"
+    "yarn": "please-use-pnpm",
+    "npm": "please-use-pnpm",
+    "pnpm": "6.28.0"
   },
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown"
   },
-  "turbo": {
-    "baseBranch": "origin/main",
-    "pipeline": {
-      "build": {
-        "dependsOn": [
-          "^build"
-        ],
-        "outputs": [
-          ".next/**",
-          "dist/**"
-        ]
-      },
-      "test": {
-        "dependsOn": [],
-        "outputs": [
-          "coverage/**"
-        ]
-      },
-      "lint": {
-        "outputs": []
-      },
-      "typecheck": {
-        "outputs": []
-      },
-      "dev": {
-        "cache": false
-      },
-      "clean": {
-        "cache": false
-      }
-    }
-  },
+  "packageManager": "pnpm@6.28.0",
   "volta": {
     "node": "14.18.2",
     "yarn": "1.22.17"

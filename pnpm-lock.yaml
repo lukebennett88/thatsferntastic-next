@@ -5,7 +5,7 @@ importers:
   .:
     specifiers:
       '@manypkg/cli': ^0.19.1
-      eslint: ^8.7.0
+      eslint: ^8.8.0
       husky: ^7.0.4
       lint-staged: ^12.3.2
       pnpm: 6.28.0
@@ -13,7 +13,7 @@ importers:
       turbo: ^1.1.1
     dependencies:
       '@manypkg/cli': 0.19.1
-      eslint: 8.7.0
+      eslint: 8.8.0
       husky: 7.0.4
       lint-staged: 12.3.2
       pnpm: 6.28.0
@@ -23,6 +23,7 @@ importers:
   apps/remix-ecommerce:
     specifiers:
       '@headlessui/react': ^1.4.3
+      '@heroicons/react': ^1.0.5
       '@reach/auto-id': ^0.16.0
       '@remix-run/dev': ^1.1.3
       '@remix-run/react': ^1.1.3
@@ -32,7 +33,7 @@ importers:
       '@rollup/plugin-json': ^4.1.0
       '@rollup/plugin-node-resolve': ^13.1.3
       '@shopify/shopify-api': ^2.0.0
-      '@tailwindcss/typography': ^0.5.0
+      '@tailwindcss/typography': ^0.5.1
       '@thatsferntastic/utils': 0.0.0
       '@types/react': ^17.0.38
       '@types/react-dom': ^17.0.11
@@ -42,6 +43,7 @@ importers:
       decimal.js: ^10.3.1
       dotenv-cli: ^4.1.1
       eslint-preset-thatsferntastic: 0.0.0
+      history: 5.2.0
       npm-run-all: ^4.1.5
       postcss: ^8.4.5
       postcss-cli: ^9.1.0
@@ -50,14 +52,16 @@ importers:
       prettier-preset-thatsferntastic: 0.0.0
       react: ^17.0.2
       react-dom: ^17.0.2
+      react-router-dom: 6.2.1
       remix: ^1.1.3
       rimraf: ^3.0.2
       rollup: ^2.66.1
-      tailwindcss: ^3.0.17
+      tailwindcss: ^3.0.18
       tailwindcss-named-groups: ^0.0.5
       typescript: ^4.5.5
     dependencies:
       '@headlessui/react': 1.4.3_react-dom@17.0.2+react@17.0.2
+      '@heroicons/react': 1.0.5_react@17.0.2
       '@reach/auto-id': 0.16.0_react-dom@17.0.2+react@17.0.2
       '@remix-run/react': 1.1.3_react-dom@17.0.2+react@17.0.2
       '@remix-run/serve': 1.1.3_react-dom@17.0.2+react@17.0.2
@@ -66,15 +70,17 @@ importers:
       '@thatsferntastic/utils': link:../../packages/thatsferntastic-utils
       classnames: 2.3.1
       decimal.js: 10.3.1
+      history: 5.2.0
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
+      react-router-dom: 6.2.1_react-dom@17.0.2+react@17.0.2
       remix: 1.1.3
     devDependencies:
       '@remix-run/dev': 1.1.3
       '@rollup/plugin-commonjs': 21.0.1_rollup@2.66.1
       '@rollup/plugin-json': 4.1.0_rollup@2.66.1
       '@rollup/plugin-node-resolve': 13.1.3_rollup@2.66.1
-      '@tailwindcss/typography': 0.5.0_tailwindcss@3.0.17
+      '@tailwindcss/typography': 0.5.1_tailwindcss@3.0.18
       '@types/react': 17.0.38
       '@types/react-dom': 17.0.11
       autoprefixer: 10.4.2_postcss@8.4.5
@@ -89,7 +95,7 @@ importers:
       prettier-preset-thatsferntastic: link:../../packages/prettier-preset-thatsferntastic
       rimraf: 3.0.2
       rollup: 2.66.1
-      tailwindcss: 3.0.17_ef48b3b8837f8a23677bffe8f9cd866d
+      tailwindcss: 3.0.18_ef48b3b8837f8a23677bffe8f9cd866d
       tailwindcss-named-groups: 0.0.5
       typescript: 4.5.5
 
@@ -97,7 +103,7 @@ importers:
     specifiers:
       '@algolia/autocomplete-core': ^1.5.2
       '@algolia/autocomplete-plugin-recent-searches': 1.5.2
-      '@algolia/client-search': ^4.12.0
+      '@algolia/client-search': ^4.12.1
       '@apollo/client': ^3.5.8
       '@graphql-codegen/cli': 2.4.0
       '@graphql-codegen/schema-ast': ^2.4.1
@@ -106,7 +112,7 @@ importers:
       '@tailwindcss/aspect-ratio': ^0.4.0
       '@tailwindcss/forms': ^0.4.0
       '@tailwindcss/line-clamp': ^0.3.1
-      '@tailwindcss/typography': ^0.5.0
+      '@tailwindcss/typography': ^0.5.1
       '@thatsferntastic/button': 0.0.0
       '@thatsferntastic/utils': 0.0.0
       '@ts-gql/apollo': ^0.11.0
@@ -117,7 +123,7 @@ importers:
       '@ts-gql/tag': ^0.6.0
       '@types/react': ^17.0.38
       '@types/react-dom': ^17.0.11
-      algoliasearch: ^4.12.0
+      algoliasearch: ^4.12.1
       autoprefixer: ^10.4.2
       deepmerge: 4.2.2
       dotenv: ^14.3.2
@@ -127,17 +133,17 @@ importers:
       graphql: ^15.8.0
       next: 12.0.9
       next-sanity: 0.4.0
-      next-seo: ^4.29.0
+      next-seo: ^5.0.0
       postcss: ^8.4.5
       prettier-plugin-tailwindcss: 0.1.4
       react: ^17.0.2
       react-dom: ^17.0.2
       react-hook-form: ^7.25.1
-      tailwindcss: ^3.0.17
+      tailwindcss: ^3.0.18
       typescript: ^4.5.5
     dependencies:
       '@algolia/autocomplete-core': 1.5.2
-      '@algolia/autocomplete-plugin-recent-searches': 1.5.2_98c3ecc9d2fc25e2717be9277bfd4901
+      '@algolia/autocomplete-plugin-recent-searches': 1.5.2_64c3c5e1df6827f120988ded123ce957
       '@apollo/client': 3.5.8_graphql@15.8.0+react@17.0.2
       '@headlessui/react': 1.4.3_react-dom@17.0.2+react@17.0.2
       '@heroicons/react': 1.0.5_react@17.0.2
@@ -145,7 +151,7 @@ importers:
       '@thatsferntastic/utils': link:../../packages/thatsferntastic-utils
       '@ts-gql/apollo': 0.11.0_7f35d6fd48ffcf580203ea798f659a2c
       '@ts-gql/tag': 0.6.0_graphql@15.8.0
-      algoliasearch: 4.12.0
+      algoliasearch: 4.12.1
       deepmerge: 4.2.2
       dotenv: 14.3.2
       fast-deep-equal: 3.1.3
@@ -153,21 +159,21 @@ importers:
       graphql: 15.8.0
       next: 12.0.9_react-dom@17.0.2+react@17.0.2
       next-sanity: 0.4.0_react@17.0.2
-      next-seo: 4.29.0_b543ccecfd29856b35e58d884b6ddddd
+      next-seo: 5.0.0_b543ccecfd29856b35e58d884b6ddddd
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
       react-hook-form: 7.25.1_react@17.0.2
     devDependencies:
-      '@algolia/client-search': 4.12.0
+      '@algolia/client-search': 4.12.1
       '@graphql-codegen/cli': 2.4.0_graphql@15.8.0+typescript@4.5.5
       '@graphql-codegen/schema-ast': 2.4.1_graphql@15.8.0
-      '@tailwindcss/aspect-ratio': 0.4.0_tailwindcss@3.0.17
-      '@tailwindcss/forms': 0.4.0_tailwindcss@3.0.17
-      '@tailwindcss/line-clamp': 0.3.1_tailwindcss@3.0.17
-      '@tailwindcss/typography': 0.5.0_tailwindcss@3.0.17
+      '@tailwindcss/aspect-ratio': 0.4.0_tailwindcss@3.0.18
+      '@tailwindcss/forms': 0.4.0_tailwindcss@3.0.18
+      '@tailwindcss/line-clamp': 0.3.1_tailwindcss@3.0.18
+      '@tailwindcss/typography': 0.5.1_tailwindcss@3.0.18
       '@ts-gql/babel-plugin': 0.1.0
       '@ts-gql/compiler': 0.15.0_graphql@15.8.0
-      '@ts-gql/eslint-plugin': 0.8.0_bf79d4c8a8c337364ac2444d57ca2fc5
+      '@ts-gql/eslint-plugin': 0.8.0_e8a7720398c58961f679ca974d65e896
       '@ts-gql/next': 16.0.0_f00989dbc1cb09b838b8784eff4b1d2a
       '@types/react': 17.0.38
       '@types/react-dom': 17.0.11
@@ -175,7 +181,7 @@ importers:
       eslint-preset-thatsferntastic: link:../../packages/eslint-preset-thatsferntastic
       postcss: 8.4.5
       prettier-plugin-tailwindcss: 0.1.4_prettier@2.5.1
-      tailwindcss: 3.0.17_ef48b3b8837f8a23677bffe8f9cd866d
+      tailwindcss: 3.0.18_ef48b3b8837f8a23677bffe8f9cd866d
       typescript: 4.5.5
 
   apps/studio:
@@ -215,10 +221,10 @@ importers:
       eslint-plugin-import: ^2.25.4
       eslint-plugin-simple-import-sort: ^7.0.0
     dependencies:
-      eslint-config-next: 12.0.9_eslint@8.7.0
-      eslint-config-prettier: 8.3.0_eslint@8.7.0
-      eslint-plugin-import: 2.25.4_eslint@8.7.0
-      eslint-plugin-simple-import-sort: 7.0.0_eslint@8.7.0
+      eslint-config-next: 12.0.9_eslint@8.8.0
+      eslint-config-prettier: 8.3.0_eslint@8.8.0
+      eslint-plugin-import: 2.25.4_eslint@8.8.0
+      eslint-plugin-simple-import-sort: 7.0.0_eslint@8.8.0
 
   packages/prettier-preset-thatsferntastic:
     specifiers: {}
@@ -292,132 +298,132 @@ packages:
       '@algolia/autocomplete-shared': 1.5.2
     dev: false
 
-  /@algolia/autocomplete-js/1.5.2_98c3ecc9d2fc25e2717be9277bfd4901:
+  /@algolia/autocomplete-js/1.5.2_64c3c5e1df6827f120988ded123ce957:
     resolution: {integrity: sha512-6bVTym+H+KSxuEbFmpCQoLXGdv3kfzxJhTE32YXpGYHWmaH7/R4KbxnnvSPe1Df7bV0Zo+DbVu72Zq2gZRRc0w==}
     peerDependencies:
       '@algolia/client-search': ^4.5.1
     dependencies:
       '@algolia/autocomplete-core': 1.5.2
-      '@algolia/autocomplete-preset-algolia': 1.5.2_98c3ecc9d2fc25e2717be9277bfd4901
+      '@algolia/autocomplete-preset-algolia': 1.5.2_64c3c5e1df6827f120988ded123ce957
       '@algolia/autocomplete-shared': 1.5.2
-      '@algolia/client-search': 4.12.0
+      '@algolia/client-search': 4.12.1
       preact: 10.6.5
     transitivePeerDependencies:
       - algoliasearch
     dev: false
 
-  /@algolia/autocomplete-plugin-recent-searches/1.5.2_98c3ecc9d2fc25e2717be9277bfd4901:
+  /@algolia/autocomplete-plugin-recent-searches/1.5.2_64c3c5e1df6827f120988ded123ce957:
     resolution: {integrity: sha512-F0YRmw2QIIIoAT1RRH7o+mWbBB965UjyRJckbE6xrqi0zfgBKXwRjODSD6OANUQrLA0Xn1NAPKD1Dm38yoJ2qg==}
     peerDependencies:
       '@algolia/client-search': ^4.5.1
     dependencies:
       '@algolia/autocomplete-core': 1.5.2
-      '@algolia/autocomplete-js': 1.5.2_98c3ecc9d2fc25e2717be9277bfd4901
-      '@algolia/autocomplete-preset-algolia': 1.5.2_98c3ecc9d2fc25e2717be9277bfd4901
+      '@algolia/autocomplete-js': 1.5.2_64c3c5e1df6827f120988ded123ce957
+      '@algolia/autocomplete-preset-algolia': 1.5.2_64c3c5e1df6827f120988ded123ce957
       '@algolia/autocomplete-shared': 1.5.2
-      '@algolia/client-search': 4.12.0
+      '@algolia/client-search': 4.12.1
     transitivePeerDependencies:
       - algoliasearch
     dev: false
 
-  /@algolia/autocomplete-preset-algolia/1.5.2_98c3ecc9d2fc25e2717be9277bfd4901:
+  /@algolia/autocomplete-preset-algolia/1.5.2_64c3c5e1df6827f120988ded123ce957:
     resolution: {integrity: sha512-3MRYnYQFJyovANzSX2CToS6/5cfVjbLLqFsZTKcvF3abhQzxbqwwaMBlJtt620uBUOeMzhdfasKhCc40+RHiZw==}
     peerDependencies:
       '@algolia/client-search': ^4.9.1
       algoliasearch: ^4.9.1
     dependencies:
       '@algolia/autocomplete-shared': 1.5.2
-      '@algolia/client-search': 4.12.0
-      algoliasearch: 4.12.0
+      '@algolia/client-search': 4.12.1
+      algoliasearch: 4.12.1
     dev: false
 
   /@algolia/autocomplete-shared/1.5.2:
     resolution: {integrity: sha512-ylQAYv5H0YKMfHgVWX0j0NmL8XBcAeeeVQUmppnnMtzDbDnca6CzhKj3Q8eF9cHCgcdTDdb5K+3aKyGWA0obug==}
     dev: false
 
-  /@algolia/cache-browser-local-storage/4.12.0:
-    resolution: {integrity: sha512-l+G560B6N1k0rIcOjTO1yCzFUbg2Zy2HCii9s03e13jGgqduVQmk79UUCYszjsJ5GPJpUEKcVEtAIpP7tjsXVA==}
+  /@algolia/cache-browser-local-storage/4.12.1:
+    resolution: {integrity: sha512-ERFFOnC9740xAkuO0iZTQqm2AzU7Dpz/s+g7o48GlZgx5p9GgNcsuK5eS0GoW/tAK+fnKlizCtlFHNuIWuvfsg==}
     dependencies:
-      '@algolia/cache-common': 4.12.0
+      '@algolia/cache-common': 4.12.1
     dev: false
 
-  /@algolia/cache-common/4.12.0:
-    resolution: {integrity: sha512-2Z8BV+NX7oN7RmmQbLqmW8lfN9aAjOexX1FJjzB0YfKC9ifpi9Jl4nSxlnbU+iLR6QhHo0IfuyQ7wcnucCGCGQ==}
+  /@algolia/cache-common/4.12.1:
+    resolution: {integrity: sha512-UugTER3V40jT+e19Dmph5PKMeliYKxycNPwrPNADin0RcWNfT2QksK9Ff2N2W7UKraqMOzoeDb4LAJtxcK1a8Q==}
 
-  /@algolia/cache-in-memory/4.12.0:
-    resolution: {integrity: sha512-b6ANkZF6vGAo+sYv6g25W5a0u3o6F549gEAgtTDTVA1aHcdWwe/HG/dTJ7NsnHbuR+A831tIwnNYQjRp3/V/Jw==}
+  /@algolia/cache-in-memory/4.12.1:
+    resolution: {integrity: sha512-U6iaunaxK1lHsAf02UWF58foKFEcrVLsHwN56UkCtwn32nlP9rz52WOcHsgk6TJrL8NDcO5swMjtOQ5XHESFLw==}
     dependencies:
-      '@algolia/cache-common': 4.12.0
+      '@algolia/cache-common': 4.12.1
     dev: false
 
-  /@algolia/client-account/4.12.0:
-    resolution: {integrity: sha512-gzXN75ZydNheNXUN3epS+aLsKnB/PHFVlGUUjXL8WHs4lJP3B5FtHvaA/NCN5DsM3aamhuY5p0ff1XIA+Lbcrw==}
+  /@algolia/client-account/4.12.1:
+    resolution: {integrity: sha512-jGo4ConJNoMdTCR2zouO0jO/JcJmzOK6crFxMMLvdnB1JhmMbuIKluOTJVlBWeivnmcsqb7r0v7qTCPW5PAyxQ==}
     dependencies:
-      '@algolia/client-common': 4.12.0
-      '@algolia/client-search': 4.12.0
-      '@algolia/transporter': 4.12.0
+      '@algolia/client-common': 4.12.1
+      '@algolia/client-search': 4.12.1
+      '@algolia/transporter': 4.12.1
     dev: false
 
-  /@algolia/client-analytics/4.12.0:
-    resolution: {integrity: sha512-rO2cZCt00Opk66QBZb7IBGfCq4ZE3EiuGkXssf2Monb5urujy0r8CknK2i7bzaKtPbd2vlvhmLP4CEHQqF6SLQ==}
+  /@algolia/client-analytics/4.12.1:
+    resolution: {integrity: sha512-h1It7KXzIthlhuhfBk7LteYq72tym9maQDUsyRW0Gft8b6ZQahnRak9gcCvKwhcJ1vJoP7T7JrNYGiYSicTD9g==}
     dependencies:
-      '@algolia/client-common': 4.12.0
-      '@algolia/client-search': 4.12.0
-      '@algolia/requester-common': 4.12.0
-      '@algolia/transporter': 4.12.0
+      '@algolia/client-common': 4.12.1
+      '@algolia/client-search': 4.12.1
+      '@algolia/requester-common': 4.12.1
+      '@algolia/transporter': 4.12.1
     dev: false
 
-  /@algolia/client-common/4.12.0:
-    resolution: {integrity: sha512-fcrFN7FBmxiSyjeu3sF4OnPkC1l7/8oyQ8RMM8CHpVY8cad6/ay35MrfRfgfqdzdFA8LzcBYO7fykuJv0eOqxw==}
+  /@algolia/client-common/4.12.1:
+    resolution: {integrity: sha512-obnJ8eSbv+h94Grk83DTGQ3bqhViSWureV6oK1s21/KMGWbb3DkduHm+lcwFrMFkjSUSzosLBHV9EQUIBvueTw==}
     dependencies:
-      '@algolia/requester-common': 4.12.0
-      '@algolia/transporter': 4.12.0
+      '@algolia/requester-common': 4.12.1
+      '@algolia/transporter': 4.12.1
 
-  /@algolia/client-personalization/4.12.0:
-    resolution: {integrity: sha512-wCJfSQEmX6ZOuJBJGjy+sbXiW0iy7tMNAhsVMV9RRaJE4727e5WAqwFWZssD877WQ74+/nF/VyTaB1+wejo33Q==}
+  /@algolia/client-personalization/4.12.1:
+    resolution: {integrity: sha512-sMSnjjPjRgByGHYygV+5L/E8a6RgU7l2GbpJukSzJ9GRY37tHmBHuvahv8JjdCGJ2p7QDYLnQy5bN5Z02qjc7Q==}
     dependencies:
-      '@algolia/client-common': 4.12.0
-      '@algolia/requester-common': 4.12.0
-      '@algolia/transporter': 4.12.0
+      '@algolia/client-common': 4.12.1
+      '@algolia/requester-common': 4.12.1
+      '@algolia/transporter': 4.12.1
     dev: false
 
-  /@algolia/client-search/4.12.0:
-    resolution: {integrity: sha512-ik6dswcTQtOdZN+8aKntI9X2E6Qpqjtyda/+VANiHThY9GD2PBXuNuuC2HvlF26AbBYp5xaSE/EKxn1DIiIJ4Q==}
+  /@algolia/client-search/4.12.1:
+    resolution: {integrity: sha512-MwwKKprfY6X2nJ5Ki/ccXM2GDEePvVjZnnoOB2io3dLKW4fTqeSRlC5DRXeFD7UM0vOPPHr4ItV2aj19APKNVQ==}
     dependencies:
-      '@algolia/client-common': 4.12.0
-      '@algolia/requester-common': 4.12.0
-      '@algolia/transporter': 4.12.0
+      '@algolia/client-common': 4.12.1
+      '@algolia/requester-common': 4.12.1
+      '@algolia/transporter': 4.12.1
 
-  /@algolia/logger-common/4.12.0:
-    resolution: {integrity: sha512-V//9rzLdJujA3iZ/tPhmKR/m2kjSZrymxOfUiF3024u2/7UyOpH92OOCrHUf023uMGYHRzyhBz5ESfL1oCdh7g==}
+  /@algolia/logger-common/4.12.1:
+    resolution: {integrity: sha512-fCgrzlXGATNqdFTxwx0GsyPXK+Uqrx1SZ3iuY2VGPPqdt1a20clAG2n2OcLHJpvaa6vMFPlJyWvbqAgzxdxBlQ==}
 
-  /@algolia/logger-console/4.12.0:
-    resolution: {integrity: sha512-pHvoGv53KXRIJHLk9uxBwKirwEo12G9+uo0sJLWESThAN3v5M+ycliU1AkUXQN8+9rds2KxfULAb+vfyfBKf8A==}
+  /@algolia/logger-console/4.12.1:
+    resolution: {integrity: sha512-0owaEnq/davngQMYqxLA4KrhWHiXujQ1CU3FFnyUcMyBR7rGHI48zSOUpqnsAXrMBdSH6rH5BDkSUUFwsh8RkQ==}
     dependencies:
-      '@algolia/logger-common': 4.12.0
+      '@algolia/logger-common': 4.12.1
     dev: false
 
-  /@algolia/requester-browser-xhr/4.12.0:
-    resolution: {integrity: sha512-rGlHNMM3jIZBwSpz33CVkeXHilzuzHuFXEEW1icP/k3KW7kwBrKFJwBy42RzAJa5BYlLsTCFTS3xkPhYwTQKLg==}
+  /@algolia/requester-browser-xhr/4.12.1:
+    resolution: {integrity: sha512-OaMxDyG0TZG0oqz1lQh9e3woantAG1bLnuwq3fmypsrQxra4IQZiyn1x+kEb69D2TcXApI5gOgrD4oWhtEVMtw==}
     dependencies:
-      '@algolia/requester-common': 4.12.0
+      '@algolia/requester-common': 4.12.1
     dev: false
 
-  /@algolia/requester-common/4.12.0:
-    resolution: {integrity: sha512-qgfdc73nXqpVyOMr6CMTx3nXvud9dP6GcMGDqPct+fnxogGcJsp24cY2nMqUrAfgmTJe9Nmy7Lddv0FyHjONMg==}
+  /@algolia/requester-common/4.12.1:
+    resolution: {integrity: sha512-XWIrWQNJ1vIrSuL/bUk3ZwNMNxl+aWz6dNboRW6+lGTcMIwc3NBFE90ogbZKhNrFRff8zI4qCF15tjW+Fyhpow==}
 
-  /@algolia/requester-node-http/4.12.0:
-    resolution: {integrity: sha512-mOTRGf/v/dXshBoZKNhMG00ZGxoUH9QdSpuMKYnuWwIgstN24uj3DQx+Ho3c+uq0TYfq7n2v71uoJWuiW32NMQ==}
+  /@algolia/requester-node-http/4.12.1:
+    resolution: {integrity: sha512-awBtwaD+s0hxkA1aehYn8F0t9wqGoBVWgY4JPHBmp1ChO3pK7RKnnvnv7QQa9vTlllX29oPt/BBVgMo1Z3n1Qg==}
     dependencies:
-      '@algolia/requester-common': 4.12.0
+      '@algolia/requester-common': 4.12.1
     dev: false
 
-  /@algolia/transporter/4.12.0:
-    resolution: {integrity: sha512-MOQVHZ4BcBpf3LtOY/3fqXHAcvI8MahrXDHk9QrBE/iGensQhDiZby5Dn3o2JN/zd9FMnVbdPQ8gnkiMwZiakQ==}
+  /@algolia/transporter/4.12.1:
+    resolution: {integrity: sha512-BGeNgdEHc6dXIk2g8kdlOoQ6fQ6OIaKQcplEj7HPoi+XZUeAvRi3Pff3QWd7YmybWkjzd9AnTzieTASDWhL+sQ==}
     dependencies:
-      '@algolia/cache-common': 4.12.0
-      '@algolia/logger-common': 4.12.0
-      '@algolia/requester-common': 4.12.0
+      '@algolia/cache-common': 4.12.1
+      '@algolia/logger-common': 4.12.1
+      '@algolia/requester-common': 4.12.1
 
   /@apollo/client/3.5.8_graphql@15.8.0+react@17.0.2:
     resolution: {integrity: sha512-MAm05+I1ullr64VLpZwon/ISnkMuNLf6vDqgo9wiMhHYBGT4yOAbAIseRdjCHZwfSx/7AUuBgaTNOssZPIr6FQ==}
@@ -4659,41 +4665,40 @@ packages:
       defer-to-connect: 2.0.1
     dev: true
 
-  /@tailwindcss/aspect-ratio/0.4.0_tailwindcss@3.0.17:
+  /@tailwindcss/aspect-ratio/0.4.0_tailwindcss@3.0.18:
     resolution: {integrity: sha512-WJu0I4PpqNPuutpaA9zDUq2JXR+lorZ7PbLcKNLmb6GL9/HLfC7w3CRsMhJF4BbYd/lkY6CfXOvkYpuGnZfkpQ==}
     peerDependencies:
       tailwindcss: '>=2.0.0 || >=3.0.0 || >=3.0.0-alpha.1'
     dependencies:
-      tailwindcss: 3.0.17_ef48b3b8837f8a23677bffe8f9cd866d
+      tailwindcss: 3.0.18_ef48b3b8837f8a23677bffe8f9cd866d
     dev: true
 
-  /@tailwindcss/forms/0.4.0_tailwindcss@3.0.17:
+  /@tailwindcss/forms/0.4.0_tailwindcss@3.0.18:
     resolution: {integrity: sha512-DeaQBx6EgEeuZPQACvC+mKneJsD8am1uiJugjgQK1+/Vt+Ai0GpFBC2T2fqnUad71WgOxyrZPE6BG1VaI6YqfQ==}
     peerDependencies:
       tailwindcss: '>=3.0.0 || >= 3.0.0-alpha.1'
     dependencies:
       mini-svg-data-uri: 1.4.3
-      tailwindcss: 3.0.17_ef48b3b8837f8a23677bffe8f9cd866d
+      tailwindcss: 3.0.18_ef48b3b8837f8a23677bffe8f9cd866d
     dev: true
 
-  /@tailwindcss/line-clamp/0.3.1_tailwindcss@3.0.17:
+  /@tailwindcss/line-clamp/0.3.1_tailwindcss@3.0.18:
     resolution: {integrity: sha512-pNr0T8LAc3TUx/gxCfQZRe9NB2dPEo/cedPHzUGIPxqDMhgjwNm6jYxww4W5l0zAsAddxr+XfZcqttGiFDgrGg==}
     peerDependencies:
       tailwindcss: '>=2.0.0 || >=3.0.0 || >=3.0.0-alpha.1'
     dependencies:
-      tailwindcss: 3.0.17_ef48b3b8837f8a23677bffe8f9cd866d
+      tailwindcss: 3.0.18_ef48b3b8837f8a23677bffe8f9cd866d
     dev: true
 
-  /@tailwindcss/typography/0.5.0_tailwindcss@3.0.17:
-    resolution: {integrity: sha512-1p/3C6C+JJziS/ghtG8ACYalbA2SyLJY27Pm33cVTlAoY6VQ7zfm2H64cPxUMBkVIlWXTtWHhZcZJPobMRmQAA==}
+  /@tailwindcss/typography/0.5.1_tailwindcss@3.0.18:
+    resolution: {integrity: sha512-AmSzZSgLhHKlILKduU+PKBTHL6c+al82syZlRid1xgmlWwXagLigO+O++B4C0scpMfzW//f/3YCRcwwEHWoU3w==}
     peerDependencies:
       tailwindcss: '>=3.0.0 || >= 3.0.0-alpha.1 || insiders'
     dependencies:
       lodash.castarray: 4.4.0
       lodash.isplainobject: 4.0.6
       lodash.merge: 4.6.2
-      lodash.uniq: 4.5.0
-      tailwindcss: 3.0.17_ef48b3b8837f8a23677bffe8f9cd866d
+      tailwindcss: 3.0.18_ef48b3b8837f8a23677bffe8f9cd866d
     dev: true
 
   /@tootallnate/once/2.0.0:
@@ -4771,14 +4776,14 @@ packages:
       - supports-color
     dev: true
 
-  /@ts-gql/eslint-plugin/0.8.0_bf79d4c8a8c337364ac2444d57ca2fc5:
+  /@ts-gql/eslint-plugin/0.8.0_e8a7720398c58961f679ca974d65e896:
     resolution: {integrity: sha512-WWojtDRhQBt8100jsdVpCIQRIwzAO8v/XxCgGKou93wLvo0sGhgqP51g7StuAtRsC2EwQ+5G/GHfGMOBkwJDgA==}
     peerDependencies:
       graphql: ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0
     dependencies:
       '@babel/runtime': 7.16.7
       '@ts-gql/config': 0.9.0_graphql@15.8.0
-      '@typescript-eslint/experimental-utils': 2.34.0_eslint@8.7.0+typescript@4.5.5
+      '@typescript-eslint/experimental-utils': 2.34.0_eslint@8.8.0+typescript@4.5.5
       find-pkg-json-field-up: 1.0.1
       graphql: 15.8.0
       slash: 3.0.0
@@ -5055,7 +5060,7 @@ packages:
       '@types/node': 17.0.13
     dev: true
 
-  /@typescript-eslint/experimental-utils/2.34.0_eslint@8.7.0+typescript@4.5.5:
+  /@typescript-eslint/experimental-utils/2.34.0_eslint@8.8.0+typescript@4.5.5:
     resolution: {integrity: sha512-eS6FTkq+wuMJ+sgtuNTtcqavWXqsflWcfBnlYhg/nS4aZ1leewkXGbvBhaapn1q6qf4M71bsR1tez5JTRMuqwA==}
     engines: {node: ^8.10.0 || ^10.13.0 || >=11.10.1}
     peerDependencies:
@@ -5063,7 +5068,7 @@ packages:
     dependencies:
       '@types/json-schema': 7.0.9
       '@typescript-eslint/typescript-estree': 2.34.0_typescript@4.5.5
-      eslint: 8.7.0
+      eslint: 8.8.0
       eslint-scope: 5.1.1
       eslint-utils: 2.1.0
     transitivePeerDependencies:
@@ -5071,7 +5076,7 @@ packages:
       - typescript
     dev: true
 
-  /@typescript-eslint/parser/5.10.1_eslint@8.7.0:
+  /@typescript-eslint/parser/5.10.1_eslint@8.8.0:
     resolution: {integrity: sha512-GReo3tjNBwR5RnRO0K2wDIDN31cM3MmDtgyQ85oAxAmC5K3j/g85IjP+cDfcqDsDDBf1HNKQAD0WqOYL8jXqUA==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     peerDependencies:
@@ -5085,7 +5090,7 @@ packages:
       '@typescript-eslint/types': 5.10.1
       '@typescript-eslint/typescript-estree': 5.10.1
       debug: 4.3.3
-      eslint: 8.7.0
+      eslint: 8.8.0
     transitivePeerDependencies:
       - supports-color
     dev: false
@@ -5325,23 +5330,23 @@ packages:
       uri-js: 4.4.1
     dev: false
 
-  /algoliasearch/4.12.0:
-    resolution: {integrity: sha512-fZOMMm+F3Bi5M/MoFIz7hiuyCitJza0Hu+r8Wzz4LIQClC6YGMRq7kT6NNU1fSSoFDSeJIwMfedbbi5G9dJoVQ==}
+  /algoliasearch/4.12.1:
+    resolution: {integrity: sha512-c0dM1g3zZBJrkzE5GA/Nu1y3fFxx3LCzxKzcmp2dgGS8P4CjszB/l3lsSh2MSrrK1Hn/KV4BlbBMXtYgG1Bfrw==}
     dependencies:
-      '@algolia/cache-browser-local-storage': 4.12.0
-      '@algolia/cache-common': 4.12.0
-      '@algolia/cache-in-memory': 4.12.0
-      '@algolia/client-account': 4.12.0
-      '@algolia/client-analytics': 4.12.0
-      '@algolia/client-common': 4.12.0
-      '@algolia/client-personalization': 4.12.0
-      '@algolia/client-search': 4.12.0
-      '@algolia/logger-common': 4.12.0
-      '@algolia/logger-console': 4.12.0
-      '@algolia/requester-browser-xhr': 4.12.0
-      '@algolia/requester-common': 4.12.0
-      '@algolia/requester-node-http': 4.12.0
-      '@algolia/transporter': 4.12.0
+      '@algolia/cache-browser-local-storage': 4.12.1
+      '@algolia/cache-common': 4.12.1
+      '@algolia/cache-in-memory': 4.12.1
+      '@algolia/client-account': 4.12.1
+      '@algolia/client-analytics': 4.12.1
+      '@algolia/client-common': 4.12.1
+      '@algolia/client-personalization': 4.12.1
+      '@algolia/client-search': 4.12.1
+      '@algolia/logger-common': 4.12.1
+      '@algolia/logger-console': 4.12.1
+      '@algolia/requester-browser-xhr': 4.12.1
+      '@algolia/requester-common': 4.12.1
+      '@algolia/requester-node-http': 4.12.1
+      '@algolia/transporter': 4.12.1
     dev: false
 
   /align-text/0.1.4:
@@ -8591,7 +8596,7 @@ packages:
       estraverse: 4.3.0
     dev: false
 
-  /eslint-config-next/12.0.9_eslint@8.7.0:
+  /eslint-config-next/12.0.9_eslint@8.8.0:
     resolution: {integrity: sha512-mhpFUsdctLw9PPOVF6S45n7uEzeRth9Xub6CbsKG8Bmr4QFTs1vhbFjp3cjdFIxjMQNuY8hcu66XFlvBB768Iw==}
     peerDependencies:
       eslint: ^7.23.0 || ^8.0.0
@@ -8603,25 +8608,25 @@ packages:
     dependencies:
       '@next/eslint-plugin-next': 12.0.9
       '@rushstack/eslint-patch': 1.1.0
-      '@typescript-eslint/parser': 5.10.1_eslint@8.7.0
-      eslint: 8.7.0
+      '@typescript-eslint/parser': 5.10.1_eslint@8.8.0
+      eslint: 8.8.0
       eslint-import-resolver-node: 0.3.6
-      eslint-import-resolver-typescript: 2.5.0_9ff7dbcc486b497d34e34a545c49272a
-      eslint-plugin-import: 2.25.4_eslint@8.7.0
-      eslint-plugin-jsx-a11y: 6.5.1_eslint@8.7.0
-      eslint-plugin-react: 7.28.0_eslint@8.7.0
-      eslint-plugin-react-hooks: 4.3.0_eslint@8.7.0
+      eslint-import-resolver-typescript: 2.5.0_392f898cec7735a5f7a99430cbc0b4f4
+      eslint-plugin-import: 2.25.4_eslint@8.8.0
+      eslint-plugin-jsx-a11y: 6.5.1_eslint@8.8.0
+      eslint-plugin-react: 7.28.0_eslint@8.8.0
+      eslint-plugin-react-hooks: 4.3.0_eslint@8.8.0
     transitivePeerDependencies:
       - supports-color
     dev: false
 
-  /eslint-config-prettier/8.3.0_eslint@8.7.0:
+  /eslint-config-prettier/8.3.0_eslint@8.8.0:
     resolution: {integrity: sha512-BgZuLUSeKzvlL/VUjx/Yb787VQ26RU3gGjA3iiFvdsp/2bMfVIWUVP7tjxtjS0e+HP409cPlPvNkQloz8C91ew==}
     hasBin: true
     peerDependencies:
       eslint: '>=7.0.0'
     dependencies:
-      eslint: 8.7.0
+      eslint: 8.8.0
     dev: false
 
   /eslint-import-resolver-node/0.3.6:
@@ -8631,7 +8636,7 @@ packages:
       resolve: 1.22.0
     dev: false
 
-  /eslint-import-resolver-typescript/2.5.0_9ff7dbcc486b497d34e34a545c49272a:
+  /eslint-import-resolver-typescript/2.5.0_392f898cec7735a5f7a99430cbc0b4f4:
     resolution: {integrity: sha512-qZ6e5CFr+I7K4VVhQu3M/9xGv9/YmwsEXrsm3nimw8vWaVHRDrQRp26BgCypTxBp3vUp4o5aVEJRiy0F2DFddQ==}
     engines: {node: '>=4'}
     peerDependencies:
@@ -8639,8 +8644,8 @@ packages:
       eslint-plugin-import: '*'
     dependencies:
       debug: 4.3.3
-      eslint: 8.7.0
-      eslint-plugin-import: 2.25.4_eslint@8.7.0
+      eslint: 8.8.0
+      eslint-plugin-import: 2.25.4_eslint@8.8.0
       glob: 7.2.0
       is-glob: 4.0.3
       resolve: 1.22.0
@@ -8657,7 +8662,7 @@ packages:
       find-up: 2.1.0
     dev: false
 
-  /eslint-plugin-import/2.25.4_eslint@8.7.0:
+  /eslint-plugin-import/2.25.4_eslint@8.8.0:
     resolution: {integrity: sha512-/KJBASVFxpu0xg1kIBn9AUa8hQVnszpwgE7Ld0lKAlx7Ie87yzEzCgSkekt+le/YVhiaosO4Y14GDAOc41nfxA==}
     engines: {node: '>=4'}
     peerDependencies:
@@ -8667,7 +8672,7 @@ packages:
       array.prototype.flat: 1.2.5
       debug: 2.6.9
       doctrine: 2.1.0
-      eslint: 8.7.0
+      eslint: 8.8.0
       eslint-import-resolver-node: 0.3.6
       eslint-module-utils: 2.7.3
       has: 1.0.3
@@ -8679,7 +8684,7 @@ packages:
       tsconfig-paths: 3.12.0
     dev: false
 
-  /eslint-plugin-jsx-a11y/6.5.1_eslint@8.7.0:
+  /eslint-plugin-jsx-a11y/6.5.1_eslint@8.8.0:
     resolution: {integrity: sha512-sVCFKX9fllURnXT2JwLN5Qgo24Ug5NF6dxhkmxsMEUZhXRcGg+X3e1JbJ84YePQKBl5E0ZjAH5Q4rkdcGY99+g==}
     engines: {node: '>=4.0'}
     peerDependencies:
@@ -8693,23 +8698,23 @@ packages:
       axobject-query: 2.2.0
       damerau-levenshtein: 1.0.8
       emoji-regex: 9.2.2
-      eslint: 8.7.0
+      eslint: 8.8.0
       has: 1.0.3
       jsx-ast-utils: 3.2.1
       language-tags: 1.0.5
       minimatch: 3.0.4
     dev: false
 
-  /eslint-plugin-react-hooks/4.3.0_eslint@8.7.0:
+  /eslint-plugin-react-hooks/4.3.0_eslint@8.8.0:
     resolution: {integrity: sha512-XslZy0LnMn+84NEG9jSGR6eGqaZB3133L8xewQo3fQagbQuGt7a63gf+P1NGKZavEYEC3UXaWEAA/AqDkuN6xA==}
     engines: {node: '>=10'}
     peerDependencies:
       eslint: ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0-0
     dependencies:
-      eslint: 8.7.0
+      eslint: 8.8.0
     dev: false
 
-  /eslint-plugin-react/7.28.0_eslint@8.7.0:
+  /eslint-plugin-react/7.28.0_eslint@8.8.0:
     resolution: {integrity: sha512-IOlFIRHzWfEQQKcAD4iyYDndHwTQiCMcJVJjxempf203jnNLUnW34AXLrV33+nEXoifJE2ZEGmcjKPL8957eSw==}
     engines: {node: '>=4'}
     peerDependencies:
@@ -8718,7 +8723,7 @@ packages:
       array-includes: 3.1.4
       array.prototype.flatmap: 1.2.5
       doctrine: 2.1.0
-      eslint: 8.7.0
+      eslint: 8.8.0
       estraverse: 5.3.0
       jsx-ast-utils: 3.2.1
       minimatch: 3.0.4
@@ -8732,12 +8737,12 @@ packages:
       string.prototype.matchall: 4.0.6
     dev: false
 
-  /eslint-plugin-simple-import-sort/7.0.0_eslint@8.7.0:
+  /eslint-plugin-simple-import-sort/7.0.0_eslint@8.8.0:
     resolution: {integrity: sha512-U3vEDB5zhYPNfxT5TYR7u01dboFZp+HNpnGhkDB2g/2E4wZ/g1Q9Ton8UwCLfRV9yAKyYqDh62oHOamvkFxsvw==}
     peerDependencies:
       eslint: '>=5.0.0'
     dependencies:
-      eslint: 8.7.0
+      eslint: 8.8.0
     dev: false
 
   /eslint-scope/5.1.1:
@@ -8763,13 +8768,13 @@ packages:
       eslint-visitor-keys: 1.3.0
     dev: true
 
-  /eslint-utils/3.0.0_eslint@8.7.0:
+  /eslint-utils/3.0.0_eslint@8.8.0:
     resolution: {integrity: sha512-uuQC43IGctw68pJA1RgbQS8/NP7rch6Cwd4j3ZBtgo4/8Flj4eGE7ZYSZRN3iq5pVUv6GPdW5Z1RFleo84uLDA==}
     engines: {node: ^10.0.0 || ^12.0.0 || >= 14.0.0}
     peerDependencies:
       eslint: '>=5'
     dependencies:
-      eslint: 8.7.0
+      eslint: 8.8.0
       eslint-visitor-keys: 2.1.0
     dev: false
 
@@ -8788,8 +8793,8 @@ packages:
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dev: false
 
-  /eslint/8.7.0:
-    resolution: {integrity: sha512-ifHYzkBGrzS2iDU7KjhCAVMGCvF6M3Xfs8X8b37cgrUlDt6bWRTpRh6T/gtSXv1HJ/BUGgmjvNvOEGu85Iif7w==}
+  /eslint/8.8.0:
+    resolution: {integrity: sha512-H3KXAzQGBH1plhYS3okDix2ZthuYJlQQEGE5k0IKuEqUSiyu4AmxxlJ2MtTYeJ3xB4jDhcYCwGOg2TXYdnDXlQ==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     hasBin: true
     dependencies:
@@ -8802,7 +8807,7 @@ packages:
       doctrine: 3.0.0
       escape-string-regexp: 4.0.0
       eslint-scope: 7.1.0
-      eslint-utils: 3.0.0_eslint@8.7.0
+      eslint-utils: 3.0.0_eslint@8.8.0
       eslint-visitor-keys: 3.2.0
       espree: 9.3.0
       esquery: 1.4.0
@@ -12614,8 +12619,8 @@ packages:
       use-deep-compare-effect: 1.8.1_react@17.0.2
     dev: false
 
-  /next-seo/4.29.0_b543ccecfd29856b35e58d884b6ddddd:
-    resolution: {integrity: sha512-xmwzcz4uHaYJ8glbuhs6FSBQ7z3irmdPYdJJ5saWm72Uy3o+mPKGaPCXQetTCE6/xxVnpoDV4yFtFlEjUcljSg==}
+  /next-seo/5.0.0_b543ccecfd29856b35e58d884b6ddddd:
+    resolution: {integrity: sha512-uCa8hoE5VQz4D2NqZAPhqR64hY5LSmaq70wmfGK09U57TMY7XzsDI+MjfZo0MgHJM87bj3Fd/oMQbDcZ/YWhJQ==}
     peerDependencies:
       next: ^8.1.1-canary.54 || >=9.0.0
       react: '>=16.0.0'
@@ -16749,8 +16754,8 @@ packages:
       resolve: 1.22.0
     dev: true
 
-  /tailwindcss/3.0.17_ef48b3b8837f8a23677bffe8f9cd866d:
-    resolution: {integrity: sha512-OiHUsmOKQQEg/ocXaLIjk/kOz8EK2jF6iPuc1bQ4NsmhYl7sk70UDsGV02AJvBAAiJhinPCkDR8egT9qY+ulCw==}
+  /tailwindcss/3.0.18_ef48b3b8837f8a23677bffe8f9cd866d:
+    resolution: {integrity: sha512-ihPTpEyA5ANgZbwKlgrbfnzOp9R5vDHFWmqxB1PT8NwOGCOFVVMl+Ps1cQQ369acaqqf1BEF77roCwK0lvNmTw==}
     engines: {node: '>=12.13.0'}
     hasBin: true
     peerDependencies:

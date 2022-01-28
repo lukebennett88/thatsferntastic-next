@@ -18,7 +18,8 @@
     "preinstall": "npx only-allow pnpm",
     "postinstall": "manypkg check && pnpm recursive run ts-gql:build --filter @thatsferntastic/store",
     "prepare": "husky install",
-    "typecheck": "turbo run typecheck"
+    "typecheck": "turbo run typecheck",
+    "update": "pnpm recursive up -L -i"
   },
   "dependencies": {
     "@manypkg/cli": "^0.19.1",

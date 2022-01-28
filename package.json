@@ -6,8 +6,10 @@
   "scripts": {
     "build": "turbo run build",
     "build:store": "turbo run build --scope=@thatsferntastic/store --include-dependencies --no-deps",
+    "build:remix": "turbo run build --scope=@thatsferntastic/remix --include-dependencies --no-deps",
     "dev": "turbo run dev --no-cache --parallel --continue",
     "dev:store": "turbo run dev --scope=@thatsferntastic/store",
+    "dev:remix": "turbo run dev --scope=@thatsferntastic/remix",
     "lint": "turbo run lint",
     "test": "turbo run test",
     "clean": "turbo run clean && rm -rf node_modules",

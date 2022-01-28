@@ -11,7 +11,8 @@
     "dev:remix": "PORT=7777 dotenv -- remix dev",
     "dev:css": "postcss styles/global.css -o app/styles/global.css --watch",
     "lint": "TIMING=1 eslint . --fix",
-    "postinstall": "remix setup node"
+    "postinstall": "remix setup node",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@headlessui/react": "^1.4.3",

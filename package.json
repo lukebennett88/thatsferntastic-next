@@ -17,7 +17,8 @@
     "clean": "turbo run clean && rm -rf node_modules",
     "clean:nuclear": "git clean -fXd",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "postinstall": "yarn-deduplicate yarn.lock && manypkg check && yarn workspace @thatsferntastic/store ts-gql:build",
+    "preinstall": "npx only-allow pnpm",
+    "postinstall": "manypkg check && yarn workspace @thatsferntastic/store ts-gql:build",
     "prepare": "husky install",
     "typecheck": "turbo run typecheck"
   },

@@ -10,8 +10,10 @@
   "scripts": {
     "build": "turbo run build",
     "build:store": "turbo run build --scope=@thatsferntastic/store --include-dependencies --no-deps",
+    "build:remix": "turbo run build --scope=@thatsferntastic/remix --include-dependencies --no-deps",
     "dev": "turbo run dev --no-cache --parallel --continue",
     "dev:store": "turbo run dev --scope=@thatsferntastic/store",
+    "dev:remix": "turbo run dev --scope=@thatsferntastic/remix",
     "lint": "turbo run lint",
     "test": "turbo run test",
     "clean": "turbo run clean && rm -rf node_modules",
@@ -23,11 +25,11 @@
   },
   "dependencies": {
     "@manypkg/cli": "^0.19.1",
-    "eslint": "^8.7.0",
+    "eslint": "^8.8.0",
     "husky": "^7.0.4",
     "lint-staged": "^12.3.2",
     "prettier": "^2.5.1",
-    "turbo": "^1.0.29",
+    "turbo": "^1.1.1",
     "yarn-deduplicate": "^3.1.0"
   },
   "engines": {
@@ -36,42 +38,11 @@
     "npm": "please-use-yarn"
   },
   "lint-staged": {
-    "**/*": "prettier --write --ignore-unknown"
-  },
-  "turbo": {
-    "baseBranch": "origin/main",
-    "pipeline": {
-      "build": {
-        "dependsOn": [
-          "^build"
-        ],
-        "outputs": [
-          ".next/**",
-          "dist/**"
-        ]
-      },
-      "test": {
-        "dependsOn": [],
-        "outputs": [
-          "coverage/**"
-        ]
-      },
-      "lint": {
-        "outputs": []
-      },
-      "typecheck": {
-        "outputs": []
-      },
-      "dev": {
-        "cache": false
-      },
-      "clean": {
-        "cache": false
-      }
-    }
+    "**/*.{ts,tsx,md}": "prettier --write --ignore-unknown"
   },
   "volta": {
     "node": "14.18.2",
     "yarn": "1.22.17"
-  }
+  },
+  "packageManager": "yarn@1.22.17"
 }

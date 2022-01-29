@@ -10,6 +10,7 @@ const rollupConfig = {
     format: "cjs",
     exports: "default",
   },
+  external: ["@remix-run/server-runtime", "fs/promises"],
   plugins: [
     commonJs(),
     resolve({

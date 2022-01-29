@@ -37,8 +37,5 @@
   "lint-staged": {
     "**/*.{ts,tsx,md}": "prettier --write --ignore-unknown"
   },
-  "packageManager": "pnpm@6.28.0",
-  "volta": {
-    "node": "14.18.2"
-  }
+  "packageManager": "pnpm@6.28.0"
 }

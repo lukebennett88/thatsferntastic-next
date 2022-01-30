@@ -78,6 +78,19 @@ module.exports = {
           "100%": { transform: "translateX(0%)" },
         },
       },
+      typography: (theme) => ({
+        DEFAULT: {
+          css: {
+            "h1, h2, h3, h4": {
+              color: theme("colors.pink.500"),
+              fontWeight: theme("fontWeight.medium"),
+            },
+            "img": {
+              width: theme("width.full"),
+            },
+          },
+        },
+      }),
     },
   },
   variants: {

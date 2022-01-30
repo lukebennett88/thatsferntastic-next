@@ -1,13 +1,27 @@
 import type { To } from "react-router-dom";
 import { Link } from "remix";
 
+import type { Collection } from "~/route-containers/layout/layout.component";
+
 export type FooterPage = {
   id: string;
   title: string;
   to: To;
 };
 
-export function Footer({ logoHref, pages, storeName }: { logoHref: string; pages: FooterPage[]; storeName?: string }) {
+export function Footer({
+  collections,
+  logoHref,
+  pages,
+  storeName,
+  year,
+}: {
+  collections: Array<Collection>;
+  logoHref: string;
+  pages: Array<FooterPage>;
+  storeName?: string;
+  year?: number;
+}) {
   return (
     <footer aria-labelledby="footer-heading" className="bg-gray-50">
       <h2 id="footer-heading" className="sr-only">
@@ -23,130 +37,13 @@ export function Footer({ logoHref, pages, storeName }: { logoHref: string; pages
               </a>
             </div>
             <div className="col-span-6 mt-10 grid grid-cols-2 gap-8 sm:grid-cols-3 md:col-span-8 md:col-start-3 md:row-start-1 md:mt-0 lg:col-span-6 lg:col-start-2">
-              <div className="grid grid-cols-1 gap-y-12 sm:col-span-2 sm:grid-cols-2 sm:gap-x-8">
-                <div>
-                  <h3 className="text-sm font-medium text-gray-900">Collections</h3>
-                  <ul role="list" className="mt-6 space-y-6">
-                    <li className="text-sm">
-                      <a className="text-gray-500 hover:text-gray-600" href="/collections/advent-scrunchie-boxes">
-                        Advent Scrunchie Boxes
-                      </a>
-                    </li>
-                    <li className="text-sm">
-                      <a className="text-gray-500 hover:text-gray-600" href="/collections/animals">
-                        Animals
-                      </a>
-                    </li>
-                    <li className="text-sm">
-                      <a className="text-gray-500 hover:text-gray-600" href="/collections/australian-artists">
-                        Australian Artists
-                      </a>
-                    </li>
-                    <li className="text-sm">
-                      <a className="text-gray-500 hover:text-gray-600" href="/collections/dogs">
-                        Dog Breeds
-                      </a>
-                    </li>
-                    <li className="text-sm">
-                      <a className="text-gray-500 hover:text-gray-600" href="/collections/florals-patterns">
-                        Florals &amp; Patterns
-                      </a>
-                    </li>
-                    <li className="text-sm">
-                      <a className="text-gray-500 hover:text-gray-600" href="/collections/gaming">
-                        Gaming
-                      </a>
-                    </li>
-                    <li className="text-sm">
-                      <a className="text-gray-500 hover:text-gray-600" href="/collections/gift-sets">
-                        Gift Sets
-                      </a>
-                    </li>
-                    <li className="text-sm">
-                      <a className="text-gray-500 hover:text-gray-600" href="/collections/halloween">
-                        Halloween
-                      </a>
-                    </li>
-                    <li className="text-sm">
-                      <a className="text-gray-500 hover:text-gray-600" href="/collections/katherine-appleby">
-                        Katherine Appleby
-                      </a>
-                    </li>
-                    <li className="text-sm">
-                      <a className="text-gray-500 hover:text-gray-600" href="/collections/scrunchies">
-                        Scrunchies
-                      </a>
-                    </li>
-                    <li className="text-sm">
-                      <a
-                        className="text-gray-500 hover:text-gray-600"
-                        href="/collections/pens-and-pencils-for-the-stationery-nerds"
-                      >
-                        Stationery Nerds
-                      </a>
-                    </li>
-                    <li className="text-sm">
-                      <a className="text-gray-500 hover:text-gray-600" href="/collections/characters">
-                        TV + Movies
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-                <div>
-                  <h3 className="text-sm font-medium text-gray-900">Product categories</h3>
-                  <ul role="list" className="mt-6 space-y-6">
-                    <li className="text-sm">
-                      <a href="/categories?type=Person Accessories" className="text-gray-500 hover:text-gray-600">
-                        Person Accessories
-                      </a>
-                    </li>
-                    <li className="text-sm">
-                      <a href="/categories?type=Pocket Pouches" className="text-gray-500 hover:text-gray-600">
-                        Pocket Pouches
-                      </a>
-                    </li>
-                    <li className="text-sm">
-                      <a href="/categories?type=Washi Tape" className="text-gray-500 hover:text-gray-600">
-                        Washi Tape
-                      </a>
-                    </li>
-                    <li className="text-sm">
-                      <a href="/categories?type=Stationery" className="text-gray-500 hover:text-gray-600">
-                        Stationery
-                      </a>
-                    </li>
-                    <li className="text-sm">
-                      <a href="/categories?type=Mini Pouches" className="text-gray-500 hover:text-gray-600">
-                        Mini Pouches
-                      </a>
-                    </li>
-                    <li className="text-sm">
-                      <a href="/categories?type=Planner Accessories" className="text-gray-500 hover:text-gray-600">
-                        Planner Accessories
-                      </a>
-                    </li>
-                    <li className="text-sm">
-                      <a href="/categories?type=Pencil Cases" className="text-gray-500 hover:text-gray-600">
-                        Pencil Cases
-                      </a>
-                    </li>
-                    <li className="text-sm">
-                      <a href="/categories?type=Gift Sets" className="text-gray-500 hover:text-gray-600">
-                        Gift Sets
-                      </a>
-                    </li>
-                    <li className="text-sm">
-                      <a href="/categories?type=Stickers" className="text-gray-500 hover:text-gray-600">
-                        Stickers
-                      </a>
-                    </li>
-                    <li className="text-sm">
-                      <a href="/categories?type=Scrunchies" className="text-gray-500 hover:text-gray-600">
-                        Scrunchies
-                      </a>
-                    </li>
-                  </ul>
-                </div>
+              <div className="sm:col-span-2">
+                <h3 className="text-sm font-medium text-gray-900 sm:col-span-2">Collections</h3>
+                <ul role="list" className="mt-6 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
+                  {collections.map(({ name, to }) => (
+                    <FooterLink key={name} to={to} name={name} />
+                  ))}
+                </ul>
               </div>
               <div>
                 <h3 className="text-sm font-medium text-gray-900">Customer Service</h3>
@@ -249,12 +146,20 @@ export function Footer({ logoHref, pages, storeName }: { logoHref: string; pages
         </div>
         <div className="border-t border-gray-200 py-10 text-center">
           <p className="text-sm text-gray-500">
-            © {/* */}2022{/* */} {/* */}
-            {storeName}
-            {/* */}. All rights reserved.
+            &copy; {year} {storeName}. All rights reserved.
           </p>
         </div>
       </div>
     </footer>
+  );
+}
+
+function FooterLink({ to, name }: { to: To; name: string }) {
+  return (
+    <li className="text-sm">
+      <Link className="text-gray-500 hover:text-gray-600" to={to}>
+        {name}
+      </Link>
+    </li>
   );
 }

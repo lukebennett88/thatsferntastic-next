@@ -33,18 +33,11 @@ export let loader: LoaderFunction = async ({ request }) => {
         to: `/search?category=${slug}`,
       })),
     ],
-    pages: [
-      {
-        id: "home",
-        title: "Home",
-        to: "/",
-      },
-      ...pages.map(({ id, slug, title }) => ({
-        id,
-        title,
-        to: `/${slug}`,
-      })),
-    ],
+    pages: pages.map(({ id, slug, title }) => ({
+      id,
+      title,
+      to: `/${slug}`,
+    })),
     storeName: "@thatsferntastic",
     wishlist,
     year: new Date().getFullYear(),

@@ -1,7 +1,6 @@
 import { ShoppingBagIcon } from "@heroicons/react/outline";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
-import * as React from "react";
 
 import { siteSettings } from "../../utils/constants";
 import { useCartCount } from "../../utils/hooks/use-cart-count";

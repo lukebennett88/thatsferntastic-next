@@ -197,7 +197,7 @@ function ProductOptions({ options, searchParams }: { options: Array<ProductOptio
                   type="submit"
                   className={classNames(
                     searchParams.get(option.name) === value ? "ring-2 ring-pink-500" : "border-gray-300",
-                    "relative block cursor-pointer rounded-lg border p-4 ring-offset-2 focus:outline-none focus:ring",
+                    "relative block cursor-pointer rounded-lg border py-2 px-4 ring-offset-2 focus:outline-none focus:ring",
                   )}
                   name={option.name}
                   value={value}

@@ -29,7 +29,7 @@ export function Navigation(): JSX.Element {
     <div className="sticky top-0 z-30 bg-white">
       <AnnouncementBanner />
       <MobileMenu open={open} setOpen={setOpen} />
-      <DesktopMenu setOpen={setOpen} />
+      <DesktopMenu />
     </div>
   );
 }

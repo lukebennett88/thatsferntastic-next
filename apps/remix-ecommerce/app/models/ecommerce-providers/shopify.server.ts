@@ -1,14 +1,7 @@
 import { formatPrice as formatCurrency } from "@thatsferntastic/utils";
 import { Decimal } from "decimal.js";
 
-import type {
-  Category,
-  EcommerceProvider,
-  FullCartItem,
-  FullWishlistItem,
-  Page,
-  Product,
-} from "../ecommerce-provider.server";
+import type { Category, EcommerceProvider, FullCartItem, Page, Product } from "../ecommerce-provider.server";
 
 export interface ShopifyProviderOptions {
   maxAgeSeconds?: number | ((request: Request) => number);
@@ -308,45 +301,6 @@ export function createShopifyProvider({
           value: "price-desc",
         },
       ];
-    },
-    async getWishlistInfo(items) {
-      let json = await query(getProductVariantsQuery, {
-        ids: items.map((item) => item.variantId),
-      });
-
-      if (!json?.data?.nodes) {
-        return undefined;
-      }
-
-      let itemsMap = new Map(items.map((item) => [item.variantId, item]));
-      let fullItems: Array<FullWishlistItem> = [];
-      for (let item of json.data.nodes) {
-        let itemInput = !!item && itemsMap.get(item.id);
-        if (!itemInput) {
-          continue;
-        }
-
-        fullItems.push({
-          productId: item.product.id,
-          quantity: itemInput.quantity,
-          variantId: itemInput.variantId,
-          info: {
-            defaultVariantId: item.id,
-            id: item.product.id,
-            formattedPrice: formatPrice(item.priceV2),
-            image: item.image?.originalSrc || item.product.images.edges[0].node.originalSrc,
-            title: item.product.title,
-            formattedOptions: item.title,
-            slug: item.product.handle,
-          },
-        });
-      }
-
-      if (!fullItems.length) {
-        return undefined;
-      }
-
-      return fullItems;
     },
   };
 }

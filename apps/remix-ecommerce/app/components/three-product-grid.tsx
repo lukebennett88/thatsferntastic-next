@@ -1,11 +1,8 @@
 import { useId } from "@reach/auto-id";
-import cn from "classnames";
 import type { ReactNode } from "react";
-import { useMemo } from "react";
 import type { To } from "react-router-dom";
-import { Link, useFetcher, useLocation } from "remix";
+import { Link } from "remix";
 
-import { WishlistIcon } from "./icons";
 import { OptimizedImage } from "./optimized-image";
 
 export type ThreeProductGridProduct = {
@@ -13,29 +10,16 @@ export type ThreeProductGridProduct = {
   defaultVariantId: string;
   title: ReactNode;
   formattedPrice: ReactNode;
-  favorited: boolean;
   image: string;
   to: To;
 };
 
-function ThreeProductGridItem({
-  backgroundColor,
-  wishlistColors,
-  product,
-  index,
-}: {
-  backgroundColor: string;
-  wishlistColors: Array<string>;
-  product: ThreeProductGridProduct;
-  index: number;
-}) {
+function ThreeProductGridItem({ product, index }: { product: ThreeProductGridProduct; index: number }) {
   let id = `three-product-grid-item-${useId()}`;
-  let { Form } = useFetcher();
-  let location = useLocation();
 
   return (
     <li key={product.id} className={`three-product-grid__item-${index % 3}`}>
-      <div className={cn("group relative block aspect-square overflow-hidden", backgroundColor)}>
+      <div className="group relative block aspect-square overflow-hidden">
         <Link className="group block" prefetch="intent" to={product.to} aria-labelledby={id}>
           <OptimizedImage
             className="h-full w-full transform object-cover transition duration-500 motion-safe:group-hover:scale-110 motion-safe:group-focus:scale-110"
@@ -89,33 +73,6 @@ function ThreeProductGridItem({
               <br />
               <p className="inline-block px-4 py-2 text-sm ">{product.formattedPrice}</p>
             </Link>
-            <Form replace action="/wishlist" method="post">
-              <input
-                key={product.favorited.toString()}
-                type="hidden"
-                name="_action"
-                defaultValue={product.favorited ? "delete" : "add"}
-              />
-              <input type="hidden" name="redirect" defaultValue={location.pathname + location.search} />
-              <input key={product.id} type="hidden" name="productId" defaultValue={product.id} />
-              <input
-                key={product.defaultVariantId}
-                type="hidden"
-                name="variantId"
-                defaultValue={product.defaultVariantId}
-              />
-
-              <button
-                data-testid="add-to-wishlist"
-                className={cn(
-                  "focus:  hover: p-2 transition-colors duration-300 ease-in-out",
-                  product.favorited ? "text-red-500" : wishlistColors,
-                )}
-              >
-                <span className="sr-only">{product.favorited ? "Remove from wishlist" : "Add to wishlist"}</span>
-                <WishlistIcon className="h-8 w-8" />
-              </button>
-            </Form>
           </div>
         </div>
       </div>
@@ -130,55 +87,11 @@ export function ThreeProductGrid({
   products: Array<ThreeProductGridProduct>;
   variant?: "primary" | "secondary";
 }) {
-  let [backgroundColors, wishlistColors] = useMemo(
-    () =>
-      [
-        ["bg-pink-500", "bg-yellow-500", "bg-blue-500"],
-        [
-          [
-            "group-focus:bg-pink-500",
-            "group-hover:bg-pink-500",
-            "focus:bg-pink-500",
-            "hover:bg-pink-500",
-            "focus:text-zinc-900",
-            "hover:text-zinc-900",
-          ],
-          [
-            "group-focus:bg-yellow-500",
-            "group-hover:bg-yellow-500",
-            "focus:bg-yellow-500",
-            "hover:bg-yellow-500",
-            "focus:text-zinc-900",
-            "hover:text-zinc-900",
-          ],
-          [
-            "group-focus:bg-blue-500",
-            "group-hover:bg-blue-500",
-            "focus:bg-blue-500",
-            "hover:bg-blue-500",
-            "focus:text-zinc-900",
-            "hover:text-zinc-900",
-          ],
-        ],
-      ].map((colors) => {
-        if (variant === "primary") return colors;
-
-        return [colors[1], colors[0], colors[2]];
-      }) as [Array<string>, Array<Array<string>>],
-    [variant],
-  );
-
   return (
     <section>
       <ul className={`three-product-grid-${variant} md:grid`}>
         {products.map((product, index) => (
-          <ThreeProductGridItem
-            key={product.id}
-            product={product}
-            index={index}
-            backgroundColor={backgroundColors[index % 3]}
-            wishlistColors={wishlistColors[index % 3]}
-          />
+          <ThreeProductGridItem key={product.id} product={product} index={index} />
         ))}
       </ul>
     </section>

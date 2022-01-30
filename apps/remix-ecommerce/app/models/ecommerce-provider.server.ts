@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 export interface CartItem {
   variantId: string;
   quantity: number;
@@ -13,16 +14,6 @@ export interface CartInfo {
   formattedShipping: string;
   formattedSubTotal: string;
   items: Array<FullCartItem>;
-}
-
-export interface WishlistItem {
-  productId: string;
-  variantId: string;
-  quantity: number;
-}
-
-export interface FullWishlistItem extends WishlistItem {
-  info: Product;
 }
 
 export interface Category {
@@ -98,5 +89,4 @@ export interface EcommerceProvider {
     nocache?: boolean,
   ): Promise<ProductsResult>;
   getSortByOptions(): Promise<Array<SortByOption>>;
-  getWishlistInfo(items: Array<WishlistItem>): Promise<Array<FullWishlistItem> | undefined>;
 }

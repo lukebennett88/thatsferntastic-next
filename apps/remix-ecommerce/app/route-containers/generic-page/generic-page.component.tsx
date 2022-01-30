@@ -1,5 +1,7 @@
 import { useLoaderData } from "remix";
 
+import { defaultMeta } from "~/utils/default-meta";
+
 import type { LoaderData } from "./generic-page.server";
 
 export const meta = ({ data }: { data?: LoaderData }) => {
@@ -8,10 +10,7 @@ export const meta = ({ data }: { data?: LoaderData }) => {
         title: data.page.title,
         description: data.page.summary,
       }
-    : {
-        title: "Remix Ecommerce",
-        description: "An example ecommerce site built with Remix.",
-      };
+    : defaultMeta;
 };
 
 export default function GenericPage() {

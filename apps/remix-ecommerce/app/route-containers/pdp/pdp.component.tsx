@@ -2,6 +2,7 @@ import type { ShouldReloadFunction } from "remix";
 import { useLoaderData } from "remix";
 
 import { ProductDetails } from "~/components/product-details";
+import { defaultMeta } from "~/utils/default-meta";
 
 import type { LoaderData } from "./pdp.server";
 
@@ -15,10 +16,7 @@ export const meta = ({ data }: { data?: LoaderData }) => {
         title: data.product.title,
         description: data.product.description,
       }
-    : {
-        title: "Remix Ecommerce",
-        description: "An example ecommerce site built with Remix.",
-      };
+    : defaultMeta;
 };
 
 export default function ProductDetailPage() {

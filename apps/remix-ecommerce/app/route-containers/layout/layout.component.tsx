@@ -1,6 +1,7 @@
+import type { To } from "history";
 import type { ReactNode } from "react";
 import { lazy, Suspense, useMemo, useState } from "react";
-import type { LinkProps, MetaFunction, ShouldReloadFunction } from "remix";
+import type { MetaFunction, ShouldReloadFunction } from "remix";
 import { Links, LinksFunction, LiveReload, Meta, Outlet, Scripts, ScrollRestoration, useLoaderData } from "remix";
 
 import { ClientOnly } from "~/components/client-only";
@@ -8,6 +9,7 @@ import { Footer } from "~/components/footer";
 import { Navbar } from "~/components/navbar";
 import logoHref from "~/images/thatsferntastic-logo.svg";
 import globalStylesheetHref from "~/styles/global.css";
+import { defaultMeta } from "~/utils/default-meta";
 
 import { GenericCatchBoundary } from "../boundaries/generic-catch-boundary";
 import { GenericErrorBoundary } from "../boundaries/generic-error-boundary";
@@ -15,7 +17,7 @@ import type { LoaderData } from "./layout.server";
 
 export type Collection = {
   name: string;
-  to: LinkProps["to"];
+  to: To;
 };
 
 let CartPopover = lazy(() =>
@@ -25,12 +27,7 @@ let CartPopover = lazy(() =>
 );
 
 export const meta: MetaFunction = () => {
-  return {
-    title:
-      "@thatsferntastic: pencil cases, planner pouches and coin purses, accessories, stationery and stickers to add a little more sunshine to your day.",
-    description:
-      "@thatsferntastic is an online store focusing on the little things that make you smile. Pencil cases, planner pouches and coin purses, all handmade in Australia, plus accessories, stationery and stickers to add a little more sunshine to your day. Offering flat rate shipping from my little studio on the coast of NSW.",
-  };
+  return defaultMeta;
 };
 
 export let links: LinksFunction = () => {

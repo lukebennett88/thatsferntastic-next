@@ -19,10 +19,10 @@ export type CDPProduct = {
 export type LoaderData = {
   category?: string;
   sort?: string;
-  categories: Category[];
+  categories: Array<Category>;
   search?: string;
-  sortByOptions: SortByOption[];
-  products: CDPProduct[];
+  sortByOptions: Array<SortByOption>;
+  products: Array<CDPProduct>;
   hasNextPage: boolean;
   nextPageCursor?: string;
 };

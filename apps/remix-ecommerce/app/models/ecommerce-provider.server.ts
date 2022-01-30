@@ -12,7 +12,7 @@ export interface CartInfo {
   formattedTotal: string;
   formattedShipping: string;
   formattedSubTotal: string;
-  items: FullCartItem[];
+  items: Array<FullCartItem>;
 }
 
 export interface WishlistItem {
@@ -42,16 +42,16 @@ export interface Product {
 
 export interface ProductOption {
   name: string;
-  values: string[];
+  values: Array<string>;
 }
 
 export interface FullProduct extends Product {
   description?: string;
   descriptionHtml?: string;
-  images: string[];
+  images: Array<string>;
   availableForSale: boolean;
   selectedVariantId?: string;
-  options: ProductOption[];
+  options: Array<ProductOption>;
 }
 
 export interface Page {
@@ -78,17 +78,17 @@ export interface SelectedProductOption {
 export interface ProductsResult {
   hasNextPage: boolean;
   nextPageCursor?: string;
-  products: Product[];
+  products: Array<Product>;
 }
 
 export interface EcommerceProvider {
-  getCartInfo(items: CartItem[]): Promise<CartInfo | undefined>;
-  getCategories(count: number, nocache?: boolean): Promise<Category[]>;
-  getCheckoutUrl(items: CartItem[]): Promise<string>;
-  getFeaturedProducts(): Promise<Product[]>;
+  getCartInfo(items: Array<CartItem>): Promise<CartInfo | undefined>;
+  getCategories(count: number, nocache?: boolean): Promise<Array<Category>>;
+  getCheckoutUrl(items: Array<CartItem>): Promise<string>;
+  getFeaturedProducts(): Promise<Array<Product>>;
   getPage(slug: string): Promise<FullPage | undefined>;
-  getPages(): Promise<Page[]>;
-  getProduct(slug: string, selectedOptions?: SelectedProductOption[]): Promise<FullProduct | undefined>;
+  getPages(): Promise<Array<Page>>;
+  getProduct(slug: string, selectedOptions?: Array<SelectedProductOption>): Promise<FullProduct | undefined>;
   getProducts(
     category?: string,
     sort?: string,
@@ -97,6 +97,6 @@ export interface EcommerceProvider {
     perPage?: number,
     nocache?: boolean,
   ): Promise<ProductsResult>;
-  getSortByOptions(): Promise<SortByOption[]>;
-  getWishlistInfo(items: WishlistItem[]): Promise<FullWishlistItem[] | undefined>;
+  getSortByOptions(): Promise<Array<SortByOption>>;
+  getWishlistInfo(items: Array<WishlistItem>): Promise<Array<FullWishlistItem> | undefined>;
 }

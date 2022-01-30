@@ -3,7 +3,7 @@ import { useEffect } from "react";
 
 export type SwipeScrollOptions = {
   sliderRef: RefObject<HTMLElement>;
-  reliants?: any[];
+  reliants?: Array<any>;
   onMove?: () => void;
 };
 

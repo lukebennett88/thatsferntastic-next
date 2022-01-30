@@ -3,21 +3,22 @@ import { json } from "remix";
 
 import commerce from "~/commerce.server";
 import type { FooterPage } from "~/components/footer";
-import type { NavbarCategory } from "~/components/navbar";
 import type { CartInfo, FullWishlistItem } from "~/models/ecommerce-provider.server";
+import type { Collection } from "~/route-containers/layout/layout.component";
 import { getSession } from "~/session.server";
 
 export type LoaderData = {
   cart?: CartInfo;
-  categories: NavbarCategory[];
-  pages: FooterPage[];
+  collections: Array<Collection>;
+  pages: Array<FooterPage>;
   storeName: string;
-  wishlist?: FullWishlistItem[];
+  wishlist?: Array<FullWishlistItem>;
+  year: number;
 };
 
 export let loader: LoaderFunction = async ({ request }) => {
   let session = await getSession(request);
-  let [categories, pages, cart, wishlist] = await Promise.all([
+  let [collections, pages, cart, wishlist] = await Promise.all([
     commerce.getCategories(250),
     commerce.getPages(),
     session.getCart().then((cartItems) => commerce.getCartInfo(cartItems)),
@@ -26,8 +27,8 @@ export let loader: LoaderFunction = async ({ request }) => {
 
   return json<LoaderData>({
     cart,
-    categories: [
-      ...categories.map(({ name, slug }) => ({
+    collections: [
+      ...collections.map(({ name, slug }) => ({
         name,
         to: `/search?category=${slug}`,
       })),
@@ -46,5 +47,6 @@ export let loader: LoaderFunction = async ({ request }) => {
     ],
     storeName: "@thatsferntastic",
     wishlist,
+    year: new Date().getFullYear(),
   });
 };

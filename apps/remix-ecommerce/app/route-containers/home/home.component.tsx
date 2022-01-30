@@ -7,7 +7,7 @@ import { ThreeProductGrid } from "~/components/three-product-grid";
 
 import type { LoaderData } from "./home.server";
 
-function chunkProducts<T>(start: number, goal: number, products: T[]) {
+function chunkProducts<T>(start: number, goal: number, products: Array<T>) {
   let slice = products.slice(start, start + 3);
 
   if (products.length < goal) return slice;

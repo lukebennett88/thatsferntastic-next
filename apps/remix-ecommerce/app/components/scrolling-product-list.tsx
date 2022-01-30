@@ -53,7 +53,7 @@ export function ScrollingProductList({
   products,
 }: {
   variant?: "primary" | "secondary";
-  products: ScrollingProductListProduct[];
+  products: Array<ScrollingProductListProduct>;
 }) {
   let items = useMemo(
     () =>

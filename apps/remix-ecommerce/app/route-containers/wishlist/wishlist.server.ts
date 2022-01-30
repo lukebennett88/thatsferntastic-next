@@ -80,7 +80,7 @@ export let action: ActionFunction = async ({ request }) => {
 };
 
 export type LoaderData = {
-  wishlist?: FullWishlistItem[];
+  wishlist?: Array<FullWishlistItem>;
 };
 
 export let loader: LoaderFunction = async ({ request }) => {

@@ -25,7 +25,7 @@ function ThreeProductGridItem({
   index,
 }: {
   backgroundColor: string;
-  wishlistColors: string[];
+  wishlistColors: Array<string>;
   product: ThreeProductGridProduct;
   index: number;
 }) {
@@ -127,7 +127,7 @@ export function ThreeProductGrid({
   products,
   variant = "primary",
 }: {
-  products: ThreeProductGridProduct[];
+  products: Array<ThreeProductGridProduct>;
   variant?: "primary" | "secondary";
 }) {
   let [backgroundColors, wishlistColors] = useMemo(
@@ -164,7 +164,7 @@ export function ThreeProductGrid({
         if (variant === "primary") return colors;
 
         return [colors[1], colors[0], colors[2]];
-      }) as [string[], string[][]],
+      }) as [Array<string>, Array<Array<string>>],
     [variant],
   );
 

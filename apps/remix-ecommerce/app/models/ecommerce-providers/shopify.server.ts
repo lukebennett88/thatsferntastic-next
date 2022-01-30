@@ -48,7 +48,7 @@ export function createShopifyProvider({
       }
       let subtotal = new Decimal(0);
       let itemsMap = new Map(items.map((item) => [item.variantId, item]));
-      let fullItems: FullCartItem[] = [];
+      let fullItems: Array<FullCartItem> = [];
       for (let item of json.data.nodes) {
         let itemInput = !!item && itemsMap.get(item.id);
         if (!itemInput) {
@@ -319,7 +319,7 @@ export function createShopifyProvider({
       }
 
       let itemsMap = new Map(items.map((item) => [item.variantId, item]));
-      let fullItems: FullWishlistItem[] = [];
+      let fullItems: Array<FullWishlistItem> = [];
       for (let item of json.data.nodes) {
         let itemInput = !!item && itemsMap.get(item.id);
         if (!itemInput) {

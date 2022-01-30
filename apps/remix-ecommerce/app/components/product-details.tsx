@@ -93,7 +93,7 @@ export function ProductDetails({ product }: { product: FullProduct }) {
   );
 }
 
-function SubmissionSequenceText({ strings, action }: { strings: String[]; action: string }) {
+function SubmissionSequenceText({ strings, action }: { strings: Array<String>; action: string }) {
   let transition = useTransition();
   let [text, setText] = useState(strings[0]);
 
@@ -113,7 +113,7 @@ function SubmissionSequenceText({ strings, action }: { strings: String[]; action
   return <span>{text}</span>;
 }
 
-function ImageSlider({ images }: { images: string[] }) {
+function ImageSlider({ images }: { images: Array<string> }) {
   let sliderListRef = useRef<HTMLUListElement>(null);
   let scrollToImage: MouseEventHandler<HTMLButtonElement> = (event) => {
     let src = event.currentTarget.querySelector("img")?.getAttribute("data-source");

@@ -6,7 +6,7 @@ import type { ThreeProductGridProduct } from "~/components/three-product-grid";
 import { getSession } from "~/session.server";
 
 export type LoaderData = {
-  featuredProducts: ThreeProductGridProduct[];
+  featuredProducts: Array<ThreeProductGridProduct>;
 };
 
 export let loader: LoaderFunction = async ({ request }) => {

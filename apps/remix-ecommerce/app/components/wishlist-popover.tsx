@@ -12,7 +12,7 @@ export function WishlistPopover({
   open,
   onClose,
 }: {
-  wishlist?: FullWishlistItem[];
+  wishlist?: Array<FullWishlistItem>;
   wishlistCount?: number;
   open: boolean;
   onClose: () => void;

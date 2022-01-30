@@ -8,13 +8,13 @@ const rollupConfig = {
   output: {
     file: "api/index.js",
     format: "cjs",
-    exports: "default",
+    // exports: "default",
   },
   plugins: [
     commonJs(),
     resolve({
       moduleDirectories: ["node_modules"],
-      preferBuiltins: true,
+      // preferBuiltins: true,
     }),
     jsonPlugin(),
   ],

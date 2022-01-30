@@ -38,7 +38,7 @@ export let loader: LoaderFunction = async ({ request }) => {
   let nocache = url.searchParams.has("nocache");
 
   let [categories, sortByOptions, productsPage, wishlist] = await Promise.all([
-    commerce.getCategories(250, nocache),
+    commerce.getCollections(250, nocache),
     commerce.getSortByOptions(),
     commerce.getProducts(category, sort, search, cursor, 30, nocache),
     session.getWishlist(),

@@ -83,7 +83,7 @@ export interface ProductsResult {
 
 export interface EcommerceProvider {
   getCartInfo(items: Array<CartItem>): Promise<CartInfo | undefined>;
-  getCategories(count: number, nocache?: boolean): Promise<Array<Category>>;
+  getCollections(count: number, nocache?: boolean): Promise<Array<Category>>;
   getCheckoutUrl(items: Array<CartItem>): Promise<string>;
   getFeaturedProducts(): Promise<Array<Product>>;
   getPage(slug: string): Promise<FullPage | undefined>;

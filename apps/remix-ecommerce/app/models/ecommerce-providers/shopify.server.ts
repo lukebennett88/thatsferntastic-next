@@ -89,7 +89,7 @@ export function createShopifyProvider({
         items: fullItems,
       };
     },
-    async getCategories(count, nocache) {
+    async getCollections(count, nocache) {
       let json = await query(
         getAllCollectionQuery,
         {
@@ -98,14 +98,14 @@ export function createShopifyProvider({
         nocache,
       );
 
-      let categories = json.data.collections.edges.map(
+      let collections = json.data.collections.edges.map(
         ({ node: { title, handle } }: any): Category => ({
           name: title,
           slug: handle,
         }),
       );
 
-      return categories;
+      return collections;
     },
     async getCheckoutUrl(items) {
       let lineItems = items.map((item) => ({

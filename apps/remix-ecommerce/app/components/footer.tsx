@@ -1,5 +1,6 @@
 import type { To } from "react-router-dom";
 import { Link } from "remix";
+import { Page } from "types/sanity-schema";
 
 import type { Collection } from "~/route-containers/layout/layout.component";
 
@@ -20,7 +21,7 @@ export function Footer({
 }: {
   collections: Array<Collection>;
   logoHref: string;
-  pages: Array<FooterPage>;
+  pages: Array<Page>;
   storeName?: string;
   year?: number;
 }) {
@@ -80,39 +81,14 @@ function FooterCollections({ collections }: { collections: Array<Collection> }) 
   );
 }
 
-function FooterServicesLinks({ pages }: { pages: Array<FooterPage> }) {
+function FooterServicesLinks({ pages }: { pages: Array<Page> }) {
   return (
     <div>
       <h3 className="text-sm font-medium text-gray-900">Customer Service</h3>
       <ul role="list" className="mt-6 space-y-6">
-        {pages.map((page) => (
-          <FooterLink key={page.id} to={page.to} name={page.title} />
+        {pages.map(({ _id, title, slug }) => (
+          <FooterLink key={_id} to={`/pages/${slug?.current}`} name={title as string} />
         ))}
-        <li className="text-sm">
-          <a className="text-gray-500 hover:text-gray-600" href="/about">
-            About
-          </a>
-        </li>
-        <li className="text-sm">
-          <a className="text-gray-500 hover:text-gray-600" href="/privacy-policy">
-            Privacy Policy
-          </a>
-        </li>
-        <li className="text-sm">
-          <a className="text-gray-500 hover:text-gray-600" href="/refund-policy">
-            Refund Policy
-          </a>
-        </li>
-        <li className="text-sm">
-          <a className="text-gray-500 hover:text-gray-600" href="/shipping-and-processing-times">
-            Shipping and Processing Times
-          </a>
-        </li>
-        <li className="text-sm">
-          <a className="text-gray-500 hover:text-gray-600" href="/terms-of-service">
-            Terms of Service
-          </a>
-        </li>
       </ul>
     </div>
   );

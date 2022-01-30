@@ -59,7 +59,7 @@ export let links: LinksFunction = () => {
 };
 
 export function Document({ children, loaderData }: { children: ReactNode; loaderData?: LoaderData }) {
-  const { collections = [], pages = [], storeName, year, cart } = loaderData ?? {};
+  const { cart, collections = [], pages = [], storeName, year } = loaderData ?? {};
 
   let allCollections = useMemo(() => {
     let results: Array<Collection> = [

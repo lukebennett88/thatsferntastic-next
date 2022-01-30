@@ -10,6 +10,23 @@
         "dist/**"
       ]
     },
+    "build:remix": {
+      "dependsOn": [
+        "^build"
+      ],
+      "outputs": [
+        "dist/**"
+      ]
+    },
+    "build:store": {
+      "dependsOn": [
+        "^build"
+      ],
+      "outputs": [
+        ".next/**",
+        "dist/**"
+      ]
+    },
     "test": {
       "dependsOn": [],
       "outputs": [

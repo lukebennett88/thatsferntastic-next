@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "prebuild": "yarn clean",
     "build": "run-s build:css build:remix",
     "build:remix": "remix build && rollup -c",
     "build:css": "tailwindcss --minify --input ./styles/global.css --output ./app/styles/global.css",

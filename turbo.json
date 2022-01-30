@@ -2,36 +2,24 @@
   "baseBranch": "origin/main",
   "pipeline": {
     "build": {
-      "dependsOn": [
-        "^build"
-      ],
-      "outputs": [
-        ".next/**",
-        "dist/**"
-      ]
+      "dependsOn": ["^build"],
+      "outputs": [".next/**", "dist/**"]
+    },
+    "build:blog": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**"]
     },
     "build:remix": {
-      "dependsOn": [
-        "^build"
-      ],
-      "outputs": [
-        "dist/**"
-      ]
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**"]
     },
     "build:store": {
-      "dependsOn": [
-        "^build"
-      ],
-      "outputs": [
-        ".next/**",
-        "dist/**"
-      ]
+      "dependsOn": ["^build"],
+      "outputs": [".next/**", "dist/**"]
     },
     "test": {
       "dependsOn": [],
-      "outputs": [
-        "coverage/**"
-      ]
+      "outputs": ["coverage/**"]
     },
     "lint": {
       "outputs": []
@@ -40,6 +28,15 @@
       "outputs": []
     },
     "dev": {
+      "cache": false
+    },
+    "dev:blog": {
+      "cache": false
+    },
+    "dev:remix": {
+      "cache": false
+    },
+    "dev:store": {
       "cache": false
     },
     "clean": {

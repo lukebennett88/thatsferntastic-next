@@ -9,9 +9,11 @@
   ],
   "scripts": {
     "build": "turbo run build",
+    "build:blog": "turbo run build --scope=blog --include-dependencies --no-deps",
     "build:store": "turbo run build --scope=@thatsferntastic/store --include-dependencies --no-deps",
     "build:remix": "turbo run build --scope=@thatsferntastic/remix --include-dependencies --no-deps",
     "dev": "turbo run dev --no-cache --parallel --continue",
+    "dev:blog": "turbo run dev --scope=blog",
     "dev:store": "turbo run dev --scope=@thatsferntastic/store",
     "dev:remix": "turbo run dev --scope=@thatsferntastic/remix",
     "lint": "turbo run lint",

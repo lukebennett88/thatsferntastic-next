@@ -1,9 +1,9 @@
-import cn from "classnames";
-import type { MouseEventHandler } from "react";
-import { useEffect, useRef, useState } from "react";
+import { Tab } from "@headlessui/react";
+import { classNames } from "@thatsferntastic/utils";
+import { Fragment, useEffect, useState } from "react";
 import { Form, useLocation, useSearchParams, useTransition } from "remix";
 
-import type { FullProduct } from "~/models/ecommerce-provider.server";
+import type { FullProduct, ProductOption } from "~/models/ecommerce-provider.server";
 
 import { OptimizedImage } from "./optimized-image";
 
@@ -16,81 +16,201 @@ export function ProductDetails({ product }: { product: FullProduct }) {
 
   return (
     <main>
-      <div className="product-details-grid border-b border-zinc-700 pb-8 lg:grid">
-        <aside className="product-details-grid__media relative mb-4 overflow-hidden border-b border-zinc-700 lg:mb-0 lg:border-none">
-          <ImageSlider images={product.images} />
-        </aside>
-        <article className="product-details-grid__details relative">
-          <div className="sticky top-0 px-4 pt-4 lg:p-6 lg:pt-8 lg:pb-0">
-            <h1 className="mb-3 text-3xl font-bold">{product.title}</h1>
-            <p className="mb-6 text-xl">{product.formattedPrice}</p>
-            {product.descriptionHtml ? (
-              <div className="leading-relaxed" dangerouslySetInnerHTML={{ __html: product.descriptionHtml }} />
-            ) : product.description ? (
-              <p className="leading-relaxed">{product.description}</p>
-            ) : null}
-            {product.options && product.options.length > 0 ? (
-              <Form replace>
-                {Array.from(searchParams.entries()).map(([key, value]) => (
-                  <input key={key + value} type="hidden" name={key} defaultValue={value} />
-                ))}
-                {product.options.map((option) => (
-                  <div key={option.name} className="mt-6">
-                    <h2 className="font-semibold">{option.name}</h2>
-                    <ul className="mt-2" data-testid="product-option">
-                      {option.values.map((value) => (
-                        <li key={value} className="mr-2 inline-block">
-                          <button
-                            aria-selected={searchParams.get(option.name) === value}
-                            className={cn(
-                              "rounded border px-4 py-2 hover:text-gray-300",
-                              searchParams.get(option.name) === value ? "border-gray-50" : "border-zinc-700",
-                            )}
-                            name={option.name}
-                            value={value}
-                          >
-                            {value}
-                          </button>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-                {!!product.selectedVariantId && !product.availableForSale ? (
-                  <p className="mt-6 text-red-500">Sold out</p>
+      <div className="bg-white">
+        <div className="mx-auto max-w-2xl py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
+          <div className="lg:grid lg:grid-cols-2 lg:items-start lg:gap-x-8">
+            {/* Image gallery */}
+            <ImageGallery images={product.images} />
+
+            {/* Product info */}
+            <div className="mt-10 px-4 sm:mt-16 sm:px-0 lg:mt-0">
+              <h1 className="text-3xl font-extrabold tracking-tight text-gray-900">{product.title}</h1>
+
+              <div className="mt-3">
+                <h2 className="sr-only">Product information</h2>
+                <p className="text-3xl text-gray-900">{product.formattedPrice}</p>
+              </div>
+
+              <div className="mt-6">
+                <h3 className="sr-only">Description</h3>
+
+                {product.descriptionHtml ? (
+                  <div
+                    className="space-y-6 text-base text-gray-700"
+                    dangerouslySetInnerHTML={{ __html: product.descriptionHtml }}
+                  />
+                ) : product.description ? (
+                  <p className="space-y-6 text-base text-gray-700">{product.description}</p>
                 ) : null}
+              </div>
+
+              {/* Product options */}
+              <ProductOptions options={product.options} searchParams={searchParams} />
+
+              {/* Add to cart */}
+              <Form replace method="post" className="mt-8">
+                <input type="hidden" name="_action" value="Add to cart" />
+                <input
+                  key={location.pathname + location.search}
+                  defaultValue={location.pathname + location.search}
+                  type="hidden"
+                  name="redirect"
+                />
+                <input
+                  key={product.selectedVariantId}
+                  defaultValue={product.selectedVariantId}
+                  type="hidden"
+                  name="variantId"
+                />
+                <div className="mt-10 flex">
+                  <button
+                    disabled={disabled}
+                    type="submit"
+                    data-testid="add-to-cart"
+                    className={classNames(
+                      disabled ? "cursor-not-allowed bg-opacity-50" : "hover:bg-pink-700",
+                      "flex max-w-xs flex-1 items-center justify-center rounded-md border border-transparent bg-pink-600 py-3 px-8 text-base font-medium text-white focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 focus:ring-offset-gray-50 sm:w-full",
+                    )}
+                  >
+                    <SubmissionSequenceText action="Add to cart" strings={["Add to cart", "Adding...", "Added!"]} />
+                  </button>
+                </div>
               </Form>
-            ) : null}
-            <Form replace method="post" className="mt-8">
-              <input type="hidden" name="_action" value="Add to cart" />
-              <input
-                key={location.pathname + location.search}
-                defaultValue={location.pathname + location.search}
-                type="hidden"
-                name="redirect"
-              />
-              <input
-                key={product.selectedVariantId}
-                defaultValue={product.selectedVariantId}
-                type="hidden"
-                name="variantId"
-              />
-              <button
-                data-testid="add-to-cart"
-                className={cn(
-                  "block w-full py-4 text-center font-semibold uppercase text-gray-900 active:bg-gray-300",
-                  disabled ? "bg-gray-300" : "bg-gray-50",
-                )}
-                disabled={disabled}
-              >
-                <SubmissionSequenceText action="Add to cart" strings={["Add to cart", "Adding...", "Added!"]} />
-              </button>
-            </Form>
+            </div>
           </div>
-        </article>
+        </div>
       </div>
     </main>
   );
+}
+
+function ImageGallery({ images }: { images: Array<string> }) {
+  return (
+    <Tab.Group as="div" className="flex flex-col-reverse">
+      {/* Image selector */}
+      <div className="mx-auto mt-6 hidden w-full max-w-2xl sm:block lg:max-w-none">
+        <Tab.List className="grid grid-cols-4 gap-6">
+          {images.map((image, index) => (
+            <Tab
+              key={index}
+              className="relative flex h-24 cursor-pointer items-center justify-center rounded-md bg-white text-sm font-medium uppercase text-gray-900 hover:bg-gray-50 focus:outline-none focus:ring focus:ring-opacity-50 focus:ring-offset-4"
+            >
+              {({ selected }) => (
+                <>
+                  <span className="absolute inset-0 overflow-hidden rounded-md">
+                    <OptimizedImage
+                      data-source={image}
+                      loading={index === 0 ? "eager" : "lazy"}
+                      className="h-full w-full object-cover object-center"
+                      src={image}
+                      alt=""
+                      height={96}
+                      width={124}
+                      responsive={[
+                        {
+                          size: {
+                            height: 124,
+                            width: 96,
+                          },
+                        },
+                        {
+                          size: {
+                            height: 124 * 2,
+                            width: 96 * 2,
+                          },
+                        },
+                        {
+                          size: {
+                            height: 124 * 3,
+                            width: 96 * 3,
+                          },
+                        },
+                      ]}
+                    />
+                  </span>
+                  <span
+                    className={classNames(
+                      selected ? "ring-pink-500" : "ring-transparent",
+                      "pointer-events-none absolute inset-0 rounded-md ring-2 ring-offset-2",
+                    )}
+                    aria-hidden="true"
+                  />
+                </>
+              )}
+            </Tab>
+          ))}
+        </Tab.List>
+      </div>
+
+      <Tab.Panels className="aspect-w-1 aspect-h-1 w-full">
+        {images.map((image, index) => (
+          <Tab.Panel key={index}>
+            <OptimizedImage
+              data-source={image}
+              loading={index === 0 ? "eager" : "lazy"}
+              className="h-full w-full object-contain"
+              src={image}
+              alt=""
+              height={624}
+              width={624}
+              responsive={[
+                {
+                  size: {
+                    height: 624,
+                    width: 624,
+                  },
+                },
+                {
+                  size: {
+                    height: 624 * 2,
+                    width: 624 * 2,
+                  },
+                },
+                {
+                  size: {
+                    height: 624 * 3,
+                    width: 634 * 2,
+                  },
+                },
+              ]}
+            />
+          </Tab.Panel>
+        ))}
+      </Tab.Panels>
+    </Tab.Group>
+  );
+}
+
+function ProductOptions({ options, searchParams }: { options: Array<ProductOption>; searchParams: URLSearchParams }) {
+  return options && options.length > 0 ? (
+    <Form replace className="mt-6">
+      {Array.from(searchParams.entries()).map(([key, value]) => (
+        <input key={key + value} type="hidden" name={key} defaultValue={value} />
+      ))}
+      {options.map((option) => (
+        <div key={option.name} className="mt-6">
+          <h3 className="text-sm text-gray-600">{option.name}</h3>
+          <ul className="mt-2 flex flex-wrap gap-3">
+            {option.values.map((value) => (
+              <li key={value} className="w-fit">
+                <button
+                  type="submit"
+                  className={classNames(
+                    searchParams.get(option.name) === value ? "ring-2 ring-pink-500" : "border-gray-300",
+                    "relative block cursor-pointer rounded-lg border p-4 ring-offset-2 focus:outline-none focus:ring",
+                  )}
+                  name={option.name}
+                  value={value}
+                >
+                  {value}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </Form>
+  ) : null;
 }
 
 function SubmissionSequenceText({ strings, action }: { strings: Array<String>; action: string }) {
@@ -108,81 +228,7 @@ function SubmissionSequenceText({ strings, action }: { strings: Array<String>; a
       let id = setTimeout(() => setText(strings[0]), 1000);
       return () => clearTimeout(id);
     }
-  }, [transition]);
+  }, [action, strings, transition.state, transition.submission?.formData]);
 
-  return <span>{text}</span>;
-}
-
-function ImageSlider({ images }: { images: Array<string> }) {
-  let sliderListRef = useRef<HTMLUListElement>(null);
-  let scrollToImage: MouseEventHandler<HTMLButtonElement> = (event) => {
-    let src = event.currentTarget.querySelector("img")?.getAttribute("data-source");
-    if (!src) return;
-    let img = sliderListRef.current?.querySelector(`img[data-source=${JSON.stringify(src)}]`);
-    img?.scrollIntoView({ behavior: "smooth" });
-  };
-
-  return (
-    <div className="relative">
-      <div className="sticky top-0 flex aspect-auto max-h-screen w-full flex-col overflow-hidden bg-pink-500 lg:h-screen">
-        <div className="relative aspect-square w-full flex-1 overflow-hidden lg:aspect-auto">
-          <ul
-            ref={sliderListRef}
-            className="absolute top-0 bottom-0 left-0 right-0 snap-x snap-mandatory overflow-x-auto overflow-y-hidden whitespace-nowrap"
-          >
-            {images.map((image, index) => (
-              <li key={`${index}|${image}`} className="inline-block h-full w-full snap-start">
-                <OptimizedImage
-                  data-source={image}
-                  loading={index === 0 ? "eager" : "lazy"}
-                  className="h-full w-full object-contain"
-                  src={image}
-                  alt=""
-                  height={480}
-                  width={480}
-                  responsive={[
-                    {
-                      size: {
-                        height: 480,
-                        width: 480,
-                      },
-                    },
-                    {
-                      size: {
-                        height: 767,
-                        width: 767,
-                      },
-                    },
-                    {
-                      size: {
-                        height: 1024,
-                        width: 1024,
-                      },
-                    },
-                  ]}
-                />
-              </li>
-            ))}
-          </ul>
-        </div>
-        <ul className="flex h-full max-h-[20%] overflow-x-auto bg-pink-600">
-          {images.map((image, index) => (
-            <li key={`${index}|${image}`} className="aspect-square w-full max-w-[25%]">
-              <button className="relative block h-full w-full hover:bg-pink-400" onClick={scrollToImage}>
-                <span className="sr-only">Focus image {index + 1}</span>
-                <OptimizedImage
-                  data-source={image}
-                  className="h-full w-full object-cover"
-                  src={image}
-                  alt=""
-                  height={200}
-                  width={200}
-                />
-              </button>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </div>
-  );
+  return <Fragment>{text}</Fragment>;
 }

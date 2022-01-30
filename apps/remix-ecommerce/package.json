@@ -5,11 +5,11 @@
   "scripts": {
     "build": "run-s build:css build:remix",
     "build:remix": "remix build && rollup -c",
-    "build:css": "postcss ./styles/global.css -o ./app/styles/global.css",
+    "build:css": "tailwindcss -m -i ./styles/global.css -o ./app/styles/global.css",
     "clean": "rimraf ./api/_build ./api/index.js ./public/build ./build ./.cache ./node_modules",
     "dev": "yarn build:css && run-p dev:*",
     "dev:remix": "PORT=7777 dotenv -- remix dev",
-    "dev:css": "postcss ./styles/global.css -o ./app/styles/global.css --watch",
+    "dev:css": "tailwindcss -w -i ./styles/global.css -o ./app/styles/global.css",
     "lint": "TIMING=1 eslint . --fix",
     "postinstall": "remix setup node",
     "typecheck": "tsc --noEmit"

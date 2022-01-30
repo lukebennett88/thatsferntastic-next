@@ -5,7 +5,7 @@ import { ProductCard } from "../../components/product-card";
 import { DesktopProductFilters, MobileProductFilters } from "../../components/product-filters";
 import type { Collection } from "../../graphql/get-collection-by-handle";
 import { getCollectionByHandle } from "../../graphql/get-collection-by-handle";
-import { addApolloState, initialiseTsGql } from "../../utils/apollo-client";
+import { addApolloState } from "../../utils/apollo-client";
 
 interface CollectionProps {
   collection: NonNullable<Collection>;

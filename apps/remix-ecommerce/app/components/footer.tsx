@@ -43,18 +43,9 @@ export function Footer({
               <FooterCollections collections={collections} />
               <FooterServicesLinks pages={pages} />
             </div>
-            <div className="mt-12 md:col-span-8 md:col-start-3 md:row-start-2 md:mt-0 lg:col-span-4 lg:col-start-9 lg:row-start-1">
-              <FooterNewsletterForm />
-              <div className="mt-12">
-                <h3 className="text-sm font-medium text-gray-900">{storeName}</h3>
-                <p className="mt-6 text-sm text-gray-500">
-                  {storeName} is an online store focusing on the little things that make you smile. Pencil cases,
-                  planner pouches and coin purses, all handmade in Australia, plus accessories, stationery and stickers
-                  to add a little more sunshine to your day. Offering flat rate shipping from my little studio on the
-                  coast of NSW.
-                </p>
-                <FooterSocialLinks />
-              </div>
+            <div className="mt-12 grid gap-y-12 md:col-span-8 md:col-start-3 md:row-start-2 md:mt-0 lg:col-span-4 lg:col-start-9 lg:row-start-1">
+              {/* <FooterNewsletterForm /> */}
+              <FooterBlurb storeName={storeName} />
             </div>
           </div>
         </div>
@@ -153,6 +144,20 @@ const socialLinks = [
     icon: TwitterIcon,
   },
 ];
+
+function FooterBlurb({ storeName }: { storeName?: string }) {
+  return (
+    <div>
+      <h3 className="text-sm font-medium text-gray-900">{storeName}</h3>
+      <p className="mt-6 text-sm text-gray-500">
+        {storeName} is an online store focusing on the little things that make you smile. Pencil cases, planner pouches
+        and coin purses, all handmade in Australia, plus accessories, stationery and stickers to add a little more
+        sunshine to your day. Offering flat rate shipping from my little studio on the coast of NSW.
+      </p>
+      <FooterSocialLinks />
+    </div>
+  );
+}
 
 function FooterSocialLinks() {
   return (

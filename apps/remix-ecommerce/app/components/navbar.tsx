@@ -1,6 +1,5 @@
 import { SearchIcon, ShoppingBagIcon, XIcon } from "@heroicons/react/outline";
 import { Fragment, useRef, useState } from "react";
-import type { LinkProps } from "remix";
 import { Form, Link, PrefetchPageLinks } from "remix";
 
 import logoHref from "~/images/thatsferntastic-logo-white.svg";
@@ -113,11 +112,6 @@ function CartLink({ cartCount, onOpenCart }: { cartCount?: number; onOpenCart: (
     </div>
   );
 }
-
-export type NavbarCategory = {
-  name: string;
-  to: LinkProps["to"];
-};
 
 export function Navbar({
   onOpenCart,

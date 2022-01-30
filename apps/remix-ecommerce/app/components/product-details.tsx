@@ -182,7 +182,10 @@ function ImageGallery({ images }: { images: Array<string> }) {
 }
 
 function ProductOptions({ options, searchParams }: { options: Array<ProductOption>; searchParams: URLSearchParams }) {
-  return options && options.length > 0 ? (
+  if (!options ?? options.length < 1) {
+    return null;
+  }
+  return (
     <Form replace className="mt-6">
       {Array.from(searchParams.entries()).map(([key, value]) => (
         <input key={key + value} type="hidden" name={key} defaultValue={value} />
@@ -210,7 +213,7 @@ function ProductOptions({ options, searchParams }: { options: Array<ProductOptio
         </div>
       ))}
     </Form>
-  ) : null;
+  );
 }
 
 function SubmissionSequenceText({ strings, action }: { strings: Array<String>; action: string }) {

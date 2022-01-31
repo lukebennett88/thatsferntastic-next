@@ -1,7 +1,7 @@
 import type { To } from "react-router-dom";
 import { Link } from "remix";
-import { Page } from "types/sanity-schema";
 
+// import type { Page } from "types/sanity-schema";
 import type { Collection } from "~/route-containers/layout/layout.component";
 
 import { FacebookIcon, InstagramIcon, TwitterIcon } from "./icons";
@@ -15,13 +15,13 @@ export type FooterPage = {
 export function Footer({
   collections,
   logoHref,
-  pages,
+  // pages,
   storeName,
   year,
 }: {
   collections: Array<Collection>;
   logoHref: string;
-  pages: Array<Page>;
+  // pages: Array<Page>;
   storeName?: string;
   year?: number;
 }) {
@@ -41,7 +41,9 @@ export function Footer({
             </div>
             <div className="col-span-6 mt-10 grid grid-cols-2 gap-8 sm:grid-cols-3 md:col-span-8 md:col-start-3 md:row-start-1 md:mt-0 lg:col-span-6 lg:col-start-2">
               <FooterCollections collections={collections} />
-              <FooterServicesLinks pages={pages} />
+              <FooterServicesLinks
+              // pages={pages}
+              />
             </div>
             <div className="mt-12 grid gap-y-12 md:col-span-8 md:col-start-3 md:row-start-2 md:mt-0 lg:col-span-4 lg:col-start-9 lg:row-start-1">
               {/* <FooterNewsletterForm /> */}
@@ -72,14 +74,14 @@ function FooterCollections({ collections }: { collections: Array<Collection> }) 
   );
 }
 
-function FooterServicesLinks({ pages }: { pages: Array<Page> }) {
+function FooterServicesLinks() {
   return (
     <div>
       <h3 className="text-sm font-medium text-gray-900">Customer Service</h3>
       <ul role="list" className="mt-6 space-y-6">
-        {pages.map(({ _id, title, slug }) => (
+        {/* {pages.map(({ _id, title, slug }) => (
           <FooterLink key={_id} to={`/pages/${slug?.current}`} name={title as string} />
-        ))}
+        ))} */}
       </ul>
     </div>
   );

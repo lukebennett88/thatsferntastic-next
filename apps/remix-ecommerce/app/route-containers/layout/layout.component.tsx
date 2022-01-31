@@ -58,7 +58,14 @@ export let links: LinksFunction = () => {
 };
 
 export function Document({ children, loaderData }: { children: ReactNode; loaderData?: LoaderData }) {
-  const { cart, collections = [], pages = [], storeName, year } = loaderData ?? {};
+  const {
+    cart,
+    collections = [],
+    //
+    // pages = [],
+    storeName,
+    year,
+  } = loaderData ?? {};
 
   let allCollections = useMemo(() => {
     let results: Array<Collection> = [
@@ -89,7 +96,13 @@ export function Document({ children, loaderData }: { children: ReactNode; loader
       <body className="flex min-h-screen flex-col">
         <Navbar cartCount={cartCount} storeName={storeName} onOpenCart={() => setCartOpen(true)} />
         <div className="flex-1">{children}</div>
-        <Footer collections={allCollections} logoHref={logoHref} pages={pages} storeName={storeName} year={year} />
+        <Footer
+          collections={allCollections}
+          logoHref={logoHref}
+          // pages={pages}
+          storeName={storeName}
+          year={year}
+        />
 
         <ClientOnly>
           <Suspense fallback={null}>

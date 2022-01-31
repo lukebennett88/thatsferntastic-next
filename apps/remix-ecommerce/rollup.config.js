@@ -13,7 +13,7 @@ const rollupConfig = {
   plugins: [
     commonJs(),
     resolve({
-      moduleDirectories: ["node_modules"],
+      moduleDirectories: ["node_modules", "../../node_modules"],
       preferBuiltins: true,
     }),
     jsonPlugin(),

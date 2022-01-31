@@ -8,7 +8,7 @@ const rollupConfig = {
   output: {
     file: "api/index.js",
     format: "cjs",
-    // exports: "default",
+    exports: "default",
   },
   plugins: [
     commonJs(),

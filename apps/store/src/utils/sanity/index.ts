@@ -1,5 +1,6 @@
+import imageUrlBuilder from "@sanity/image-url";
 import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
-import { createCurrentUserHook, createImageUrlBuilder, createPortableTextComponent } from "next-sanity";
+import { createCurrentUserHook, createPortableTextComponent } from "next-sanity";
 
 import { config } from "./config";
 
@@ -7,7 +8,7 @@ import { config } from "./config";
  * Set up a helper function for generating Image URLs with only the asset reference data in your documents.
  * Read more: https://www.sanity.io/docs/image-url
  **/
-export const urlFor = (source: SanityImageSource) => createImageUrlBuilder(config).image(source);
+export const urlFor = (source: SanityImageSource) => imageUrlBuilder(config).image(source);
 
 // Set up Portable Text serialization
 export const PortableText = createPortableTextComponent({
